@@ -35,6 +35,10 @@ const userSchema = Schema(
             uppercase: true,
             enum: ['ADMIN', 'CLIENT']
         }
+    },
+    {
+        versionKey: false,
+        timestamps: true
     }
 )
 
