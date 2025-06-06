@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "1ca3ca42-f490-417b-8b2c-a5d7bd3f9b36",
+		"_postman_id": "3f27fb62-54cb-41d0-a445-e6f46f3b743f",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37957002"
+		"_exporter_id": "37956966"
 	},
 	"item": [
 		{
@@ -333,6 +333,172 @@
 								"user",
 								"deleteUser",
 								"68183e8423c15388c1fabb0a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Institution",
+			"item": [
+				{
+					"name": "Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/institution/test",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddInstitution",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Fundacion Kinal",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "ORPHANAGE",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Fundacion dedicada a la explotación de alumnos :(",
+									"type": "text"
+								},
+								{
+									"key": "imageInstitution",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Downloads/kinal.png"
+								},
+								{
+									"key": "userId",
+									"value": "68435e5b13ef2496ec4e9ef6",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/institution/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateInstitution",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Fundacion Toledo",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "ORPHANAGE",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Fundacion dedicada al cuidado de personas",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/institution/684361370a251fd26eee3fe4",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"684361370a251fd26eee3fe4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateImageInstitution",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageInstitution",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Downloads/KinalNuevo.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/institution/updateInstitutionImage/684377a7ae35afd5fb44dcec",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"updateInstitutionImage",
+								"684377a7ae35afd5fb44dcec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteInstitution",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/institution/684377a7ae35afd5fb44dcec",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"684377a7ae35afd5fb44dcec"
 							]
 						}
 					},

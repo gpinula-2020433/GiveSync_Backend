@@ -21,17 +21,19 @@ const institutionSchema = Schema(
             type: String
         },
         state:{
-            type: Boolean,
-            defaultValue: false
-        },
-        RegistrationDate:{
-            type: Date,
-            default:Date.now
+            type: String,
+            uppercase: true,
+            enum: ['REFUSED', 'ACCEPTED', 'EARRING '],
+            defaultValue: 'EARRING'
         },
         userId:{
             type: Schema.Types.ObjectId,
             ref: 'User'
         }
+    },
+    {
+        versionKey: false,
+        timestamps: true
     }
 )
 
