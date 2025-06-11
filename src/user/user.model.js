@@ -30,6 +30,9 @@ const userSchema = Schema(
             minLength: [8, 'Password must be 8 characters'],
             maxLength: [100, `Can't be overcome 100 characters`],
         },
+        imageUser: {
+            type: String
+        },
         role:{
             type: String,
             uppercase: true,

@@ -8,13 +8,13 @@ export const registerValidator = [
         .notEmpty(),
     body('surname', 'Surname cannot be empty')
         .notEmpty(),
-    body('email')
+    body('email', 'Email cannot be empty')
       .notEmpty()
       .withMessage('El correo no puede estar vacío')
       .isEmail()
       .withMessage('El correo electrónico no es válido')
       .custom(existEmail),
-    body('username')
+    body('username', 'Username cannot be empty')
         .notEmpty()
         .toLowerCase()
         .custom(existUsername),

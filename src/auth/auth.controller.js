@@ -13,6 +13,7 @@ export const register = async(req, res)=>{
         let user = new User(data)
         user.password = await encrypt(user.password)
         user.role = 'CLIENT'
+        user.imageUser = req.file?.filename || null
         await user.save()
         return res.send({message: `Registro Satisfactorio ya puedes iniciar sesión: ${user.name}`})
     } catch (error) {
