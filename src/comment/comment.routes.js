@@ -4,7 +4,9 @@ import {
   addComment,
   updateComment,
   deleteComment,
-  getCommentById
+  getCommentById,
+  getCommentsByPublication,
+  getCommentsByUser
 } from "./comment.controller.js";
 
 import { validateJwt } from "../../middlewares/validate.jwt.js";
@@ -15,20 +17,24 @@ const api = Router();
 
 api.get("/", getAllComments);
 
-api.get("/:id", [validateJwt], getCommentById);
+api.get("/:id", getCommentById);
 
 api.post(
   "/",
-  [validateJwt, uploadProfilePicture.single("commentImage"), deleteFileOnError],
+  [ uploadProfilePicture.single("commentImage")],
   addComment
 );
 
 api.put(
   "/:id",
-  [validateJwt, uploadProfilePicture.single("commentImage"), deleteFileOnError],
+  [ uploadProfilePicture.single("commentImage")],
   updateComment
 );
 
 api.delete("/:id", [validateJwt], deleteComment);
+
+api.get('/publication/:publicationId', getCommentsByPublication)
+api.get('/user/:userId', getCommentsByUser)
+
 
 export default api;

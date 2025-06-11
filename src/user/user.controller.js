@@ -1,6 +1,8 @@
 'use strict'
 
 import User from '../user/user.model.js'
+import { unlink } from 'fs/promises'
+import path from 'path'
 import { encrypt, checkPassword, checkUpdate } from '../../utils/encrypt.js'
 
 export const test = async (req, res) => {
@@ -239,4 +241,56 @@ export const deleteClient = async(req,res)=>{
         console.error(err)
         return res.status(500).send({message: 'Error deleting account'})
     }
+}
+
+export const updateUserImage = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    // Validar que haya una imagen enviada
+    if (!req.file) {
+      return res.status(400).send({
+        success: false,
+        message: 'No image file provided'
+      })
+    }
+    
+    const { filename } = req.file
+
+    const user = await User.findById(id)
+    if (!user) {
+      return res.status(404).send(
+            {
+                success: false,
+                message: 'User not found - not updated'
+            }
+        )
+    }
+
+    if (user.imageUser) {
+      const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
+      try {
+        await unlink(imagePath)
+      } catch (err) {
+        console.warn('Error deleting old user image:', err.message)
+      }
+    }
+
+    //Actualizar con nueva imagen
+    user.imageUser = filename
+    await user.save()
+
+    return res.send({
+      success: true,
+      message: 'User image updated successfully',
+      user
+    })
+  } catch (err) {
+    console.error('General error', err)
+    return res.status(500).send({
+      success: false,
+      message: 'General error',
+      err
+    })
+  }
 }

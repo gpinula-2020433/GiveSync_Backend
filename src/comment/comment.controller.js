@@ -93,37 +93,53 @@ export const addComment = async (req, res) => {
 
 export const updateComment = async (req, res) => {
   try {
-    const { id } = req.params
-    let data = req.body
+    const { id } = req.params;
+    let data = req.body;
 
-    if (req.file?.filename) {
-      data.commentImage = req.file.filename
-    }
+    // Buscar comentario actual para obtener la imagen anterior
+    const commentBeforeUpdate = await Comment.findById(id);
 
-    const comment = await Comment.findByIdAndUpdate(id, data, { new: true })
-      .populate('userId', 'name email')
-      .populate('publicationId', 'title')
-
-    if (!comment)
+    if (!commentBeforeUpdate) {
       return res.status(404).send({
         success: false,
         message: 'Comment not found'
-      })
+      });
+    }
+
+    // Si llega una nueva imagen, borrar la anterior
+    if (req.file?.filename) {
+      data.commentImage = req.file.filename;
+
+      // Ruta a la imagen anterior
+      const oldImage = commentBeforeUpdate.commentImage;
+      if (oldImage) {
+        const oldImagePath = path.resolve('uploads/img/users', oldImage);
+        fs.unlink(oldImagePath, (err) => {
+          if (err) console.error('Error deleting old image:', err);
+        });
+      }
+    }
+
+    // Actualizar comentario con los nuevos datos
+    const comment = await Comment.findByIdAndUpdate(id, data, { new: true })
+      .populate('userId', 'name email')
+      .populate('publicationId', 'title');
 
     return res.send({
       success: true,
       message: 'Comment updated',
       comment
-    })
+    });
   } catch (err) {
-    console.error('General error', err)
+    console.error('General error', err);
     return res.status(500).send({
       success: false,
       message: 'General error',
       err
-    })
+    });
   }
-}
+};
+
 
 // DELETE - Eliminar comentario
 export const deleteComment = async (req, res) => {
@@ -148,5 +164,42 @@ export const deleteComment = async (req, res) => {
       message: 'General error',
       err
     })
+  }
+}
+
+
+// Traer comentarios por publicación
+export const getCommentsByPublication = async (req, res) => {
+  try {
+    const { publicationId } = req.params
+    const comments = await Comment.find({ publicationId })
+      .populate('userId', 'name email')
+      .populate('publicationId', 'title')
+
+    if (comments.length === 0)
+      return res.status(404).send({ success: false, message: 'No comments for this publication' })
+
+    return res.send({ success: true, comments })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).send({ success: false, message: 'Server error', err })
+  }
+}
+
+// Traer comentarios por usuario
+export const getCommentsByUser = async (req, res) => {
+  try {
+    const { userId } = req.params
+    const comments = await Comment.find({ userId })
+      .populate('userId', 'name email')
+      .populate('publicationId', 'title')
+
+    if (comments.length === 0)
+      return res.status(404).send({ success: false, message: 'No comments by this user' })
+
+    return res.send({ success: true, comments })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).send({ success: false, message: 'Server error', err })
   }
 }

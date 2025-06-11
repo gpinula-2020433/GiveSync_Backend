@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { changeRole, deleteClient, deleteUser, getUserById, test, updateClient, updatePassword, updateUser } from "./user.controller.js";
+import { changeRole, deleteClient, deleteUser, getUserById, test, updateClient, updatePassword, updateUser, updateUserImage } from "./user.controller.js";
+import { uploadProfilePicture} from '../../middlewares/multer.uploads.js'
 import { validateJwt, isAdmin, isClient } from "../../middlewares/validate.jwt.js";
 import { passwordVerify } from "../../middlewares/validators.js";
 
@@ -17,4 +18,13 @@ api.put('/changeRole/:id',[validateJwt,isAdmin], changeRole)
 api.put('/updateClient/:id', [validateJwt, isClient], updateClient)
 api.delete('/deleteClient/:id', [validateJwt, isClient], deleteClient)
 api.put('/updatePassword/:id', [validateJwt, isClient, passwordVerify], updatePassword)
+
+api.put('/updateUserImage/:id', 
+    [
+        validateJwt, 
+        uploadProfilePicture.single("imageUser")
+    ], 
+    updateUserImage)
+
+
 export default api
