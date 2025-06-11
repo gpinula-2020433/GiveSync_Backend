@@ -4,10 +4,7 @@ import path from 'path';
 import Institution from '../institution/institution.model.js'
 
 
-export const test = async (req, res) => {
-    return res.send('The institution route is running')
-}
-
+//Listar todas las instituciones
 export const getAllInstitutions= async (req, res)=> {
     try{
         const {limit = 10, skip =0}= req.query
@@ -42,6 +39,8 @@ export const getAllInstitutions= async (req, res)=> {
     }
 }
 
+
+//Listar institución por Id
 export const getInstitutionById = async (req, res) => {
     try {
         const { id } = req.params
@@ -68,6 +67,7 @@ export const getInstitutionById = async (req, res) => {
 }
 
 
+//Agregar Institución
 export const addInstitution = async(req, res)=>{
     const data = req.body
     try {
@@ -96,6 +96,8 @@ export const addInstitution = async(req, res)=>{
     }
 }
 
+
+//Actualizar Institución
 export const updateInstitution = async(req, res)=>{
     try {
         const {id} = req.params
@@ -134,6 +136,7 @@ export const updateInstitution = async(req, res)=>{
 }
 
 
+//Actualizar Imagen de la Institución
 export const updateInstitutionImage = async(req, res)=>{
     try{
         const {id} = req.params
@@ -176,6 +179,7 @@ export const updateInstitutionImage = async(req, res)=>{
 }
 
 
+//Eliminar Institución
 export const deleteInstitution = async (req, res) => {
     try {
         let {id} = req.params
