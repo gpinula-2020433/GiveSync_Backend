@@ -126,31 +126,44 @@ export const updateUser = async (req, res) => {
     }
 }
 
+//Admin
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { _id } = req.user
 
+    const user = await User.findOne({ _id: id })
+    if (!user) return res.status(404).send({ message: 'User not found' })
 
-//DELETE
-export const deleteUser = async(req, res)=>{
-    try {
-    
-        let {id } = req.params
-        let {_id} = req.user
-        let user = await User.findOne({_id: id})
-        
-        if(user.username == 'djulian') return res.status(403).send({message: 'You cannot delete the default admin'})
+    if (user.username === 'djulian')
+      return res.status(403).send({ message: 'You cannot delete the default admin' })
 
-        if((user.role == 'ADMIN') && (_id != id)) return res.status(403).send({message: 'You cannot update another admin, you can only update yourself or clients.'})
+    if (user.role === 'ADMIN' && _id != id)
+      return res.status(403).send({ message: 'You cannot delete another admin. You can only delete yourself or clients.' })
 
-        let deletedUser = await User.findOneAndDelete(id)
-
-        if (!deletedUser) return res.status(404).send({ message: 'User not found' })
-        
-        return res.send({message: `Account with username ${deletedUser.name} deleted successfully`})
-    } catch (err) {
-        console.error(err)
-        return res.status(500).send({message: 'Error deleting account'})
+    //Eliminar imagen si existe
+    if (user.imageUser) {
+      const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
+      try {
+        await unlink(imagePath)
+      } catch (err) {
+        console.warn(`Failed to delete user image: ${err.message}`)
+      }
     }
-}
+    
+    const usernameOfDeletedUser = user.username
+    const deletedUser = await User.findByIdAndDelete(id)
 
+    if (!deletedUser) return res.status(404).send({ message: 'User not found' })
+
+    return res.send({
+      message: `Account with username ${usernameOfDeletedUser} deleted successfully`
+    })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).send({ message: 'Error deleting account' })
+  }
+}
 
 //CLIENT
 export const updateClient = async(req,res) =>{
@@ -177,7 +190,6 @@ export const updateClient = async(req,res) =>{
             { new: true }
         )
 
-        //Validation of the updated action
         if (!updatedU) return res.status(404).send({ message: 'User not found' })
 
         return res.status(200).send({message: 'User updated successfully.'})
@@ -216,38 +228,55 @@ export const updatePassword = async(req, res)=>{
     }
 }
 
-export const deleteClient = async(req,res)=>{
-    try {
-        let {uid} = req.user
-        
-        let { id} = req.params
-        
-        let {password} = req.body
-        //Validating that the client cannot delete an admin
-        let user = await User.findOne({_id:id})
-        if(user.role == 'ADMIN') return res.status(401).send({message: 'You cannot delete an admin.'})
-        
-        if(uid != id) return res.status(401).send({message: 'You only can delete your account.'}) 
+export const deleteClient = async (req, res) => {
+  try {
+    const { uid } = req.user
+    const { id } = req.params
+    const { password } = req.body
 
-        let check = await checkPassword(user.password, password)
-        if(!check) return res.status(401).send({message: 'Invalid password'})
-        
-        let deletedU = await User.findByIdAndDelete(id)
+    const user = await User.findOne({ _id: id })
 
-        if (!deletedU) return res.status(404).send({ message: 'User not found' })
-        
-        return res.send({message: `Account with username ${deletedU.name} deleted successfully`})
-    } catch (err) {
-        console.error(err)
-        return res.status(500).send({message: 'Error deleting account'})
+    if (!user) return res.status(404).send({ message: 'User not found' })
+
+    if (user.role === 'ADMIN') {
+      return res.status(401).send({ message: 'You cannot delete an admin.' })
     }
+
+    if (uid !== id) {
+      return res.status(401).send({ message: 'You can only delete your own account.' })
+    }
+
+    const check = await checkPassword(user.password, password)
+    if (!check) {
+      return res.status(401).send({ message: 'Invalid password' })
+    }
+
+    //Eliminar imagen si existe
+    if (user.imageUser) {
+      const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
+      try {
+        await unlink(imagePath)
+      } catch (err) {
+        console.warn(`Failed to delete user image: ${err.message}`)
+      }
+    }
+
+    const deletedU = await User.findByIdAndDelete(id)
+
+    return res.send({
+      message: `Account with username ${deletedU.name} deleted successfully`
+    })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).send({ message: 'Error deleting account' })
+  }
 }
 
 export const updateUserImage = async (req, res) => {
   try {
     const { id } = req.params
 
-    // Validar que haya una imagen enviada
+    //Validar que haya una imagen enviada
     if (!req.file) {
       return res.status(400).send({
         success: false,
@@ -291,6 +320,57 @@ export const updateUserImage = async (req, res) => {
       success: false,
       message: 'General error',
       err
+    })
+  }
+}
+
+export const deleteUserProfileImage = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const user = await User.findById(id)
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: 'User not found'
+      })
+    }
+
+    if (!user.imageUser) {
+      return res.status(400).send({
+        success: false,
+        message: 'User does not have a profile image'
+      })
+    }
+
+    const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
+
+    try {
+      await unlink(imagePath)
+    } catch (err) {
+      console.warn('Error deleting image file:', err.message)
+      return res.status(500).send({
+        success: false,
+        message: 'Error deleting image file',
+        error: err.message
+      })
+    }
+
+    user.imageUser = null
+    await user.save()
+
+    return res.send({
+      success: true,
+      message: 'Profile image deleted successfully',
+      user
+    })
+
+  } catch (err) {
+    console.error('General error:', err)
+    return res.status(500).send({
+      success: false,
+      message: 'General error',
+      error: err.message
     })
   }
 }
