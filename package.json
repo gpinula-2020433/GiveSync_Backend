@@ -10,7 +10,6 @@
   ],
   "license": "MIT",
   "author": "undefined (SE)",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
