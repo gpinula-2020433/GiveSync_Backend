@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3f27fb62-54cb-41d0-a445-e6f46f3b743f",
+		"_postman_id": "9975df59-332a-45ec-8c8c-71d20fe69227",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956966"
+		"_exporter_id": "37956970"
 	},
 	"item": [
 		{
@@ -179,7 +179,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/68420be15b3778d73a5a83ae",
+							"raw": "localhost:3200/v1/user/68435e5b13ef2496ec4e9ef6",
 							"host": [
 								"localhost"
 							],
@@ -187,7 +187,7 @@
 							"path": [
 								"v1",
 								"user",
-								"68420be15b3778d73a5a83ae"
+								"68435e5b13ef2496ec4e9ef6"
 							]
 						}
 					},
@@ -499,6 +499,105 @@
 								"v1",
 								"institution",
 								"684377a7ae35afd5fb44dcec"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Donation",
+			"item": [
+				{
+					"name": "AddDonation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "amount",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "institution",
+									"value": "68492392d33cfaa563e23d6",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "68491d06fb74676a90a9145a",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonationById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/684923f6da91d66248843882",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								"684923f6da91d66248843882"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								""
 							]
 						}
 					},

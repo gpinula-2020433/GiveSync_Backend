@@ -63,30 +63,3 @@ export const passwordVerify = [
   .withMessage('Password need min characters'),
   validateErrors
 ]
-
-// Validación para crear donación
-export const createDonationValidator = [
-  body('user', 'User ID is required')
-    .notEmpty()
-    .custom(objectIdValid)
-    .custom(findUser),
-
-  body('institution', 'Institution ID is required')
-    .notEmpty()
-    .custom(objectIdValid)
-    .custom(existInstitution),
-
-  body('amount', 'Amount is required')
-    .notEmpty()
-    .isNumeric()
-    .withMessage('Amount must be a number')
-    .custom(value => value >= 1)
-    .withMessage('Amount must be at least 1'),
-
-  body('date', 'Date is required')
-    .notEmpty()
-    .isISO8601()
-    .withMessage('Date must be a valid date format (ISO8601)'),
-
-  validateErrors
-]

@@ -10,13 +10,7 @@ const donationSchema = new Schema(
     },
     date: {
       type: Date,
-      required: [true, 'Date is required'],
-      validate: {
-        validator: function (value) {
-          return value <= new Date();
-        },
-        message: 'Date cannot be in the future'
-      }
+      default: Date.now
     },
     institution: {
       type: Schema.Types.ObjectId,

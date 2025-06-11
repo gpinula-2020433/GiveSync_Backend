@@ -2,6 +2,7 @@
 
 import { isValidObjectId } from 'mongoose'
 import User from '../src/user/user.model.js'
+import Institution from "../src/institution/institution.model.js"
 
 
 // Validar existencia de un nombre de usuario (debe ser único para cada usuario)
@@ -50,12 +51,10 @@ export const objectIdValid = (objectId) => {
 
 //Validar que si exista la Institucion
 export const existInstitution = async (id) => {
-  if (!isValidObjectId(id)) {
-    throw new Error(`El ID de institución no es válido`)
+  if (!id) throw new Error('Institution ID is required')
+  const institution = await Institution.findById(id)
+  if (!institution) {
+    throw new Error('Institution not found')
   }
-
-  const institutionExist = await Institution.findById(id)
-  if (!institutionExist) {
-    throw new Error(`No existe una institución con el ID ${id}`)
-  }
+  return true
 }
