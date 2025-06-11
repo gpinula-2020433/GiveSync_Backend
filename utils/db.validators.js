@@ -47,3 +47,15 @@ export const objectIdValid = (objectId) => {
     throw new Error(`The value of field is not a valid ObjectId`)
   }
 }
+
+//Validar que si exista la Institucion
+export const existInstitution = async (id) => {
+  if (!isValidObjectId(id)) {
+    throw new Error(`El ID de institución no es válido`)
+  }
+
+  const institutionExist = await Institution.findById(id)
+  if (!institutionExist) {
+    throw new Error(`No existe una institución con el ID ${id}`)
+  }
+}

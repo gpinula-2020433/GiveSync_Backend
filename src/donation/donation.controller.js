@@ -1,11 +1,11 @@
 import Donation from './donation.model.js'
-import { existUser, existInstitution } from '../../utils/db.validators.js'
+import { findUser, existInstitution } from '../../utils/db.validators.js'
 
 export const addDonation = async (req, res) => {
   const { amount, date, institution, user } = req.body
 
   try {
-    await existUser(user);
+    await findUser(user);
     await existInstitution(institution)
 
     const newDonation = new Donation({

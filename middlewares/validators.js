@@ -1,7 +1,7 @@
 // Validar campos en las rutas
 import { body } from "express-validator";
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, objectIdValid, notRequiredField} from "../utils/db.validators.js";
+import { existUsername, existEmail, objectIdValid, notRequiredField, existInstitution,findUser} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -61,5 +61,32 @@ export const passwordVerify = [
   .withMessage('Password must be strong')
   .isLength({min: 8})
   .withMessage('Password need min characters'),
+  validateErrors
+]
+
+// Validación para crear donación
+export const createDonationValidator = [
+  body('user', 'User ID is required')
+    .notEmpty()
+    .custom(objectIdValid)
+    .custom(findUser),
+
+  body('institution', 'Institution ID is required')
+    .notEmpty()
+    .custom(objectIdValid)
+    .custom(existInstitution),
+
+  body('amount', 'Amount is required')
+    .notEmpty()
+    .isNumeric()
+    .withMessage('Amount must be a number')
+    .custom(value => value >= 1)
+    .withMessage('Amount must be at least 1'),
+
+  body('date', 'Date is required')
+    .notEmpty()
+    .isISO8601()
+    .withMessage('Date must be a valid date format (ISO8601)'),
+
   validateErrors
 ]
