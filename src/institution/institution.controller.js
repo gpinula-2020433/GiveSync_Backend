@@ -11,7 +11,6 @@ export const getAllInstitutions= async (req, res)=> {
         const institution = await Institution.find()
             .skip(skip)
             .limit(limit)
-            .populate('services', "name type description state")
         if(institution.length === 0)
             return res.status(404).send(
             {
