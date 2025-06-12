@@ -29,6 +29,13 @@ export const registerValidator = [
     validateErrors
 ]
 
+export const addPublicationValidation = [
+    body('content', 'Content cannot be empty')
+        .notEmpty(),
+    body('institution', 'Institution cannot be empty')
+        .notEmpty()
+]
+
 export const updateUserValidator = [
   body('username')
       .optional() //el paramatro puede o puede no llegar- Si no llega no pasa a las demas

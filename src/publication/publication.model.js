@@ -19,9 +19,10 @@ const publicationSchema = Schema(
             type: Date,
             default: Date.now
         },
-        institution: {
+        institutionId: {
             type: Schema.Types.ObjectId,
-            ref: 'Institution'
+            ref: 'Institution',
+            required: [true, 'Institution is required'],
         }
     }
 )

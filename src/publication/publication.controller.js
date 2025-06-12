@@ -1,6 +1,7 @@
 'use strict'
 
 import Publication from './publication.model.js'
+import Institution from '../institution/institution.model.js'
 import multer from 'multer'
 
 export const test = async (req, res)=>{
@@ -72,11 +73,34 @@ export const addPublication = async (req, res) =>{
     const data = req.body
     try {
         if(req.file?.filename){
-            data.imagePublication = req.file.filename //save image route
+            data.imagePublication = req.file.filename
         }
+
+        const institution = await Institution.findById(data.institutionId)
+
+        if(!institution){
+            return res.status(404).send({
+                success: false,
+                message: 'Institution not found'
+            })
+        }
+
+        console.log('ID de usuario autenticado:', req.user.uid)
+        console.log('ID del dueño de la institución:', institution.userId.toString())
+
+        if(institution.userId.toString() !== String(req.user.uid)){
+            return res.status(403).send({
+                success: false,
+                message: 'You do not have permission to publish in this institution.'
+            })
+        }
+
+
         let publication = new Publication(data)
         await publication.save()
+        
         return res.status(200).send({message: 'Publications added successfully'})
+
     } catch (error) {
         console.error(error)
         return res.status(400).send({
