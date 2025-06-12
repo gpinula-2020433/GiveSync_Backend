@@ -1,7 +1,7 @@
 // Validar campos en las rutas
 import { body } from "express-validator";
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, objectIdValid, notRequiredField} from "../utils/db.validators.js";
+import { existUsername, existEmail, objectIdValid, notRequiredField, isOwnerOfInstitution} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -32,8 +32,12 @@ export const registerValidator = [
 export const addPublicationValidation = [
     body('content', 'Content cannot be empty')
         .notEmpty(),
-    body('institution', 'Institution cannot be empty')
+    body('institutionId', 'Institution cannot be empty')
         .notEmpty()
+        .custom((institutionId, {req})=>{
+            return isOwnerOfInstitution(institutionId, req.user.uid)
+        }),
+    validateErrors
 ]
 
 export const updateUserValidator = [

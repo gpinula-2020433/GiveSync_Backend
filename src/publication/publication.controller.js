@@ -76,26 +76,6 @@ export const addPublication = async (req, res) =>{
             data.imagePublication = req.file.filename
         }
 
-        const institution = await Institution.findById(data.institutionId)
-
-        if(!institution){
-            return res.status(404).send({
-                success: false,
-                message: 'Institution not found'
-            })
-        }
-
-        console.log('ID de usuario autenticado:', req.user.uid)
-        console.log('ID del dueño de la institución:', institution.userId.toString())
-
-        if(institution.userId.toString() !== String(req.user.uid)){
-            return res.status(403).send({
-                success: false,
-                message: 'You do not have permission to publish in this institution.'
-            })
-        }
-
-
         let publication = new Publication(data)
         await publication.save()
         

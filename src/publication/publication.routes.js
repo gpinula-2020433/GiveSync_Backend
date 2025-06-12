@@ -13,6 +13,6 @@ api.get('/:id', getPublicationId)
 api.post('/add', [uploadProfilePicture.single('imagePublication'), validateJwt, addPublicationValidation],addPublication)
 api.put('/update/:id',[validateJwt], updatePublicaton)
 api.put('/updateImage/:id', [uploadProfilePicture.single('imagePublication'), validateJwt],updateImagePublication)
-api.delete('/delete/:id', deletePublication, validateJwt)
+api.delete('/delete/:id', [validateJwt],deletePublication)
 
 export default api

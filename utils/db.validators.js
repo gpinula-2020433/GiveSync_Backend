@@ -2,6 +2,8 @@
 
 import { isValidObjectId } from 'mongoose'
 import User from '../src/user/user.model.js'
+import Publication from '../src/publication/publication.model.js'
+import Institution from '../src/institution/institution.model.js'
 
 
 // Validar existencia de un nombre de usuario (debe ser único para cada usuario)
@@ -45,5 +47,35 @@ export const findUser = async (id) => {
 export const objectIdValid = (objectId) => {
   if (!isValidObjectId(objectId)) {
     throw new Error(`The value of field is not a valid ObjectId`)
+  }
+}
+
+export const isOwnerOfInstitution = async(institutionId, userId) =>{
+  const institution = await Institution.findById(institutionId)
+  if(!institution){
+    throw new Error('Institution not found')
+  }
+
+  console.log('ID de usuario autenticado:', userId)
+  console.log('ID del dueño de la institución:', institution.userId.toString())
+
+  if(institution.userId.toString() !== String(userId)){
+    throw new ('You do not have permission to update in this institution.')
+  }
+
+  return true
+}
+
+export const isOwnerOfPublication = async (req, res, next) => {
+  try {
+    const publication = await Publication.findById(req.params.id).populate('institution')
+    if(!publication){
+      return res.status(404).json({message: 'You do not have permission to modify this publication.'})
+    }
+
+    next()
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({message: 'Internal server error'})
   }
 }
