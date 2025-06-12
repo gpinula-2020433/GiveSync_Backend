@@ -88,6 +88,45 @@ export const getUserById = async(req, res)=>{
     }
 }
 
+export const getAllUsers = async (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = parseInt(req.query.skip) || 0;
+
+    if (limit < 0 || skip < 0) {
+        return res.status(400).send({
+            success: false,
+            message: 'Limit and skip must be non-negative integers'
+        })
+    }
+
+    try {
+        const users = await User.find()
+            .skip(skip)
+            .limit(limit)
+
+        if (users.length === 0) {
+            return res.status(404).send({
+                success: false,
+                message: 'No users found'
+            })
+        }
+
+        return res.send({
+            success: true,
+            message: 'Users retrieved successfully',
+            total: users.length,
+            data: users
+        });
+    } catch (err) {
+        console.error('Error retrieving users:', err);
+        return res.status(500).send({
+            success: false,
+            message: 'Internal server error',
+            error: err.message
+        })
+    }
+}
+
 //UPDATE ADMIN
 export const updateUser = async (req, res) => {
     try {
@@ -166,38 +205,47 @@ export const deleteUser = async (req, res) => {
 }
 
 //CLIENT
-export const updateClient = async(req,res) =>{
-    try {
-        let {uid} = req.user
-        
-        let {id} = req.params
+export const updateClient = async (req, res) => {
+  try {
+      const { uid } = req.user  // Obtener el uid del usuario autenticado
+      const data = req.body
 
-        let data = req.body
+      console.log('Authenticated user ID:', uid)
 
-        console.log('From token (_id):', uid)
-        console.log('From params (id):', id)
+      // Verificar si el usuario con el uid existe
+      const user = await User.findById(uid)
+      if (!user) {
+          return res.status(404).send({
+              message: 'User not found.'
+          })
+      }
 
-        
-        if(String(uid) !== String(id)) return res.status(401).send({message: 'You only can update your account.'})        
+      // Validar que los datos que se intentan actualizar son correctos
+      const update = checkUpdate(data, uid)
+      if (!update) {
+          return res.status(400).send({
+              message: 'Invalid or missing data for update.'
+          })
+      }
 
-        let update = checkUpdate(data, id)
+      // Realizar la actualización
+      const updatedUser = await User.findByIdAndUpdate(
+          uid,
+          data,
+          { new: true }  // Devuelve el documento actualizado
+      )
 
-        if(!update) return res.status(400).send({message: 'Data cannot be updated or  data missing'})
+      return res.status(200).send({
+          message: 'User updated successfully.',
+          user: updatedUser.toJSON()  // Retorna el usuario actualizado sin password
+      })
 
-        let updatedU = await User.findOneAndUpdate(
-            {_id: id},
-            data,
-            { new: true }
-        )
-
-        if (!updatedU) return res.status(404).send({ message: 'User not found' })
-
-        return res.status(200).send({message: 'User updated successfully.'})
-
-    } catch (err) {
-        console.error(err)
-        return res.status(500).send({message: 'Error updating the user'})
-    }
+  } catch (err) {
+      console.error(err)
+      return res.status(500).send({
+          message: 'Error updating the user.'
+      })
+  }
 }
 
 export const updatePassword = async(req, res)=>{
@@ -231,19 +279,16 @@ export const updatePassword = async(req, res)=>{
 export const deleteClient = async (req, res) => {
   try {
     const { uid } = req.user
-    const { id } = req.params
     const { password } = req.body
 
-    const user = await User.findOne({ _id: id })
+    const user = await User.findById(uid)
 
-    if (!user) return res.status(404).send({ message: 'User not found' })
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' })
+    }
 
     if (user.role === 'ADMIN') {
       return res.status(401).send({ message: 'You cannot delete an admin.' })
-    }
-
-    if (uid !== id) {
-      return res.status(401).send({ message: 'You can only delete your own account.' })
     }
 
     const check = await checkPassword(user.password, password)
@@ -251,7 +296,7 @@ export const deleteClient = async (req, res) => {
       return res.status(401).send({ message: 'Invalid password' })
     }
 
-    //Eliminar imagen si existe
+    // Eliminar imagen si existe
     if (user.imageUser) {
       const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
       try {
@@ -261,16 +306,17 @@ export const deleteClient = async (req, res) => {
       }
     }
 
-    const deletedU = await User.findByIdAndDelete(id)
+    const deletedUser = await User.findByIdAndDelete(uid)
 
     return res.send({
-      message: `Account with username ${deletedU.name} deleted successfully`
+      message: `Account with username ${deletedUser.name} deleted successfully`
     })
   } catch (err) {
     console.error(err)
     return res.status(500).send({ message: 'Error deleting account' })
   }
 }
+
 
 export const updateUserImage = async (req, res) => {
   try {
