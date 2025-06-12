@@ -11,7 +11,8 @@ import {
 
 import { validateJwt } from "../../middlewares/validate.jwt.js";
 import { uploadProfilePicture } from "../../middlewares/multer.uploads.js";
-import { deleteFileOnError } from "../../middlewares/delete.file.on.errors.js";
+import {addCommentV, updateCommentV} from "../../middlewares/validators.js"
+import { deleteFileOnError } from '../../middlewares/delete.file.on.errors.js';
 
 const api = Router();
 
@@ -21,13 +22,13 @@ api.get("/:id", getCommentById);
 
 api.post(
   "/",
-  [ uploadProfilePicture.single("commentImage")],
+  [ validateJwt,uploadProfilePicture.single("commentImage"),deleteFileOnError,addCommentV],
   addComment
 );
 
 api.put(
   "/:id",
-  [ uploadProfilePicture.single("commentImage")],
+  [ validateJwt,uploadProfilePicture.single("commentImage"), updateCommentV],
   updateComment
 );
 

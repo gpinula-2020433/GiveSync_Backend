@@ -2,6 +2,7 @@
 
 import { isValidObjectId } from 'mongoose'
 import User from '../src/user/user.model.js'
+import Publication from '../src/publication/publication.model.js'
 
 
 // Validar existencia de un nombre de usuario (debe ser único para cada usuario)
@@ -35,6 +36,18 @@ export const findUser = async (id) => {
     const userExist = await User.findById(id)
     if (!userExist) return false
     return userExist
+  } catch (err) {
+    console.error(err)
+    return false
+  }
+}
+
+// Validar que el ID de una publicacion exista
+export const findPublication = async (id) => {
+  try {
+    const publicatonExist = await Publication.findById(id)
+    if (!publicatonExist) return false
+    return publicatonExist
   } catch (err) {
     console.error(err)
     return false

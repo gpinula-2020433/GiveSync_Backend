@@ -1,7 +1,7 @@
 // Validar campos en las rutas
 import { body } from "express-validator";
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, objectIdValid, notRequiredField} from "../utils/db.validators.js";
+import { existUsername, existEmail, objectIdValid, notRequiredField, findUser, findPublication} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -29,6 +29,34 @@ export const registerValidator = [
     validateErrors
 ]
 
+export const updateCommentV = [
+    body('content', 'Content cannot be empty')
+        .notEmpty(),
+        body('userId')
+        .optional()
+        .custom(findUser),
+    body('publicationId')
+        .optional()
+        .custom(findPublication),
+    validateErrors
+]
+
+export const addCommentV = [
+    body('content', 'Content cannot be empty')
+        .notEmpty()
+        .withMessage('Content cannot be Empty')
+        .isLength({ max: 500 })
+        .withMessage('Content cannot exceed 500 characters'),
+    body('userId')
+        .optional()
+        .custom(findUser),
+    body('publicationId')
+        .optional()
+        .custom(findPublication),
+    validateErrors
+]
+
+
 export const updateUserValidator = [
   body('username')
       .optional() //el paramatro puede o puede no llegar- Si no llega no pasa a las demas
@@ -54,6 +82,8 @@ export const updateUserValidator = [
       .custom(notRequiredField),
   validateErrors
 ]
+
+
 
 export const passwordVerify = [
   body ('newPassword')

@@ -68,6 +68,7 @@ export const addComment = async (req, res) => {
     if (req.file?.filename) {
       data.commentImage = req.file.filename
     }
+    data.userId = req.user.uid
 
     let comment = new Comment(data)
     await comment.save()
@@ -97,7 +98,16 @@ export const updateComment = async (req, res) => {
     let data = req.body;
 
     // Buscar comentario actual para obtener la imagen anterior
-    const commentBeforeUpdate = await Comment.findById(id);
+    let commentBeforeUpdate = await Comment.findById(id);
+    if(req.user.uid != commentBeforeUpdate.userId){
+      return res.send(
+          {
+              success: false,
+              message: `${req.user.name} | No puedes actualizar un comentario que no sea tuyo`
+          }
+      )
+  }
+
 
     if (!commentBeforeUpdate) {
       return res.status(404).send({
@@ -120,6 +130,7 @@ export const updateComment = async (req, res) => {
       }
     }
 
+    
     // Actualizar comentario con los nuevos datos
     const comment = await Comment.findByIdAndUpdate(id, data, { new: true })
       .populate('userId', 'name email')
@@ -140,12 +151,28 @@ export const updateComment = async (req, res) => {
   }
 };
 
-
 // DELETE - Eliminar comentario
 export const deleteComment = async (req, res) => {
   try {
-    const { id } = req.params
-    const comment = await Comment.findByIdAndDelete(id)
+    let { id } = req.params
+    
+    let commentToDelete = await Comment.findById(id)
+        if(req.user.uid != commentToDelete.userId){
+            return res.send(
+                {
+                    success: false,
+                    message: `${req.user.name} | No puedes eliminar un comentario que no sea tuyo`
+                }
+            )
+        }
+
+    
+
+    
+
+    let comment = await Comment.findByIdAndDelete(id)
+
+
 
     if (!comment)
       return res.status(404).send({
