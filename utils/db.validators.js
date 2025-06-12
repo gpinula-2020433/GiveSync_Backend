@@ -51,10 +51,15 @@ export const objectIdValid = (objectId) => {
 
 //Validar que si exista la Institucion
 export const existInstitution = async (id) => {
-  if (!id) throw new Error('Institution ID is required')
-  const institution = await Institution.findById(id)
-  if (!institution) {
-    throw new Error('Institution not found')
+  if (!id) throw new Error('El ID de la institución es obligatorio')
+  try {
+    const institution = await Institution.findById(id)
+    if (!institution) {
+      throw new Error('Institución no encontrada')
+    }
+    return true
+  } catch (err) {
+    throw new Error('Error al verificar la institución: ' + err.message)
   }
-  return true
 }
+

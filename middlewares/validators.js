@@ -63,3 +63,20 @@ export const passwordVerify = [
   .withMessage('Password need min characters'),
   validateErrors
 ]
+
+export const donationValidator = [
+    body('amount')
+      .notEmpty()
+      .withMessage('El monto es obligatorio')
+      .isFloat({ gt: 0, lt: 1000000 })
+      .withMessage('El monto debe estar entre 1 y 1,000,000'),
+    body('institution')
+      .notEmpty()
+      .withMessage('La institución es obligatoria')
+      .custom(existInstitution),
+    body('user')
+      .notEmpty()
+      .withMessage('El usuario es obligatorio')
+      .custom(findUser),
+    validateErrors
+  ]
