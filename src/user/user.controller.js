@@ -318,7 +318,7 @@ export const deleteClient = async (req, res) => {
 }
 
 
-export const updateUserImage = async (req, res) => {
+export const updateUserProfileImage = async (req, res) => {
   try {
     const { id } = req.params
 

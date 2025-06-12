@@ -10,7 +10,8 @@ import {
     updateClient, 
     updatePassword, 
     updateUser, 
-    updateUserImage 
+    updateUserImage, 
+    updateUserProfileImage
 } from "./user.controller.js"
 import { uploadProfilePicture } from '../../middlewares/multer.uploads.js'
 import { validateJwt, isAdmin, isClient } from "../../middlewares/validate.jwt.js"
@@ -38,7 +39,7 @@ api.put('/updateUserImage/:id',
         validateJwt, 
         uploadProfilePicture.single("imageUser")
     ], 
-    updateUserImage)
+    updateUserProfileImage)
 
 api.delete('/deleteUserImage/:id', deleteUserProfileImage)
 
