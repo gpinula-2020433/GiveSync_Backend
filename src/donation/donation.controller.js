@@ -5,7 +5,7 @@ import { findUser } from '../../utils/db.validators.js'
 
 export const addDonation = async (req, res) => {
   const { amount, institution } = req.body
-  const user = req.user.uid  // usuario autenticado del token
+  const user = req.user.uid
 
   try {
     if (!user) throw new Error('Usuario no autenticado')

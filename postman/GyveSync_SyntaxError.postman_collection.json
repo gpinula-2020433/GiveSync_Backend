@@ -215,7 +215,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/updateClient/68420c5b08014db9c9abe94d",
+							"raw": "localhost:3200/v1/user/updateClient/684b577f9ed8b1a34cf7b47f",
 							"host": [
 								"localhost"
 							],
@@ -224,7 +224,7 @@
 								"v1",
 								"user",
 								"updateClient",
-								"68420c5b08014db9c9abe94d"
+								"684b577f9ed8b1a34cf7b47f"
 							]
 						}
 					},
@@ -246,13 +246,13 @@
 							"urlencoded": [
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Password123!",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/deleteClient/6817a27d4aa01336540a8a85",
+							"raw": "localhost:3200/v1/user/deleteClient/684b577f9ed8b1a34cf7b47f",
 							"host": [
 								"localhost"
 							],
@@ -261,7 +261,7 @@
 								"v1",
 								"user",
 								"deleteClient",
-								"6817a27d4aa01336540a8a85"
+								"684b577f9ed8b1a34cf7b47f"
 							]
 						}
 					},
@@ -490,7 +490,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3200/v1/institution/684377a7ae35afd5fb44dcec",
+							"raw": "localhost:3200/v1/institution/684b536b4064e696b25cf251",
 							"host": [
 								"localhost"
 							],
@@ -498,7 +498,7 @@
 							"path": [
 								"v1",
 								"institution",
-								"684377a7ae35afd5fb44dcec"
+								"684b536b4064e696b25cf251"
 							]
 						}
 					},
@@ -513,23 +513,29 @@
 					"name": "AddDonation",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
 									"key": "amount",
-									"value": "1",
+									"value": "100",
 									"type": "text"
 								},
 								{
 									"key": "institution",
-									"value": "68492392d33cfaa563e23d6",
+									"value": "684b536b4064e696b25cf251",
 									"type": "text"
 								},
 								{
 									"key": "user",
-									"value": "68491d06fb74676a90a9145a",
+									"value": "684b556f7ccfa7caa8ab1e93",
 									"type": "text"
 								}
 							]
@@ -550,40 +556,19 @@
 					"response": []
 				},
 				{
-					"name": "getDonationById",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "localhost:3200/v1/donation/684923f6da91d66248843882",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"donation",
-								"684923f6da91d66248843882"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getDonations",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": []
@@ -598,6 +583,39 @@
 								"v1",
 								"donation",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonationById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/684b55817ccfa7caa8ab1e9a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								"684b55817ccfa7caa8ab1e9a"
 							]
 						}
 					},
