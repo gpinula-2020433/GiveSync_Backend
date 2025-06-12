@@ -59,7 +59,7 @@ export const existInstitution = async (id) => {
     }
     return true
   } catch (err) {
-    throw new Error('Error al verificar la institución: ' + err.message)
+    throw new Error('Error al verificar la institución: ')
   }
 }
 

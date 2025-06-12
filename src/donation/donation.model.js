@@ -1,4 +1,4 @@
-import { Schema, model, Types } from "mongoose"
+import { Schema, model, Types } from "mongoose";
 
 const donationSchema = new Schema(
   {
@@ -7,6 +7,14 @@ const donationSchema = new Schema(
       required: [true, 'Amount is required'],
       min: [1, 'Amount must be at least 1'],
       max: [1000000, 'Amount cannot exceed 1,000,000']
+    }, 
+    maintenanceAmount: {
+      type: Number,
+      required: true
+    },
+    institutionAmount: {
+      type: Number,
+      required: true
     },
     date: {
       type: Date,
@@ -29,6 +37,16 @@ const donationSchema = new Schema(
         validator: (value) => Types.ObjectId.isValid(value),
         message: 'Invalid User ID format'
       }
+    },
+    institutionData: {
+      name: { type: String },
+      type: { type: String },
+      description: { type: String }
+    },
+    userData: {
+      name: { type: String },
+      surname: { type: String },
+      username: { type: String }
     }
   },
   {

@@ -6,10 +6,11 @@ import {
 } from './donation.controller.js'
 import { donationValidator } from '../../middlewares/validators.js'
 import { validateErrors } from '../../middlewares/validate.errors.js'
+import { validateJwt } from '../../middlewares/validate.jwt.js'
 
 const api = Router()
 api.get('/', getAllDonations)
 api.get('/:id', getDonationById)
-api.post('/add', donationValidator, validateErrors, addDonation)
+api.post('/add', validateJwt, donationValidator, validateErrors, addDonation)
 
 export default api
