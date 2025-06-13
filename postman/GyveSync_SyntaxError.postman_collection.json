@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9975df59-332a-45ec-8c8c-71d20fe69227",
+		"_postman_id": "4fe46aa7-bee0-47f1-a2b5-b7bf376fa7e4",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37956970"
@@ -367,7 +367,13 @@
 					"name": "GetById",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:3200/v1/institution/684b5e6ed0b889a85f33e340",
 							"host": [
@@ -387,7 +393,13 @@
 					"name": "AddInstitution",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -437,7 +449,13 @@
 					"name": "UpdateInstitution",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
@@ -477,7 +495,13 @@
 					"name": "UpdateImageInstitution",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -508,7 +532,13 @@
 					"name": "DeleteInstitution",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:3200/v1/institution/684b536b4064e696b25cf251",
 							"host": [

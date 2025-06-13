@@ -8,11 +8,11 @@ import { validateCreateInstitution, validateUpdateInstitution } from "../../midd
 const api = Router()
 
 api.get('/all', getAllInstitutions)
-api.get('/:id', getInstitutionById)
-api.post('/add', [uploadProfilePicture.single("imageInstitution"), deleteFileOnError, validateCreateInstitution], addInstitution)
-api.put('/update/:id', [validateUpdateInstitution] ,updateInstitution)
-api.put('/updateImage/:id', [uploadProfilePicture.single('imageInstitution'), deleteFileOnError], updateInstitutionImage)
-api.delete('/delete/:id', deleteInstitution)
+api.get('/:id', validateJwt , getInstitutionById)
+api.post('/add', [uploadProfilePicture.single("imageInstitution"), deleteFileOnError, validateCreateInstitution, validateJwt], addInstitution)
+api.put('/update/:id', [validateUpdateInstitution, validateJwt] ,updateInstitution)
+api.put('/updateImage/:id', [uploadProfilePicture.single('imageInstitution'), deleteFileOnError, validateJwt], updateInstitutionImage)
+api.delete('/delete/:id', validateJwt , deleteInstitution)
 
 
 export default api
