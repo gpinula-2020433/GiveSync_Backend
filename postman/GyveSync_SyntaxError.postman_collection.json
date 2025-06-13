@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3f27fb62-54cb-41d0-a445-e6f46f3b743f",
+		"_postman_id": "7dcebce0-8de0-45f0-825d-004cbf71c21a",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956966"
+		"_exporter_id": "37962418"
 	},
 	"item": [
 		{
@@ -499,6 +499,249 @@
 								"v1",
 								"institution",
 								"684377a7ae35afd5fb44dcec"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "getAllComment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "123123Aa!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addComment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "hola como estas",
+									"type": "text"
+								},
+								{
+									"key": "commentImage",
+									"type": "file",
+									"src": "/C:/Users/PC/Desktop/luciano/imgs/descarga (2).jpeg"
+								},
+								{
+									"key": "userId",
+									"value": "684b326042ff03daeb314e3c",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "publicationId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "hola como estas",
+									"type": "text"
+								},
+								{
+									"key": "commentImage",
+									"type": "file",
+									"src": "/C:/Users/PC/Desktop/luciano/imgs/1354384.png"
+								},
+								{
+									"key": "userId",
+									"value": "684b326042ff03daeb314e3c",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "publicationId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/684ba526d8d4037dbf024560",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684ba526d8d4037dbf024560"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/684ba70b717b341d466592cc",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684ba70b717b341d466592cc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684913c5bb20626ef3dcefad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentsByuser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684913c5bb20626ef3dcefad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentsByPublication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684913c5bb20626ef3dcefad"
 							]
 						}
 					},
