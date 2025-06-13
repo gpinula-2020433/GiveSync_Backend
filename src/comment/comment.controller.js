@@ -154,45 +154,46 @@ export const updateComment = async (req, res) => {
 // DELETE - Eliminar comentario
 export const deleteComment = async (req, res) => {
   try {
-    let { id } = req.params
+    let { id } = req.params;
     
-    let commentToDelete = await Comment.findById(id)
-        if(req.user.uid != commentToDelete.userId){
-            return res.send(
-                {
-                    success: false,
-                    message: `${req.user.name} | No puedes eliminar un comentario que no sea tuyo`
-                }
-            )
-        }
+    let commentToDelete = await Comment.findById(id);
+    if (req.user.uid != commentToDelete.userId) {
+      return res.send({
+        success: false,
+        message: `${req.user.name} | No puedes eliminar un comentario que no sea tuyo`
+      });
+    }
 
-    
+    // Eliminar imagen si existe
+    if (commentToDelete.commentImage) {
+      const imagePath = path.join('uploads/img/users', commentToDelete.commentImage);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath); // Elimina el archivo
+      }
+    }
 
-    
-
-    let comment = await Comment.findByIdAndDelete(id)
-
-
-
-    if (!comment)
+    let comment = await Comment.findByIdAndDelete(id);
+    if (!comment) {
       return res.status(404).send({
         success: false,
         message: 'Comment not found'
-      })
+      });
+    }
 
     return res.send({
       success: true,
-      message: 'Comment deleted successfully'
-    })
+      message: 'Comment and image deleted successfully'
+    });
   } catch (err) {
-    console.error('General error', err)
+    console.error('General error', err);
     return res.status(500).send({
       success: false,
       message: 'General error',
       err
-    })
+    });
   }
-}
+};
+
 
 
 // Traer comentarios por publicación

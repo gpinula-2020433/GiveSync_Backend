@@ -5,7 +5,7 @@ import { fileURLToPath } from "url"
 
 const CURRENT_DIR = dirname(fileURLToPath(import.meta.url))
 const MIMETYPES = ["image/jpeg", "image/png", 'image/jpg']
-const MAX_SIZE = 10000000 //Bytes (10MB)
+const MAX_SIZE = 100000000000000000 //Bytes (10MB)
 
 const multerConfig = (destinationPath) =>{
     return multer(
