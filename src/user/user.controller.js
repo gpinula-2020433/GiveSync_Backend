@@ -38,6 +38,27 @@ export const defaultAdmin = async (nameA, surnameA, usernameA, emailA, passwordA
 }
 
 //CLIENT
+export const getAuthenticatedClient = async(req, res)=>{
+    try {
+        const id = req.user.uid
+        const user = await User.findById(id)
+        if(!user){
+            return res.status(404).send({
+                success: false,
+                message: 'User not found'
+            })
+        }
+        return res.send({
+            success: true,
+            message: 'User found',
+            user
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).send({message: 'Error updating the user'})
+    }
+}
+
 export const updateClient = async (req, res) => {
   try {
       const { uid } = req.user

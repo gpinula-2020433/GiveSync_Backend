@@ -6,6 +6,7 @@ import {
     deleteUserProfileImage, 
     deleteUserProfileImageClient, 
     getAllUsers, 
+    getAuthenticatedClient, 
     getUserById, 
     updateClient, 
     updatePassword, 
@@ -19,14 +20,8 @@ import { passwordVerify } from "../../middlewares/validators.js"
 
 const api = Router()
 
-// Admin
-api.get('/getAllUsersADMIN', [validateJwt, isAdmin], getAllUsers)
-api.put('/updateUserADMIN/:id', [validateJwt, isAdmin], updateUser)
-api.delete('/deleteUserADMIN/:id', [validateJwt, isAdmin], deleteUser)
-api.put('/changeRoleADMIN/:id', [validateJwt, isAdmin], changeRole)
-api.get('/getByIdADMIN/:id', [validateJwt, isAdmin], getUserById)
-
 // Client
+api.get('/getAuthenticatedClient', [validateJwt, isClient], getAuthenticatedClient)
 api.put('/updateClient/', [validateJwt, isClient], updateClient)
 api.delete('/deleteClient/', [validateJwt, isClient], deleteClient)
 api.put('/updatePassword/:id', [validateJwt, isClient, passwordVerify], updatePassword)
@@ -41,6 +36,12 @@ api.put('/updateUserImageClient/',
 
 api.delete('/deleteUserImageClient/', [validateJwt, isClient], deleteUserProfileImageClient)
 
+// Admin
+api.get('/getAllUsersADMIN', [validateJwt, isAdmin], getAllUsers)
+api.put('/updateUserADMIN/:id', [validateJwt, isAdmin], updateUser)
+api.delete('/deleteUserADMIN/:id', [validateJwt, isAdmin], deleteUser)
+api.put('/changeRoleADMIN/:id', [validateJwt, isAdmin], changeRole)
+api.get('/getByIdADMIN/:id', [validateJwt, isAdmin], getUserById)
 // Imágenes
 api.put('/updateUserImage/:id', 
     [
