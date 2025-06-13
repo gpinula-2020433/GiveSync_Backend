@@ -5,7 +5,7 @@ import { unlink } from 'fs/promises'
 import path from 'path'
 import { encrypt, checkPassword, checkUpdate } from '../../utils/encrypt.js'
 
-
+//Default admin
 export const defaultAdmin = async (nameA, surnameA, usernameA, emailA, passwordA, roleA) => {
     try {
         let adminFound = await User.findOne({ role: 'ADMIN' })
@@ -36,8 +36,6 @@ export const defaultAdmin = async (nameA, surnameA, usernameA, emailA, passwordA
         console.error('Error creating default admin:', err)
     }
 }
-
-defaultAdmin('Gabriel ', 'Pinula', '1pinula', 'pinula@gmail.com', '123123Aa!', 'ADMIN')
 
 //CLIENT
 export const updateClient = async (req, res) => {
@@ -369,7 +367,7 @@ export const deleteUser = async (req, res) => {
     const user = await User.findOne({ _id: id })
     if (!user) return res.status(404).send({ message: 'User not found' })
 
-    if (user.username === 'djulian')
+    if (user.username === '1pinula')
       return res.status(403).send({ message: 'You cannot delete the default admin' })
 
     if (user.role === 'ADMIN' && _id != id)
