@@ -160,6 +160,102 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "register Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "1pamal",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pamal@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "1pamal",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pamal@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -257,7 +353,7 @@
 								{
 									"key": "imageUser",
 									"type": "file",
-									"src": "/C:/Users/Usuario/Desktop/img.png"
+									"src": "/C:/Users/Informatica/Desktop/Captura de pantalla 2025-06-12 170037.png"
 								}
 							]
 						},
@@ -400,7 +496,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/getByIdADMIN/684b2e1f83e8444e85ac46f6",
+							"raw": "localhost:3200/v1/user/getByIdADMIN/684c807b12163a3c82af23e7",
 							"host": [
 								"localhost"
 							],
@@ -409,14 +505,14 @@
 								"v1",
 								"user",
 								"getByIdADMIN",
-								"684b2e1f83e8444e85ac46f6"
+								"684c807b12163a3c82af23e7"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "updateUser(Admin)",
+					"name": "updateUsers_Client(Admin)",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -437,7 +533,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3200/v1/user/updateUserADMIN/684b9b7dff2cc7a8d83be85b",
+							"raw": "http://localhost:3200/v1/user/updateUserADMIN/684c8538cf4f5edb75d13d6b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -447,14 +543,14 @@
 								"v1",
 								"user",
 								"updateUserADMIN",
-								"684b9b7dff2cc7a8d83be85b"
+								"684c8538cf4f5edb75d13d6b"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "deleteUser(Admin)",
+					"name": "deleteUsers_Client(Admin)",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -465,7 +561,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3200/v1/user/deleteUserADMIN/684b9b7dff2cc7a8d83be85b",
+							"raw": "http://localhost:3200/v1/user/deleteUserADMIN/684c8538cf4f5edb75d13d6b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -475,14 +571,14 @@
 								"v1",
 								"user",
 								"deleteUserADMIN",
-								"684b9b7dff2cc7a8d83be85b"
+								"684c8538cf4f5edb75d13d6b"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "deleteUserImage",
+					"name": "deleteUserImage_Client(Admin)",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -497,7 +593,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/deleteUserImage/684b9b7dff2cc7a8d83be85b",
+							"raw": "localhost:3200/v1/user/deleteUserImage/684b2e1f83e8444e85ac46f6",
 							"host": [
 								"localhost"
 							],
@@ -506,14 +602,14 @@
 								"v1",
 								"user",
 								"deleteUserImage",
-								"684b9b7dff2cc7a8d83be85b"
+								"684b2e1f83e8444e85ac46f6"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "updateUserImage",
+					"name": "updateUserImage_Client(Admin, Funciona pero no usar)",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -529,12 +625,12 @@
 								{
 									"key": "imageUser",
 									"type": "file",
-									"src": "/C:/Users/Usuario/Desktop/img.png"
+									"src": "/C:/Users/Informatica/Desktop/Captura de pantalla 2025-06-12 170037.png"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/updateUserImage/684b9b7dff2cc7a8d83be85b",
+							"raw": "localhost:3200/v1/user/updateUserImage/684b2e1f83e8444e85ac46f6",
 							"host": [
 								"localhost"
 							],
@@ -543,7 +639,7 @@
 								"v1",
 								"user",
 								"updateUserImage",
-								"684b9b7dff2cc7a8d83be85b"
+								"684b2e1f83e8444e85ac46f6"
 							]
 						}
 					},
