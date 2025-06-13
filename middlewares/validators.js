@@ -2,7 +2,7 @@
 import { body } from "express-validator";
 import { isValidObjectId } from 'mongoose'
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, objectIdValid, notRequiredField, existInstitution,findUser, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
+import { existUsername, existEmail, objectIdValid, notRequiredField, isOwnerOfInstitution, existInstitution,findUser, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -27,6 +27,17 @@ export const registerValidator = [
         .withMessage('Password need min characters'),
       body('rol', 'Role cannot be empty')
         .optional(),
+    validateErrors
+]
+
+export const addPublicationValidation = [
+    body('content', 'Content cannot be empty')
+        .notEmpty(),
+    body('institutionId', 'Institution cannot be empty')
+        .notEmpty()
+        .custom((institutionId, {req})=>{
+            return isOwnerOfInstitution(institutionId, req.user.uid)
+        }),
     validateErrors
 ]
 

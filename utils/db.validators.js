@@ -3,8 +3,7 @@
 import { isValidObjectId } from 'mongoose'
 import User from '../src/user/user.model.js'
 import Publication from '../src/publication/publication.model.js'
-import Institution from "../src/institution/institution.model.js"
-
+import Institution from '../src/institution/institution.model.js'
 
 // Validar existencia de un nombre de usuario (debe ser único para cada usuario)
 export const existUsername = async (username, user) => {
@@ -62,6 +61,46 @@ export const objectIdValid = (objectId) => {
   }
 }
 
+//Validar si el usuario registrado es dueño de la instutición para poder hacer una publicación
+export const isOwnerOfInstitution = async(institutionId, userId) =>{
+  const institution = await Institution.findById(institutionId)
+  if(!institution){
+    throw new Error('Institution not found')
+  }
+
+  console.log('ID de usuario autenticado:', userId)
+  console.log('ID del dueño de la institución:', institution.userId.toString())
+
+  if(institution.userId.toString() !== String(userId)){
+    throw new ('You do not have permission to update in this institution.')
+  }
+
+  return true
+}
+
+////Validar si el usuario registrado es dueño de la instutición para poder editar o eliminar una publicación
+export const isOwnerOfPublication = async (req, res, next) => {
+  try {
+    const publication = await Publication.findById(req.params.id).populate('institutionId')
+    if(!publication){
+      return res.status(404).json({message: 'Publication not found'})
+    }
+
+    const institution = publication.institutionId
+
+    console.log('ID de usuario en publicación:', req.user.uid)
+    console.log('ID del dueño de la institución:', institution.userId.toString())
+
+    if(!institution || institution.userId.toString() !== req.user.uid){
+      return res.status(403).json({message: 'You do not have permission to modify this publication.'})
+    }
+
+    next()
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({message: 'Internal server error'})
+  }
+}
 
 //Validar que si exista la Institucion
 export const existInstitution = async (id) => {

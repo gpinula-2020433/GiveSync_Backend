@@ -1,7 +1,7 @@
 'use strict'
 
 import Publication from './publication.model.js'
-import multer from 'multer'
+import Comment from '../comment/comment.model.js'
 
 export const test = async (req, res)=>{
     return res.send('The publication conection is running')
@@ -72,11 +72,14 @@ export const addPublication = async (req, res) =>{
     const data = req.body
     try {
         if(req.file?.filename){
-            data.imagePublication = req.file.filename //save image route
+            data.imagePublication = req.file.filename
         }
+
         let publication = new Publication(data)
         await publication.save()
+        
         return res.status(200).send({message: 'Publications added successfully'})
+
     } catch (error) {
         console.error(error)
         return res.status(400).send({
@@ -164,6 +167,10 @@ export const updateImagePublication = async (req,res) =>{
 export const deletePublication = async (req, res)=>{
     try {
         let {id} = req.params
+
+        //Elimina todos los comentarios relacionados a la publicación eliminada
+        await Comment.deleteMany({publicationId: id})
+
         let publication = await Publication.findByIdAndDelete(id)
 
         if (!publication)
