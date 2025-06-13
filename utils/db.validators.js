@@ -50,6 +50,7 @@ export const objectIdValid = (objectId) => {
   }
 }
 
+//Validar si el usuario registrado es dueño de la instutición para poder hacer una publicación
 export const isOwnerOfInstitution = async(institutionId, userId) =>{
   const institution = await Institution.findById(institutionId)
   if(!institution){
@@ -66,11 +67,21 @@ export const isOwnerOfInstitution = async(institutionId, userId) =>{
   return true
 }
 
+////Validar si el usuario registrado es dueño de la instutición para poder editar o eliminar una publicación
 export const isOwnerOfPublication = async (req, res, next) => {
   try {
-    const publication = await Publication.findById(req.params.id).populate('institution')
+    const publication = await Publication.findById(req.params.id).populate('institutionId')
     if(!publication){
-      return res.status(404).json({message: 'You do not have permission to modify this publication.'})
+      return res.status(404).json({message: 'Publication not found'})
+    }
+
+    const institution = publication.institutionId
+
+    console.log('ID de usuario en publicación:', req.user.uid)
+    console.log('ID del dueño de la institución:', institution.userId.toString())
+
+    if(!institution || institution.userId.toString() !== req.user.uid){
+      return res.status(403).json({message: 'You do not have permission to modify this publication.'})
     }
 
     next()
