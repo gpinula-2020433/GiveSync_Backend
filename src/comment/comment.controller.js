@@ -15,19 +15,19 @@ export const getAllComments = async (req, res) => {
     if (comments.length === 0)
       return res.status(404).send({
         success: false,
-        message: 'Comments not found'
+        message: 'Comentarios no encontrados'
       })
 
     return res.send({
       success: true,
-      message: 'Comments found',
+      message: 'Comentarios encontrados',
       comments
     })
   } catch (err) {
-    console.error('General error', err)
+    console.error('Error general', err)
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       err
     })
   }
@@ -43,20 +43,20 @@ export const getCommentById = async (req, res) => {
     if (!comment) {
       return res.status(404).send({
         success: false,
-        message: 'Comment not found'
+        message: 'Comentario no encontrado'
       })
     }
 
     return res.send({
       success: true,
-      message: 'Comment found',
+      message: 'Comentario encontrado',
       comment
     })
   } catch (err) {
-    console.error('General error', err)
+    console.error('Error general', err)
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       err
     })
   }
@@ -79,14 +79,14 @@ export const addComment = async (req, res) => {
 
     return res.send({
       success: true,
-      message: `Comment added successfully`,
+      message: `Comentario agregado exitosamente`,
       comment
     })
   } catch (err) {
-    console.error('General error', err)
+    console.error('Error general', err)
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       err
     })
   }
@@ -112,7 +112,7 @@ export const updateComment = async (req, res) => {
     if (!commentBeforeUpdate) {
       return res.status(404).send({
         success: false,
-        message: 'Comment not found'
+        message: 'Comentario no encontrado'
       });
     }
 
@@ -125,7 +125,7 @@ export const updateComment = async (req, res) => {
       if (oldImage) {
         const oldImagePath = path.resolve('uploads/img/users', oldImage);
         fs.unlink(oldImagePath, (err) => {
-          if (err) console.error('Error deleting old image:', err);
+          if (err) console.error('Error al eliminar la imagen anterior:', err);
         });
       }
     }
@@ -138,14 +138,14 @@ export const updateComment = async (req, res) => {
 
     return res.send({
       success: true,
-      message: 'Comment updated',
+      message: 'Comentario actualizado',
       comment
     });
   } catch (err) {
-    console.error('General error', err);
+    console.error('Error general', err);
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       err
     });
   }
@@ -176,19 +176,19 @@ export const deleteComment = async (req, res) => {
     if (!comment) {
       return res.status(404).send({
         success: false,
-        message: 'Comment not found'
+        message: 'Comentario no encontrado'
       });
     }
 
     return res.send({
       success: true,
-      message: 'Comment and image deleted successfully'
+      message: 'Comentario e imagen eliminados exitosamente'
     });
   } catch (err) {
-    console.error('General error', err);
+    console.error('Error general', err);
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       err
     });
   }
@@ -205,12 +205,12 @@ export const getCommentsByPublication = async (req, res) => {
       .populate('publicationId', 'title')
 
     if (comments.length === 0)
-      return res.status(404).send({ success: false, message: 'No comments for this publication' })
+      return res.status(404).send({ success: false, message: 'No hay comentarios para esta publicación' })
 
     return res.send({ success: true, comments })
   } catch (err) {
     console.error(err)
-    return res.status(500).send({ success: false, message: 'Server error', err })
+    return res.status(500).send({ success: false, message: 'Error del servidor', err })
   }
 }
 
@@ -223,11 +223,11 @@ export const getCommentsByUser = async (req, res) => {
       .populate('publicationId', 'title')
 
     if (comments.length === 0)
-      return res.status(404).send({ success: false, message: 'No comments by this user' })
+      return res.status(404).send({ success: false, message: 'No hay comentarios de este usuario' })
 
     return res.send({ success: true, comments })
   } catch (err) {
     console.error(err)
-    return res.status(500).send({ success: false, message: 'Server error', err })
+    return res.status(500).send({ success: false, message: 'Error del servidor', err })
   }
 }
