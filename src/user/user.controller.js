@@ -354,7 +354,7 @@ export const updateUser = async (req, res) => {
 
         if ((user.role === 'ADMIN') && (_id != id)) {
             return res.status(403).send({
-                message: 'No puedes actualizar a otro administrador, solo puedes actualizarte a ti mismo o a los clientes.'
+                message: 'No puedes actualizar a un administrador, solo puedes actualizar clientes.'
             })
         }
 
@@ -392,7 +392,7 @@ export const deleteUser = async (req, res) => {
       return res.status(403).send({ message: 'No puedes eliminar al administrador predeterminado' })
 
     if (user.role === 'ADMIN' && _id != id)
-      return res.status(403).send({ message: 'No puedes eliminar a un administrador solo puedes eliminar clientes.' })
+      return res.status(403).send({ message: 'No puedes eliminar a un administrador, solo puedes eliminar clientes.' })
 
     if (user.imageUser) {
       const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
@@ -420,15 +420,7 @@ export const deleteUser = async (req, res) => {
 export const updateUserProfileImage = async (req, res) => {
   try {
     const { id } = req.params
-
-    if (!req.file) {
-      return res.status(400).send({
-        success: false,
-        message: 'No se proporcionó un archivo de imagen'
-      })
-    }
-    
-    const { filename } = req.file
+    const idUserUpdating = req.user.uid
 
     const user = await User.findById(id)
     if (!user) {
@@ -439,6 +431,25 @@ export const updateUserProfileImage = async (req, res) => {
             }
         )
     }
+    
+    const userToUpdate = await User.findById(id)
+    if(userToUpdate.role === 'ADMIN' && idUserUpdating !== id){
+      return res.send(
+        {
+          success: false,
+          message: 'No puedes actualizar la foto de perfil de otro administrador que no seas tu'
+        }
+      )
+    }
+
+    if (!req.file) {
+      return res.status(400).send({
+        success: false,
+        message: 'No se proporcionó un archivo de imagen'
+      })
+    }
+    
+    const { filename } = req.file
 
     if (user.imageUser) {
       const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
@@ -477,6 +488,17 @@ export const deleteUserProfileImage = async (req, res) => {
         success: false,
         message: 'Usuario no encontrado'
       })
+    }
+
+    const idUserUpdating = req.user.uid
+    const userToUpdate = await User.findById(id)
+    if(userToUpdate.role === 'ADMIN' && idUserUpdating !== id){
+      return res.send(
+        {
+          success: false,
+          message: 'No puedes eliminar la foto de perfil de otro administrador que no seas tu'
+        }
+      )
     }
 
     if (!user.imageUser) {
