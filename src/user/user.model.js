@@ -34,6 +34,10 @@ const userSchema = Schema(
             type: String,
             default: null
         },
+        hasInstitution: {
+            type: Boolean,
+            default: false
+        },
         role:{
             type: String,
             uppercase: true,

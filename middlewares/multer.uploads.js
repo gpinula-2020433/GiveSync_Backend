@@ -1,35 +1,38 @@
-//Gestionar las imagenes
+// Gestionar las imágenes
 import multer, { diskStorage } from "multer"
 import { dirname, extname, join } from 'path'
 import { fileURLToPath } from "url"
 
 const CURRENT_DIR = dirname(fileURLToPath(import.meta.url))
 const MIMETYPES = ["image/jpeg", "image/png", 'image/jpg']
-const MAX_SIZE = 10000000 //Bytes (10MB)
+const MAX_SIZE = 10000000 // Bytes (10MB)
 
-const multerConfig = (destinationPath) =>{
+const multerConfig = (destinationPath)=>{
     return multer(
         {
             storage: diskStorage(
                 {
-                    destination: (req, file, cb)=> { //Donde guardar
+                    destination: (req, file, cb) => { // Donde guardar
                         const fullPath = join(CURRENT_DIR, destinationPath)
                         req.filePath = fullPath
                         cb(null, fullPath)
                     },
-                    filename: (req, file, cb)=>{ //Con que nombre
+                    filename: (req, file, cb) => { // Con qué nombre
                         const fileExtension = extname(file.originalname)
                         const fileName = file.originalname.split(fileExtension)[0]
-                        cb(null, `${fileName}-${Date.now()}${fileExtension}`) //futbol-51681351.png
-                    } 
+                        cb(null, `${fileName}-${Date.now()}${fileExtension}`) // futbol-51681351.png
+                    }
                 }
             ),
-            fileFilter: (req, file, cb) => { //Validaciones de extensión
+            fileFilter: (req, file, cb) => { // Validaciones de extensión
                 console.log(file.mimetype)
-                if(MIMETYPES.includes(file.mimetype)) cb(null, true)
-                else cb(new Error( `Only ${MIMETYPES.join(" ")} are allowed`))
+                if (MIMETYPES.includes(file.mimetype)) {
+                    cb(null, true)
+                } else {
+                    cb(new Error(`Solo se permiten los siguientes tipos de archivo: ${MIMETYPES.join(", ")}`))
+                }
             },
-            limits: { //Tamaño máximo
+            limits: { // Tamaño máximo
                 fileSize: MAX_SIZE
             }
         }

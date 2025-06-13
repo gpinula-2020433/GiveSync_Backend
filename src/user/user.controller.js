@@ -13,11 +13,11 @@ export const defaultAdmin = async (nameA, surnameA, usernameA, emailA, passwordA
         let emailExists = await User.findOne({ email: emailA })
 
         if (adminFound) {
-            return console.log('Default admin already exists.')
+            return console.log('El administrador predeterminado ya existe.')
         }
 
         if (usernameExists || emailExists) {
-            return console.log('Cannot create default admin: username or email already exists.')
+            return console.log('No se puede crear el administrador predeterminado: el nombre de usuario o el correo electrónico ya existen.')
         }
 
         const data = {
@@ -31,13 +31,13 @@ export const defaultAdmin = async (nameA, surnameA, usernameA, emailA, passwordA
 
         let user = new User(data)
         await user.save()
-        console.log('A default admin has been created.')
+        console.log('Se ha creado un administrador predeterminado.')
     } catch (err) {
-        console.error('Error creating default admin:', err)
+        console.error('Error al crear el administrador predeterminado:', err)
     }
 }
 
-//CLIENT
+//CLIENTE
 export const getAuthenticatedClient = async(req, res)=>{
     try {
         const id = req.user.uid
@@ -45,17 +45,17 @@ export const getAuthenticatedClient = async(req, res)=>{
         if(!user){
             return res.status(404).send({
                 success: false,
-                message: 'User not found'
+                message: 'Usuario no encontrado'
             })
         }
         return res.send({
             success: true,
-            message: 'User found',
+            message: 'Usuario encontrado',
             user
         })
     } catch (error) {
         console.error(error)
-        return res.status(500).send({message: 'Error updating the user'})
+        return res.status(500).send({message: 'Error al actualizar el usuario'})
     }
 }
 
@@ -64,19 +64,19 @@ export const updateClient = async (req, res) => {
       const { uid } = req.user
       const data = req.body
 
-      console.log('Authenticated user ID:', uid)
+      console.log('ID del usuario autenticado:', uid)
 
       const user = await User.findById(uid)
       if (!user) {
           return res.status(404).send({
-              message: 'User not found.'
+              message: 'Usuario no encontrado.'
           })
       }
 
       const update = checkUpdate(data, uid)
       if (!update) {
           return res.status(400).send({
-              message: 'Invalid or missing data for update.'
+              message: 'Datos inválidos o faltantes para la actualización.'
           })
       }
 
@@ -87,14 +87,14 @@ export const updateClient = async (req, res) => {
       )
 
       return res.status(200).send({
-          message: 'User updated successfully.',
+          message: 'Usuario actualizado con éxito.',
           user: updatedUser.toJSON()
       })
 
   } catch (err) {
       console.error(err)
       return res.status(500).send({
-          message: 'Error updating the user.'
+          message: 'Error al actualizar el usuario.'
       })
   }
 }
@@ -105,25 +105,25 @@ export const updatePassword = async(req, res)=>{
         const { currentPassword, newPassword} = req.body
 
         if(!currentPassword || ! newPassword)
-            return res.status(400).send({message: 'Missing curretn or new password'})
+            return res.status(400).send({message: 'Faltan la contraseña actual o la nueva contraseña'})
 
         const user = await User.findById(uid)
-        if(!user) return res.status(400).send({message: 'User not found'})
+        if(!user) return res.status(400).send({message: 'Usuario no encontrado'})
 
         const validPassword = await checkPassword(user.password, currentPassword)
-        if(!validPassword) return res.status(400).send({message: 'Incorrect password'})
+        if(!validPassword) return res.status(400).send({message: 'Contraseña incorrecta'})
 
         if(newPassword.length < 8 || newPassword.length > 100){
-            return res.status(400).send({message: 'Password must be have min 8 characters and max 100 characters'})
+            return res.status(400).send({message: 'La contraseña debe tener entre 8 y 100 caracteres'})
         }
 
         user.password = await encrypt(newPassword)
         await user.save()
 
-        return res.status(200).send({message: 'Password update successfully!'})
+        return res.status(200).send({message: '¡Contraseña actualizada con éxito!'})
     } catch (error) {
         console.error(err)
-        return res.status(500).send({message: 'Error updating the password'})
+        return res.status(500).send({message: 'Error al actualizar la contraseña'})
     }
 }
 
@@ -135,16 +135,16 @@ export const deleteClient = async (req, res) => {
     const user = await User.findById(uid)
 
     if (!user) {
-      return res.status(404).send({ message: 'User not found' })
+      return res.status(404).send({ message: 'Usuario no encontrado' })
     }
 
     if (user.role === 'ADMIN') {
-      return res.status(401).send({ message: 'You cannot delete an admin.' })
+      return res.status(401).send({ message: 'No puedes eliminar a un administrador.' })
     }
 
     const check = await checkPassword(user.password, password)
     if (!check) {
-      return res.status(401).send({ message: 'Invalid password' })
+      return res.status(401).send({ message: 'Contraseña incorrecta' })
     }
 
     if (user.imageUser) {
@@ -152,18 +152,18 @@ export const deleteClient = async (req, res) => {
       try {
         await unlink(imagePath)
       } catch (err) {
-        console.warn(`Failed to delete user image: ${err.message}`)
+        console.warn(`Error al eliminar la imagen del usuario: ${err.message}`)
       }
     }
 
     const deletedUser = await User.findByIdAndDelete(uid)
 
     return res.send({
-      message: `Account with username ${deletedUser.name} deleted successfully`
+      message: `La cuenta con el nombre de usuario ${deletedUser.name} se eliminó con éxito`
     })
   } catch (err) {
     console.error(err)
-    return res.status(500).send({ message: 'Error deleting account' })
+    return res.status(500).send({ message: 'Error al eliminar la cuenta' })
   }
 }
 
@@ -174,7 +174,7 @@ export const updateUserProfileImageClient = async (req, res) => {
     if (!req.file) {
       return res.status(400).send({
         success: false,
-        message: 'No image file provided'
+        message: 'No se proporcionó un archivo de imagen'
       })
     }
     
@@ -185,7 +185,7 @@ export const updateUserProfileImageClient = async (req, res) => {
       return res.status(404).send(
             {
                 success: false,
-                message: 'User not found - not updated'
+                message: 'Usuario no encontrado - no se actualizó'
             }
         )
     }
@@ -195,7 +195,7 @@ export const updateUserProfileImageClient = async (req, res) => {
       try {
         await unlink(imagePath)
       } catch (err) {
-        console.warn('Error deleting old user image:', err.message)
+        console.warn('Error al eliminar la imagen antigua del usuario:', err.message)
       }
     }
 
@@ -204,14 +204,14 @@ export const updateUserProfileImageClient = async (req, res) => {
 
     return res.send({
       success: true,
-      message: 'User image updated successfully',
+      message: 'La imagen del usuario se actualizó con éxito',
       user
     })
   } catch (err) {
-    console.error('General error', err)
+    console.error('Error general', err)
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       err
     })
   }
@@ -225,14 +225,14 @@ export const deleteUserProfileImageClient = async (req, res) => {
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: 'User not found'
+        message: 'Usuario no encontrado'
       })
     }
 
     if (!user.imageUser) {
       return res.status(400).send({
         success: false,
-        message: 'User does not have a profile image'
+        message: 'El usuario no tiene una imagen de perfil'
       })
     }
 
@@ -241,10 +241,10 @@ export const deleteUserProfileImageClient = async (req, res) => {
     try {
       await unlink(imagePath)
     } catch (err) {
-      console.warn('Error deleting image file:', err.message)
+      console.warn('Error al eliminar el archivo de imagen:', err.message)
       return res.status(500).send({
         success: false,
-        message: 'Error deleting image file',
+        message: 'Error al eliminar el archivo de imagen',
         error: err.message
       })
     }
@@ -254,40 +254,40 @@ export const deleteUserProfileImageClient = async (req, res) => {
 
     return res.send({
       success: true,
-      message: 'Profile image deleted successfully',
+      message: 'La imagen de perfil se eliminó con éxito',
       user
     })
 
   } catch (err) {
-    console.error('General error:', err)
+    console.error('Error general:', err)
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       error: err.message
     })
   }
 }
 
-//Admin
+//Administrador
 export const changeRole = async(req, res)=>{
     try {
         let {id} = req.params
 
         let data = req.body
         let update = checkUpdate(data.role, id)
-        if (!update) return res.status(400).send({ message: 'Have submitted some data that cannot be update or missing' })
+        if (!update) return res.status(400).send({ message: 'Se han enviado datos que no se pueden actualizar o faltan' })
 
         let updatedUser = await User.findByIdAndUpdate(
             { _id: id },
             data,
             { new: true }
         )
-        if (!updatedUser) return res.status(404).send({ message: 'User not found' })
+        if (!updatedUser) return res.status(404).send({ message: 'Usuario no encontrado' })
         
-        return res.status(200).send({message: 'The role has been changed successfully.'})
+        return res.status(200).send({message: 'El rol se ha cambiado correctamente.'})
     } catch (err) {
         console.error(err)
-        return res.status(500).send({message: 'Error changing role'})
+        return res.status(500).send({message: 'Error al cambiar el rol'})
     }
 
 }
@@ -299,17 +299,17 @@ export const getUserById = async(req, res)=>{
         if(!user){
             return res.status(404).send({
                 success: false,
-                message: 'User not found'
+                message: 'Usuario no encontrado'
             })
         }
         return res.send({
             success: true,
-            message: 'User found',
+            message: 'Usuario encontrado',
             user
         })
     } catch (error) {
         console.error(error)
-        return res.status(500).send({message: 'Error updating the user'})
+        return res.status(500).send({message: 'Error al actualizar el usuario'})
     }
 }
 
@@ -324,21 +324,21 @@ export const getAllUsers = async (req, res) => {
         if (users.length === 0) {
             return res.status(404).send({
                 success: false,
-                message: 'No users found'
+                message: 'No se encontraron usuarios'
             })
         }
 
         return res.send({
             success: true,
-            message: 'Users retrieved successfully',
+            message: 'Usuarios obtenidos con éxito',
             total: users.length,
             data: users
         });
     } catch (err) {
-        console.error('Error retrieving users:', err);
+        console.error('Error al obtener usuarios:', err);
         return res.status(500).send({
             success: false,
-            message: 'Internal server error',
+            message: 'Error interno del servidor',
             error: err.message
         })
     }
@@ -354,12 +354,12 @@ export const updateUser = async (req, res) => {
 
         if ((user.role === 'ADMIN') && (_id != id)) {
             return res.status(403).send({
-                message: 'You cannot update another admin, you can only update yourself or clients.'
+                message: 'No puedes actualizar a otro administrador, solo puedes actualizarte a ti mismo o a los clientes.'
             })
         }
 
         let update = checkUpdate(data, id)
-        if (!update) return res.status(400).send({ message: 'Data cannot be updated or data missing' })
+        if (!update) return res.status(400).send({ message: 'No se pueden actualizar los datos o faltan datos' })
 
         let updatedUser = await User.findByIdAndUpdate(
             id,
@@ -367,16 +367,16 @@ export const updateUser = async (req, res) => {
             { new: true }
         )
 
-        if (!updatedUser) return res.status(404).send({ message: 'User not found' })
+        if (!updatedUser) return res.status(404).send({ message: 'Usuario no encontrado' })
 
         return res.status(200).send({
-            message: 'User updated successfully.',
+            message: 'Usuario actualizado con éxito.',
             user: updatedUser
         })
 
     } catch (err) {
         console.error(err)
-        return res.status(500).send({ message: 'Error updating the user' })
+        return res.status(500).send({ message: 'Error al actualizar el usuario' })
     }
 }
 
@@ -386,34 +386,34 @@ export const deleteUser = async (req, res) => {
     const { _id } = req.user
 
     const user = await User.findOne({ _id: id })
-    if (!user) return res.status(404).send({ message: 'User not found' })
+    if (!user) return res.status(404).send({ message: 'Usuario no encontrado' })
 
     if (user.username === '1pinula')
-      return res.status(403).send({ message: 'You cannot delete the default admin' })
+      return res.status(403).send({ message: 'No puedes eliminar al administrador predeterminado' })
 
     if (user.role === 'ADMIN' && _id != id)
-      return res.status(403).send({ message: 'You cannot delete another admin. You can only delete yourself or clients.' })
+      return res.status(403).send({ message: 'No puedes eliminar a un administrador solo puedes eliminar clientes.' })
 
     if (user.imageUser) {
       const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
       try {
         await unlink(imagePath)
       } catch (err) {
-        console.warn(`Failed to delete user image: ${err.message}`)
+        console.warn(`Error al eliminar la imagen del usuario: ${err.message}`)
       }
     }
     
     const usernameOfDeletedUser = user.username
     const deletedUser = await User.findByIdAndDelete(id)
 
-    if (!deletedUser) return res.status(404).send({ message: 'User not found' })
+    if (!deletedUser) return res.status(404).send({ message: 'Usuario no encontrado' })
 
     return res.send({
-      message: `Account with username ${usernameOfDeletedUser} deleted successfully`
+      message: `La cuenta con el nombre de usuario ${usernameOfDeletedUser} se eliminó con éxito`
     })
   } catch (err) {
     console.error(err)
-    return res.status(500).send({ message: 'Error deleting account' })
+    return res.status(500).send({ message: 'Error al eliminar la cuenta' })
   }
 }
 
@@ -424,7 +424,7 @@ export const updateUserProfileImage = async (req, res) => {
     if (!req.file) {
       return res.status(400).send({
         success: false,
-        message: 'No image file provided'
+        message: 'No se proporcionó un archivo de imagen'
       })
     }
     
@@ -435,7 +435,7 @@ export const updateUserProfileImage = async (req, res) => {
       return res.status(404).send(
             {
                 success: false,
-                message: 'User not found - not updated'
+                message: 'Usuario no encontrado - no se actualizó'
             }
         )
     }
@@ -445,7 +445,7 @@ export const updateUserProfileImage = async (req, res) => {
       try {
         await unlink(imagePath)
       } catch (err) {
-        console.warn('Error deleting old user image:', err.message)
+        console.warn('Error al eliminar la imagen antigua del usuario:', err.message)
       }
     }
 
@@ -454,14 +454,14 @@ export const updateUserProfileImage = async (req, res) => {
 
     return res.send({
       success: true,
-      message: 'User image updated successfully',
+      message: 'La imagen del usuario se actualizó con éxito',
       user
     })
   } catch (err) {
-    console.error('General error', err)
+    console.error('Error general', err)
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       err
     })
   }
@@ -475,14 +475,14 @@ export const deleteUserProfileImage = async (req, res) => {
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: 'User not found'
+        message: 'Usuario no encontrado'
       })
     }
 
     if (!user.imageUser) {
       return res.status(400).send({
         success: false,
-        message: 'User does not have a profile image'
+        message: 'El usuario no tiene una imagen de perfil'
       })
     }
 
@@ -491,10 +491,10 @@ export const deleteUserProfileImage = async (req, res) => {
     try {
       await unlink(imagePath)
     } catch (err) {
-      console.warn('Error deleting image file:', err.message)
+      console.warn('Error al eliminar el archivo de imagen:', err.message)
       return res.status(500).send({
         success: false,
-        message: 'Error deleting image file',
+        message: 'Error al eliminar el archivo de imagen',
         error: err.message
       })
     }
@@ -504,15 +504,15 @@ export const deleteUserProfileImage = async (req, res) => {
 
     return res.send({
       success: true,
-      message: 'Profile image deleted successfully',
+      message: 'La imagen de perfil del usuario se eliminó con éxito',
       user
     })
 
   } catch (err) {
-    console.error('General error:', err)
+    console.error('Error general:', err)
     return res.status(500).send({
       success: false,
-      message: 'General error',
+      message: 'Error general',
       error: err.message
     })
   }
