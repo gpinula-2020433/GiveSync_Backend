@@ -5,27 +5,26 @@ import { validateErrors } from "./validate.errors.js";
 import { existUsername, existEmail, objectIdValid, notRequiredField, isOwnerOfInstitution, existInstitution,findUser, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
 
 export const registerValidator = [
-    body('name', 'Name cannot be empty')
+    body('name', 'El nombre no puede estar vacío')
         .notEmpty(),
-    body('surname', 'Surname cannot be empty')
+    body('surname', 'El apellido no puede estar vacío')
         .notEmpty(),
-    body('email', 'Email cannot be empty')
-      .notEmpty()
-      .withMessage('El correo no puede estar vacío')
-      .isEmail()
-      .withMessage('El correo electrónico no es válido')
-      .custom(existEmail),
-    body('username', 'Username cannot be empty')
+    body('email', 'El correo electrónico no puede estar vacío')
+        .notEmpty()
+        .isEmail()
+        .withMessage('El correo electrónico no es válido')
+        .custom(existEmail),
+    body('username', 'El nombre de usuario no puede estar vacío')
         .notEmpty()
         .toLowerCase()
         .custom(existUsername),
-    body('password', 'Password cannot be empty')
+    body('password', 'La contraseña no puede estar vacía')
         .notEmpty()
         .isStrongPassword()
         .withMessage('La contraseña debe ser más fuerte, debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y símbolos.')
-        .isLength({min: 8})
-        .withMessage('Password need min characters'),
-      body('rol', 'Role cannot be empty')
+        .isLength({ min: 8 })
+        .withMessage('La contraseña debe tener al menos 8 caracteres'),
+    body('rol', 'El rol no puede estar vacío')
         .optional(),
     validateErrors
 ]
@@ -71,7 +70,7 @@ export const addCommentV = [
 
 export const updateUserValidator = [
   body('username')
-      .optional() //el paramatro puede o puede no llegar- Si no llega no pasa a las demas
+      .optional()
       .notEmpty()
       .toLowerCase()
       .custom((username, { req }) => existUsername(username, req.user)),
@@ -98,11 +97,11 @@ export const updateUserValidator = [
 
 
 export const passwordVerify = [
-  body ('newPassword')
-  .isStrongPassword()
-  .withMessage('Password must be strong')
-  .isLength({min: 8})
-  .withMessage('Password need min characters'),
+  body('newPassword')
+      .isStrongPassword()
+      .withMessage('La contraseña debe ser fuerte (debe contener al menos una mayúscula, una minúscula, un número y un símbolo)')
+      .isLength({ min: 8 })
+      .withMessage('La contraseña debe tener al menos 8 caracteres'),
   validateErrors
 ]
 

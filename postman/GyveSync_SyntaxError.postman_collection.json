@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4fe46aa7-bee0-47f1-a2b5-b7bf376fa7e4",
+		"_postman_id": "69c563cb-1450-4731-8d49-b65573f8cd04",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956970"
+		"_exporter_id": "37957002"
 	},
 	"item": [
 		{
@@ -160,39 +160,108 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "register Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "1pamal",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pamal@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "1pamal",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pamal@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "NormalUsers",
 			"item": [
-				{
-					"name": "getUserById",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "localhost:3200/v1/user/68435e5b13ef2496ec4e9ef6",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"user",
-								"68435e5b13ef2496ec4e9ef6"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "updateUser",
 					"request": {
@@ -209,13 +278,13 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Luciano1",
+									"value": "Luciano2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/updateClient/684b577f9ed8b1a34cf7b47f",
+							"raw": "localhost:3200/v1/user/updateClient/",
 							"host": [
 								"localhost"
 							],
@@ -224,7 +293,7 @@
 								"v1",
 								"user",
 								"updateClient",
-								"684b577f9ed8b1a34cf7b47f"
+								""
 							]
 						}
 					},
@@ -252,7 +321,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/deleteClient/684b577f9ed8b1a34cf7b47f",
+							"raw": "localhost:3200/v1/user/deleteClient/",
 							"host": [
 								"localhost"
 							],
@@ -261,7 +330,109 @@
 								"v1",
 								"user",
 								"deleteClient",
-								"684b577f9ed8b1a34cf7b47f"
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserImage",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Desktop/Captura de pantalla 2025-06-12 170037.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/updateUserImageClient/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"updateUserImageClient",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserImage",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/deleteUserImageClient/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"deleteUserImageClient",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAuthenticatedClient",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/getAuthenticatedClient/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"getAuthenticatedClient",
+								""
 							]
 						}
 					},
@@ -273,7 +444,75 @@
 			"name": "AdminUsers",
 			"item": [
 				{
-					"name": "updateUser(Admin)",
+					"name": "getAllUsers(Admin)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/getAllUsersADMIN/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"getAllUsersADMIN",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById(Admin)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/getByIdADMIN/684c807b12163a3c82af23e7",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"getByIdADMIN",
+								"684c807b12163a3c82af23e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUsers_Client(Admin)",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -288,13 +527,13 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Joel",
+									"value": "Pamal",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3200/v1/user/updateUser/68183e8423c15388c1fabb0a",
+							"raw": "http://localhost:3200/v1/user/updateUserADMIN/684c8538cf4f5edb75d13d6b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -303,15 +542,15 @@
 							"path": [
 								"v1",
 								"user",
-								"updateUser",
-								"68183e8423c15388c1fabb0a"
+								"updateUserADMIN",
+								"684c8538cf4f5edb75d13d6b"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "deleteUser(Admin)",
+					"name": "deleteUsers_Client(Admin)",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -322,7 +561,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3200/v1/user/deleteUser/68183e8423c15388c1fabb0a",
+							"raw": "http://localhost:3200/v1/user/deleteUserADMIN/684c8538cf4f5edb75d13d6b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -331,8 +570,76 @@
 							"path": [
 								"v1",
 								"user",
-								"deleteUser",
-								"68183e8423c15388c1fabb0a"
+								"deleteUserADMIN",
+								"684c8538cf4f5edb75d13d6b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserImage_Client(Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/deleteUserImage/684b2e1f83e8444e85ac46f6",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"deleteUserImage",
+								"684b2e1f83e8444e85ac46f6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserImage_Client(Admin, Funciona pero no usar)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Desktop/Captura de pantalla 2025-06-12 170037.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/updateUserImage/684b2e1f83e8444e85ac46f6",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"updateUserImage",
+								"684b2e1f83e8444e85ac46f6"
 							]
 						}
 					},
