@@ -1,7 +1,8 @@
 // Validar campos en las rutas
 import { body } from "express-validator";
+import { isValidObjectId } from 'mongoose'
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, objectIdValid, notRequiredField, findUser, findPublication} from "../utils/db.validators.js";
+import { existUsername, existEmail, objectIdValid, notRequiredField, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -92,4 +93,74 @@ export const passwordVerify = [
   .isLength({min: 8})
   .withMessage('Password need min characters'),
   validateErrors
+]
+
+
+//Validación al agregar Institución
+export const validateCreateInstitution = [
+    body('name', 'Invalid name')
+        .notEmpty()
+        .custom(async (value) => {
+        await validateInstitutionName(value)
+        }),
+    body('type', 'Invalid type')
+        .notEmpty()
+        .custom((value) => {
+        validateInstitutionType(value)
+        return true
+        }),
+    body('description', 'Description is required')
+        .notEmpty()
+        .isLength({ max: 150 })
+        .withMessage('Description can’t exceed 150 characters'),
+    body('state', 'Invalid state')
+        .optional()
+        .custom((value) => {
+        validateInstitutionState(value)
+        return true
+        }),
+    body('userId', 'Invalid user ID')
+        .notEmpty()
+        .custom(async (value) => {
+        if (!isValidObjectId(value)) {
+            throw new Error('User ID is not a valid ObjectId')
+        }
+        await validateInstitutionUserId(value)
+        }),
+    validateErrors
+]
+
+
+//Validación al actualizar Institución
+export const validateUpdateInstitution = [
+    body('name', 'Invalid name')
+        .optional()
+        .custom(async (value) => {
+        await validateInstitutionName(value)
+        }),
+    body('type', 'Invalid type')
+        .optional()
+        .custom((value) => {
+        validateInstitutionType(value)
+        return true
+        }),
+    body('description', 'Description is required')
+        .optional()
+        .isLength({ max: 150 })
+        .withMessage('Description can’t exceed 150 characters'),
+    body('state', 'Invalid state')
+        .optional()
+        .custom((value) => {
+        validateInstitutionState(value)
+        return true
+        }),
+    body('userId', 'Invalid user ID')
+        .optional()
+        .custom(async (value) => {
+        if (!isValidObjectId(value)) {
+            throw new Error('User ID is not a valid ObjectId')
+        }
+        await validateInstitutionUserId(value)
+        }),
+    validateErrors
 ]

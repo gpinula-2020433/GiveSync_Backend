@@ -4,29 +4,25 @@ import path from 'path';
 import Institution from '../institution/institution.model.js'
 
 
-export const test = async (req, res) => {
-    return res.send('The institution route is running')
-}
-
+//Listar todas las instituciones
 export const getAllInstitutions= async (req, res)=> {
     try{
         const {limit = 10, skip =0}= req.query
         const institution = await Institution.find()
             .skip(skip)
             .limit(limit)
-            .populate('services', "name type description state")
         if(institution.length === 0)
             return res.status(404).send(
             {
                 succes: false,
-                message: 'Institutions not found'
+                message: 'Instituciones no encontradas'
 
             }
         )
         return res.send(
             {
                 succes: true,
-                message: 'Institutions found',
+                message: 'Instituciones encontradas',
                 institution
             }
         )
@@ -42,6 +38,8 @@ export const getAllInstitutions= async (req, res)=> {
     }
 }
 
+
+//Listar institución por Id
 export const getInstitutionById = async (req, res) => {
     try {
         const { id } = req.params
@@ -49,12 +47,12 @@ export const getInstitutionById = async (req, res) => {
         if (!institution) {
             return res.status(404).send({
                 success: false,
-                message : 'Institution not found'
+                message : 'Institución no encontrada'
             })
         }
         return res.send({
             success: true,
-            message: 'Institution found',
+            message: 'Institución encontrada',
             institution
         })
     } catch (err) {
@@ -68,6 +66,7 @@ export const getInstitutionById = async (req, res) => {
 }
 
 
+//Agregar Institución
 export const addInstitution = async(req, res)=>{
     const data = req.body
     try {
@@ -80,7 +79,7 @@ export const addInstitution = async(req, res)=>{
         return res.send(
             {
                 success: true,
-                message: 'Saved successfully',
+                message: 'Guardado exitosamente',
                 institution
             }
         )
@@ -96,6 +95,8 @@ export const addInstitution = async(req, res)=>{
     }
 }
 
+
+//Actualizar Institución
 export const updateInstitution = async(req, res)=>{
     try {
         const {id} = req.params
@@ -111,13 +112,13 @@ export const updateInstitution = async(req, res)=>{
             return res.status(404).send(
                 {
                     success: false,
-                    message: 'Institution not found'
+                    message: 'Institución no encontrada'
                 }
             )
         return res.send(
             {
                 success: true,
-                message: 'Institution updated',
+                message: 'Institución encontrada y actualizada',
                 update
             }
         )
@@ -134,6 +135,7 @@ export const updateInstitution = async(req, res)=>{
 }
 
 
+//Actualizar Imagen de la Institución
 export const updateInstitutionImage = async(req, res)=>{
     try{
         const {id} = req.params
@@ -152,14 +154,14 @@ export const updateInstitutionImage = async(req, res)=>{
             return res.status(404).send(
                 {
                     success: false,
-                    message: 'Institution not found - not updated'
+                    message: 'Institución no encontrada - no actualizado'
                 }
             )
         
         return res.send(
             {
                 success: true,
-                message: 'Institution updated successfully',
+                message: 'Imagen de institución actualizada exitosamente',
                 institution
             }
         )
@@ -176,6 +178,7 @@ export const updateInstitutionImage = async(req, res)=>{
 }
 
 
+//Eliminar Institución
 export const deleteInstitution = async (req, res) => {
     try {
         let {id} = req.params
@@ -185,12 +188,12 @@ export const deleteInstitution = async (req, res) => {
             return res.status(404).send(
         {
             success: false,
-            message: 'Institution not founded'
+            message: 'Institución no encontrada'
         })
         return res.send(
             {
                 success: true,
-                message: 'Deleted succesfully'
+                message: 'Eliminado exitosamente'
             }
         )
     } catch (err) {
