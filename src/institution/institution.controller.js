@@ -15,14 +15,14 @@ export const getAllInstitutions= async (req, res)=> {
             return res.status(404).send(
             {
                 succes: false,
-                message: 'Institutions not found'
+                message: 'Instituciones no encontradas'
 
             }
         )
         return res.send(
             {
                 succes: true,
-                message: 'Institutions found',
+                message: 'Instituciones encontradas',
                 institution
             }
         )
@@ -47,12 +47,12 @@ export const getInstitutionById = async (req, res) => {
         if (!institution) {
             return res.status(404).send({
                 success: false,
-                message : 'Institution not found'
+                message : 'Institución no encontrada'
             })
         }
         return res.send({
             success: true,
-            message: 'Institution found',
+            message: 'Institución encontrada',
             institution
         })
     } catch (err) {
@@ -79,7 +79,7 @@ export const addInstitution = async(req, res)=>{
         return res.send(
             {
                 success: true,
-                message: 'Saved successfully',
+                message: 'Guardado exitosamente',
                 institution
             }
         )
@@ -112,13 +112,13 @@ export const updateInstitution = async(req, res)=>{
             return res.status(404).send(
                 {
                     success: false,
-                    message: 'Institution not found'
+                    message: 'Institución no encontrada'
                 }
             )
         return res.send(
             {
                 success: true,
-                message: 'Institution updated',
+                message: 'Institución encontrada y actualizada',
                 update
             }
         )
@@ -154,14 +154,14 @@ export const updateInstitutionImage = async(req, res)=>{
             return res.status(404).send(
                 {
                     success: false,
-                    message: 'Institution not found - not updated'
+                    message: 'Institución no encontrada - no actualizado'
                 }
             )
         
         return res.send(
             {
                 success: true,
-                message: 'Institution updated successfully',
+                message: 'Imagen de institución actualizada exitosamente',
                 institution
             }
         )
@@ -188,12 +188,12 @@ export const deleteInstitution = async (req, res) => {
             return res.status(404).send(
         {
             success: false,
-            message: 'Institution not founded'
+            message: 'Institución no encontrada'
         })
         return res.send(
             {
                 success: true,
-                message: 'Deleted succesfully'
+                message: 'Eliminado exitosamente'
             }
         )
     } catch (err) {

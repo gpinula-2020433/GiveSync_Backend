@@ -53,15 +53,15 @@ export const objectIdValid = (objectId) => {
 // Validar que el nombre no esté vacío y sea único
 export const validateInstitutionName = async (name) => {
   if (!name) {
-    throw new Error('Name is required')
+    throw new Error('El nombre es obligatorio')
   }
   if (name.length > 100) {
-    throw new Error("Name can't exceed 100 characters")
+    throw new Error("El nombre no puede exceder los 100 caracteres")
   }
 
   const existingInstitution = await Institution.findOne({ name: name.trim() })
   if (existingInstitution) {
-    throw new Error('Institution name must be unique')
+    throw new Error('El nombre de la institución ya existe')
   }
 }
 
@@ -70,11 +70,11 @@ export const validateInstitutionName = async (name) => {
 export const validateInstitutionType = (type) => {
   const allowedTypes = ['EATERS', 'ORPHANAGE', 'ACYL']
   if (!type) {
-    throw new Error('Type is required')
+    throw new Error('El tipo de institución es obligatorio')
   }
   const upperType = type.toUpperCase()
   if (!allowedTypes.includes(upperType)) {
-    throw new Error(`Type must be one of: ${allowedTypes.join(', ')}`)
+    throw new Error(`El tipo debe ser uno de: ${allowedTypes.join(', ')}`)
   }
 }
 
@@ -83,18 +83,18 @@ export const validateInstitutionState = (state) => {
   const allowedStates = ['REFUSED', 'ACCEPTED', 'EARRING']
   const cleanedState = state?.trim().toUpperCase()
   if (!allowedStates.includes(cleanedState)) {
-    throw new Error(`State must be one of: ${allowedStates.join(', ')}`)
+    throw new Error(`El estado debe ser uno de: ${allowedStates.join(', ')}`)
   }
 }
 
 // Validar que el userId sea un ObjectId válido y exista en la DB
 export const validateInstitutionUserId = async (userId) => {
   if (!userId || !isValidObjectId(userId)) {
-    throw new Error('User ID is not a valid ObjectId')
+    throw new Error('El ID de usuario no es un ObjectId válido')
   }
 
   const user = await User.findById(userId)
   if (!user) {
-    throw new Error('User not found')
+    throw new Error('Usuario no encontrado')
   }
 }
