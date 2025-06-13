@@ -2,7 +2,7 @@
 import { body } from "express-validator";
 import { isValidObjectId } from 'mongoose'
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, objectIdValid, notRequiredField, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
+import { existUsername, existEmail, objectIdValid, notRequiredField, existInstitution,findUser, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -95,6 +95,22 @@ export const passwordVerify = [
   validateErrors
 ]
 
+export const donationValidator = [
+    body('amount')
+      .notEmpty()
+      .withMessage('El monto es obligatorio')
+      .isFloat({ gt: 0, lt: 1000000 })
+      .withMessage('El monto debe estar entre 1 y 1,000,000'),
+    body('institution')
+      .notEmpty()
+      .withMessage('La institución es obligatoria')
+      .custom(existInstitution),
+    body('user')
+      .notEmpty()
+      .withMessage('El usuario es obligatorio')
+      .custom(findUser),
+    validateErrors
+  ]
 
 //Validación al agregar Institución
 export const validateCreateInstitution = [

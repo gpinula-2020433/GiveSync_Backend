@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6664503d-6610-4cf6-852c-b93c88df8bb1",
+		"_postman_id": "9975df59-332a-45ec-8c8c-71d20fe69227",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37962418"
+		"_exporter_id": "37956970"
 	},
 	"item": [
 		{
@@ -179,7 +179,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/68420be15b3778d73a5a83ae",
+							"raw": "localhost:3200/v1/user/68435e5b13ef2496ec4e9ef6",
 							"host": [
 								"localhost"
 							],
@@ -187,7 +187,7 @@
 							"path": [
 								"v1",
 								"user",
-								"68420be15b3778d73a5a83ae"
+								"68435e5b13ef2496ec4e9ef6"
 							]
 						}
 					},
@@ -215,7 +215,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/updateClient/68420c5b08014db9c9abe94d",
+							"raw": "localhost:3200/v1/user/updateClient/684b577f9ed8b1a34cf7b47f",
 							"host": [
 								"localhost"
 							],
@@ -224,7 +224,7 @@
 								"v1",
 								"user",
 								"updateClient",
-								"68420c5b08014db9c9abe94d"
+								"684b577f9ed8b1a34cf7b47f"
 							]
 						}
 					},
@@ -246,13 +246,13 @@
 							"urlencoded": [
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Password123!",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/deleteClient/6817a27d4aa01336540a8a85",
+							"raw": "localhost:3200/v1/user/deleteClient/684b577f9ed8b1a34cf7b47f",
 							"host": [
 								"localhost"
 							],
@@ -261,7 +261,7 @@
 								"v1",
 								"user",
 								"deleteClient",
-								"6817a27d4aa01336540a8a85"
+								"684b577f9ed8b1a34cf7b47f"
 							]
 						}
 					},
@@ -510,7 +510,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3200/v1/institution/684377a7ae35afd5fb44dcec",
+							"raw": "localhost:3200/v1/institution/684b536b4064e696b25cf251",
 							"host": [
 								"localhost"
 							],
@@ -518,7 +518,367 @@
 							"path": [
 								"v1",
 								"institution",
-								"684377a7ae35afd5fb44dcec"
+								"684b536b4064e696b25cf251"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Donation",
+			"item": [
+				{
+					"name": "AddDonation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "amount",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "institution",
+									"value": "684b536b4064e696b25cf251",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "684b556f7ccfa7caa8ab1e93",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonationById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/684b55817ccfa7caa8ab1e9a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								"684b55817ccfa7caa8ab1e9a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "getAllComment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "123123Aa!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addComment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "hola como estas",
+									"type": "text"
+								},
+								{
+									"key": "commentImage",
+									"type": "file",
+									"src": "/C:/Users/PC/Desktop/luciano/imgs/descarga (2).jpeg"
+								},
+								{
+									"key": "userId",
+									"value": "684b326042ff03daeb314e3c",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "publicationId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "hola como estas",
+									"type": "text"
+								},
+								{
+									"key": "commentImage",
+									"type": "file",
+									"src": "/C:/Users/PC/Desktop/luciano/imgs/1354384.png"
+								},
+								{
+									"key": "userId",
+									"value": "684b326042ff03daeb314e3c",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "publicationId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/684ba526d8d4037dbf024560",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684ba526d8d4037dbf024560"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/684ba70b717b341d466592cc",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684ba70b717b341d466592cc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684913c5bb20626ef3dcefad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentsByuser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684913c5bb20626ef3dcefad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentsByPublication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"684913c5bb20626ef3dcefad"
 							]
 						}
 					},

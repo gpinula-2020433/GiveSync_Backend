@@ -6,7 +6,8 @@ import cors from 'cors';
 import authRoutes from '../src/auth/auth.routes.js';
 import userRoutes from '../src/user/user.routes.js';
 import publicationRouter from '../src/publication/publication.routes.js'
-import institutionRoutes from '../src/institution/institution.routes.js';
+import institutionRoutes from '../src/institution/institution.routes.js'
+import donationRoutes from '../src/donation/donation.routes.js'
 import commentRoutes from '../src/comment/comment.routes.js';
 
 import { limiter } from '../middlewares/rate.limit.js';
@@ -42,6 +43,7 @@ const routes = (app) => {
   app.use('/v1/user', userRoutes);
   app.use('/v1/publication', publicationRouter)
   app.use('/v1/institution', institutionRoutes)
+  app.use('/v1/donation', donationRoutes)
   app.use('/v1/comment', commentRoutes)
   app.use(deleteFileOnError);
 };
