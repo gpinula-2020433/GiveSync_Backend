@@ -2,7 +2,7 @@
 import { body } from "express-validator";
 import { isValidObjectId } from 'mongoose'
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, objectIdValid, notRequiredField, isOwnerOfInstitution, existInstitution,findUser, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
+import { existUsername, existEmail, objectIdValid, notRequiredField, isOwnerOfInstitution, existInstitution, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'El nombre no puede estar vacío')
