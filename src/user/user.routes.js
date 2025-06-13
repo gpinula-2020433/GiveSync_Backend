@@ -4,22 +4,20 @@ import {
     deleteClient, 
     deleteUser, 
     deleteUserProfileImage, 
+    deleteUserProfileImageClient, 
     getAllUsers, 
     getUserById, 
-    test, 
     updateClient, 
     updatePassword, 
-    updateUser, 
-    updateUserImage, 
-    updateUserProfileImage
+    updateUser,
+    updateUserProfileImage,
+    updateUserProfileImageClient
 } from "./user.controller.js"
 import { uploadProfilePicture } from '../../middlewares/multer.uploads.js'
 import { validateJwt, isAdmin, isClient } from "../../middlewares/validate.jwt.js"
 import { passwordVerify } from "../../middlewares/validators.js"
 
 const api = Router()
-
-api.get('/test', test)
 
 // Admin
 api.get('/getAllUsersADMIN', [validateJwt, isAdmin], getAllUsers)
@@ -33,14 +31,25 @@ api.put('/updateClient/', [validateJwt, isClient], updateClient)
 api.delete('/deleteClient/', [validateJwt, isClient], deleteClient)
 api.put('/updatePassword/:id', [validateJwt, isClient, passwordVerify], updatePassword)
 
+api.put('/updateUserImageClient/', 
+    [
+        validateJwt, 
+        isClient,
+        uploadProfilePicture.single("imageUser")
+    ], 
+    updateUserProfileImageClient)
+
+api.delete('/deleteUserImageClient/', [validateJwt, isClient], deleteUserProfileImageClient)
+
 // Imágenes
 api.put('/updateUserImage/:id', 
     [
         validateJwt, 
+        isAdmin,
         uploadProfilePicture.single("imageUser")
     ], 
     updateUserProfileImage)
 
-api.delete('/deleteUserImage/:id', deleteUserProfileImage)
+api.delete('/deleteUserImage/:id', [validateJwt, isAdmin],deleteUserProfileImage)
 
 export default api
