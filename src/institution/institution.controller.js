@@ -73,9 +73,14 @@ export const addInstitution = async(req, res)=>{
         if(req.file?.filename){
             data.imageInstitution = req.file.filename
         }
-        const institution = new Institution(data)
-        await institution.save()
+        let institution = new Institution(data)
+        
+        institution.userId = req.user.uid
 
+        await institution.save()
+        institution = await Institution.findById(institution._id).populate('userId', 'name surname username, email')
+
+        console.log('Institution created', institution.state)
         return res.send(
             {
                 success: true,

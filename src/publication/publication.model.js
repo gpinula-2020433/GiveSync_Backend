@@ -24,6 +24,10 @@ const publicationSchema = Schema(
             ref: 'Institution',
             required: [true, 'Institution is required'],
         }
+    },
+    {
+        versionKey: false,
+        timestamps: true
     }
 )
 

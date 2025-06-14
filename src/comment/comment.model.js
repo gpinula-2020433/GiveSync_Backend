@@ -22,6 +22,10 @@ const commentSchema = Schema(
             type: Date,
             default: Date.now
         }
+    },
+    {
+        versionKey: false,
+        timestamps: true
     }
 )
 export default model ('Comment', commentSchema)

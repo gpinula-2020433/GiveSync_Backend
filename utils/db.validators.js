@@ -112,10 +112,9 @@ export const existInstitution = async (id) => {
     }
     return true
   } catch (err) {
-    throw new Error('Error al verificar la institución: ')
+    throw new Error(err.message || 'Error al verificar la institución')
   }
 }
-
 
 
 // Validar que el nombre no esté vacío y sea único

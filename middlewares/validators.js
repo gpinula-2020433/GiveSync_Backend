@@ -114,11 +114,9 @@ export const donationValidator = [
     body('institution')
       .notEmpty()
       .withMessage('La institución es obligatoria')
-      .custom(existInstitution),
-    body('user')
-      .notEmpty()
-      .withMessage('El usuario es obligatorio')
-      .custom(findUser),
+      .custom(async (value)=>{
+        return await existInstitution(value)
+      }),
     validateErrors
   ]
 
@@ -146,6 +144,7 @@ export const validateCreateInstitution = [
         return true
         }),
     body('userId', 'Invalid user ID')
+        .optional()
         .notEmpty()
         .custom(async (value) => {
         if (!isValidObjectId(value)) {

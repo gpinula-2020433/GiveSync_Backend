@@ -7,12 +7,12 @@ const donationSchema = new Schema(
       required: [true, 'Amount is required'],
       min: [1, 'Amount must be at least 1'],
       max: [1000000, 'Amount cannot exceed 1,000,000']
-    }, 
-    maintenanceAmount: {
+    },
+    institutionAmount: {
       type: Number,
       required: true
     },
-    institutionAmount: {
+    maintenanceAmount: {
       type: Number,
       required: true
     },

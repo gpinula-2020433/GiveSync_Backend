@@ -20,7 +20,7 @@ export const getAllComments = async (req, res) => {
 
     return res.send({
       success: true,
-      message: 'Comentarios encontrados',
+      message: `Se han encontrado ${comments.length} comentarios`,
       comments
     })
   } catch (err) {
@@ -95,11 +95,19 @@ export const addComment = async (req, res) => {
 export const updateComment = async (req, res) => {
   try {
     const { id } = req.params;
-    let data = req.body;
+    const idUserToUpdate = req.user.uid;
+    const data = req.body;
 
     // Buscar comentario actual para obtener la imagen anterior
-    let commentBeforeUpdate = await Comment.findById(id);
-    if(req.user.uid != commentBeforeUpdate.userId){
+    const commentBeforeUpdate = await Comment.findById(id);
+    if(!commentBeforeUpdate){
+      return res.status(404).send({
+        success: false,
+        message: 'Comentario no encontrado'
+      });
+    } 
+    
+    if(idUserToUpdate !== commentBeforeUpdate.userId.toString()){
       return res.send(
           {
               success: false,
@@ -107,8 +115,7 @@ export const updateComment = async (req, res) => {
           }
       )
   }
-
-
+  
     if (!commentBeforeUpdate) {
       return res.status(404).send({
         success: false,
@@ -130,7 +137,6 @@ export const updateComment = async (req, res) => {
       }
     }
 
-    
     // Actualizar comentario con los nuevos datos
     const comment = await Comment.findByIdAndUpdate(id, data, { new: true })
       .populate('userId', 'name email')
@@ -218,7 +224,7 @@ export const getCommentsByPublication = async (req, res) => {
 export const getCommentsByUser = async (req, res) => {
   try {
     const { userId } = req.params
-    const comments = await Comment.find({ userId })
+    const comments = await Comment.findById(userId)
       .populate('userId', 'name email')
       .populate('publicationId', 'title')
 
