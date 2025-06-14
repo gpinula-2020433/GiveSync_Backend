@@ -15,7 +15,12 @@ export const register = async(req, res)=>{
         user.role = 'CLIENT'
         user.imageUser = req.file?.filename || null
         await user.save()
-        return res.send({message: `Registro Satisfactorio ya puedes iniciar sesión: ${user.name}`})
+        return res.send(
+            {
+                message: `Registro Satisfactorio ya puedes iniciar sesión: ${user.name}`,
+                registeredUser: user
+            }
+        )
     } catch (error) {
         return res.status(500).send({message: 'General error with user registration', error})
     }

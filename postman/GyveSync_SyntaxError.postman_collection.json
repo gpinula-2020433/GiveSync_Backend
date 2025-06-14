@@ -119,8 +119,8 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
 									"key": "name",
 									"value": "Dylan",
@@ -145,6 +145,11 @@
 									"key": "password",
 									"value": "Password123!",
 									"type": "text"
+								},
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/Usuario/Desktop/img.png"
 								}
 							]
 						},
@@ -156,6 +161,118 @@
 							"port": "3200",
 							"path": [
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userLoggin",
+									"value": "Dylan1",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Marcos",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "Dylan1",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "p1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								},
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/Usuario/Desktop/438304890_970194751220980_2411740212726118493_n.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "surname",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -908,6 +1025,233 @@
 								"v1",
 								"donation",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publication",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/list",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/684d04473bdcf35f41b28747",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"684d04473bdcf35f41b28747"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPublication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Cuchaooo",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Luisito Comunica",
+									"type": "text"
+								},
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "institutionId",
+									"value": "684d0952c3239b196d1a8024",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePublication",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "la maquina maz velozzzzzzzzz",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "cuchaoo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/update/684d095fc3239b196d1a802a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"update",
+								"684d095fc3239b196d1a802a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateImageP",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/updateImage/684d095fc3239b196d1a802a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"updateImage",
+								"684d095fc3239b196d1a802a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePublication",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/delete/684d06739985ed9d0350f423",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"delete",
+								"684d06739985ed9d0350f423"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/test",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"test"
 							]
 						}
 					},
