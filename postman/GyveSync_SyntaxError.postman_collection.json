@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "69c563cb-1450-4731-8d49-b65573f8cd04",
+		"_postman_id": "56f24fea-dc05-4ef5-9dcb-af7a2b05493d",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37957002"
@@ -139,102 +139,6 @@
 								{
 									"key": "email",
 									"value": "dylan@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "Password123!",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/register",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "register Copy",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Pamal",
-									"type": "text"
-								},
-								{
-									"key": "surname",
-									"value": "Pamal",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "1pamal",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "pamal@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "Password123!",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/register",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "register Copy",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Pamal",
-									"type": "text"
-								},
-								{
-									"key": "surname",
-									"value": "Pamal",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "1pamal",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "pamal@gmail.com",
 									"type": "text"
 								},
 								{
@@ -732,8 +636,9 @@
 								},
 								{
 									"key": "userId",
-									"value": "68435e5b13ef2496ec4e9ef6",
-									"type": "text"
+									"value": "684bc12aa7eb18bcb569a332",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -768,7 +673,7 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Fundacion Toledo",
+									"value": "Fundacion Toledo1",
 									"type": "text"
 								},
 								{
@@ -784,7 +689,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/684361370a251fd26eee3fe4",
+							"raw": "localhost:3200/v1/institution/update/684ce7377a02d36dc7fbea0b",
 							"host": [
 								"localhost"
 							],
@@ -792,7 +697,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"684361370a251fd26eee3fe4"
+								"update",
+								"684ce7377a02d36dc7fbea0b"
 							]
 						}
 					},
@@ -815,12 +721,12 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/KinalNuevo.jpg"
+									"src": "/C:/Users/Usuario/Desktop/img.png"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/updateInstitutionImage/684377a7ae35afd5fb44dcec",
+							"raw": "localhost:3200/v1/institution/updateImage/684ce7377a02d36dc7fbea0b",
 							"host": [
 								"localhost"
 							],
@@ -828,8 +734,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"updateInstitutionImage",
-								"684377a7ae35afd5fb44dcec"
+								"updateImage",
+								"684ce7377a02d36dc7fbea0b"
 							]
 						}
 					},
@@ -847,7 +753,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:3200/v1/institution/684b536b4064e696b25cf251",
+							"raw": "localhost:3200/v1/institution/delete/684ceb5a0c8e54ba63b2c6e5",
 							"host": [
 								"localhost"
 							],
@@ -855,7 +761,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"684b536b4064e696b25cf251"
+								"delete",
+								"684ceb5a0c8e54ba63b2c6e5"
 							]
 						}
 					},
@@ -882,17 +789,12 @@
 							"urlencoded": [
 								{
 									"key": "amount",
-									"value": "100",
+									"value": "1000",
 									"type": "text"
 								},
 								{
 									"key": "institution",
-									"value": "684b536b4064e696b25cf251",
-									"type": "text"
-								},
-								{
-									"key": "user",
-									"value": "684b556f7ccfa7caa8ab1e93",
+									"value": "684cec26bd51c9fa8581da9a",
 									"type": "text"
 								}
 							]
@@ -913,7 +815,7 @@
 					"response": []
 				},
 				{
-					"name": "getDonations",
+					"name": "getDonationsOfAuthenticatedClient",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -964,7 +866,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/donation/684b55817ccfa7caa8ab1e9a",
+							"raw": "localhost:3200/v1/donation/684cecb0bd51c9fa8581daad",
 							"host": [
 								"localhost"
 							],
@@ -972,7 +874,40 @@
 							"path": [
 								"v1",
 								"donation",
-								"684b55817ccfa7caa8ab1e9a"
+								"684cecb0bd51c9fa8581daad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								""
 							]
 						}
 					},
@@ -1044,13 +979,7 @@
 								{
 									"key": "commentImage",
 									"type": "file",
-									"src": "/C:/Users/PC/Desktop/luciano/imgs/descarga (2).jpeg"
-								},
-								{
-									"key": "userId",
-									"value": "684b326042ff03daeb314e3c",
-									"type": "text",
-									"disabled": true
+									"src": "/C:/Users/Usuario/Desktop/img.png"
 								},
 								{
 									"key": "publicationId",
@@ -1097,7 +1026,7 @@
 								{
 									"key": "commentImage",
 									"type": "file",
-									"src": "/C:/Users/PC/Desktop/luciano/imgs/1354384.png"
+									"src": "/C:/Users/Usuario/Desktop/img.png"
 								},
 								{
 									"key": "userId",
@@ -1114,7 +1043,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/comment/684ba526d8d4037dbf024560",
+							"raw": "localhost:3200/v1/comment/684cf42d81aae31eea265f26",
 							"host": [
 								"localhost"
 							],
@@ -1122,7 +1051,7 @@
 							"path": [
 								"v1",
 								"comment",
-								"684ba526d8d4037dbf024560"
+								"684cf42d81aae31eea265f26"
 							]
 						}
 					},
@@ -1144,7 +1073,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/comment/684ba70b717b341d466592cc",
+							"raw": "localhost:3200/v1/comment/684cf46081aae31eea265f37",
 							"host": [
 								"localhost"
 							],
@@ -1152,7 +1081,7 @@
 							"path": [
 								"v1",
 								"comment",
-								"684ba70b717b341d466592cc"
+								"684cf46081aae31eea265f37"
 							]
 						}
 					},
@@ -1164,7 +1093,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"raw": "http://localhost:3200/v1/comment/684cf0f31b71e7f6d98003c4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1173,7 +1102,7 @@
 							"path": [
 								"v1",
 								"comment",
-								"684913c5bb20626ef3dcefad"
+								"684cf0f31b71e7f6d98003c4"
 							]
 						}
 					},
@@ -1185,7 +1114,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"raw": "http://localhost:3200/v1/comment/684bc12aa7eb18bcb569a332",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1194,250 +1123,7 @@
 							"path": [
 								"v1",
 								"comment",
-								"684913c5bb20626ef3dcefad"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getCommentsByPublication",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"comment",
-								"684913c5bb20626ef3dcefad"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Comment",
-			"item": [
-				{
-					"name": "getAllComment",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "password",
-									"value": "123123Aa!",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/v1/comment/",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"comment",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "addComment",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "content",
-									"value": "hola como estas",
-									"type": "text"
-								},
-								{
-									"key": "commentImage",
-									"type": "file",
-									"src": "/C:/Users/PC/Desktop/luciano/imgs/descarga (2).jpeg"
-								},
-								{
-									"key": "userId",
-									"value": "684b326042ff03daeb314e3c",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "publicationId",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/v1/comment/",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"comment",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateComment",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "content",
-									"value": "hola como estas",
-									"type": "text"
-								},
-								{
-									"key": "commentImage",
-									"type": "file",
-									"src": "/C:/Users/PC/Desktop/luciano/imgs/1354384.png"
-								},
-								{
-									"key": "userId",
-									"value": "684b326042ff03daeb314e3c",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "publicationId",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/v1/comment/684ba526d8d4037dbf024560",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"comment",
-								"684ba526d8d4037dbf024560"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteComment",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "localhost:3200/v1/comment/684ba70b717b341d466592cc",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"comment",
-								"684ba70b717b341d466592cc"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getCommentById",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"comment",
-								"684913c5bb20626ef3dcefad"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getCommentsByuser",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"comment",
-								"684913c5bb20626ef3dcefad"
+								"684bc12aa7eb18bcb569a332"
 							]
 						}
 					},
