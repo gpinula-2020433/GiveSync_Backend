@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "cdefc305-d14d-46d7-9a3a-86177562aba0",
+		"name": "GyveSync",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37956977"
+	},
+	"item": [
+		{
+			"name": "Publication",
+			"item": [
+				{
+					"name": "Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/test",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/list",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPublication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Cuchaooo",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Luisito Comunica",
+									"type": "text"
+								},
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Pictures/imagen1.jpg",
+									"disabled": true
+								},
+								{
+									"key": "institutionId",
+									"value": "684b50d143b91b63c590159c",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/68435eac8a0514f147296604",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"68435eac8a0514f147296604"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePublication",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "la maquina maz velozzzzzzzzz",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "cuchaoo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/update/684a5ce02ac19003fbf22c1f",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"update",
+								"684a5ce02ac19003fbf22c1f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateImageP",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Pictures/imagen1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/updateImage/68435eac8a0514f147296604",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"updateImage",
+								"68435eac8a0514f147296604"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePublication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/delete/6843749bdb2e97f81f4c7ecf",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"delete",
+								"6843749bdb2e97f81f4c7ecf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userLoggin",
+									"value": "1dylan",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123123Aa!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Agregar Institución",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "SuperComedor",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "acyl",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "cutchaooo",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "684b5096adde2abe4f1cd34f",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3200/v1/institution/add",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"v1",
+						"institution",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Dylan",
+							"type": "text"
+						},
+						{
+							"key": "surname",
+							"value": "Julian",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "1dylan",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "d@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123123Aa!",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3200/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
