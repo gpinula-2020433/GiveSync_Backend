@@ -1,7 +1,8 @@
 // Validar campos en las rutas
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { validateErrors } from "./validate.errors.js";
 import { existUsername, existEmail, objectIdValid, notRequiredField, findUser, findPublication} from "../utils/db.validators.js";
+import publicationModel from "../src/publication/publication.model.js";
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -55,6 +56,22 @@ export const addCommentV = [
         .custom(findPublication),
     validateErrors
 ]
+
+export const getCommentsByPublicationV = [
+    param('publicationId')
+        .isMongoId()
+        .withMessage('id de la publicacion invalida'),
+    validateErrors
+]
+
+
+export const getCommentsByUserV = [
+    param('userId')
+        .isMongoId()
+        .withMessage('ID del usuario invalido'),
+    validateErrors
+]
+
 
 
 export const updateUserValidator = [
