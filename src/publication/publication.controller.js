@@ -18,12 +18,12 @@ export const getAllPublication = async (req,res)=>{
         if(publication.length == 0){
             return res.status(404).send({
                 success: false,
-                message: 'Publications not found'
+                message: 'No se encontro la publicación'
             })
         }
         return res.send({
             success:true,
-            message: 'Publications found',
+            message: 'Publicaciones encontradas:',
             publication
         })
     }catch(error){
@@ -45,54 +45,84 @@ export const getPublicationId = async(req,res)=>{
             return res.status(404).send(
                 {
                     success: false,
-                    message: 'publication not found'
+                    message: 'No se encontro la publicación'
                 }
             )
         return res.send(
             {
                 success: true,
-                message: 'publication found',
+                message: 'Publicación encontrada:',
                 publication
             }
         )
     } catch (error) {
-        console.error('General error', error)
+        console.error('Error general', error)
         return res.status(500).send(
             {
                 success:false,
-                message: 'General error',
+                message: 'Error general',
                 error
             }
         )
     }
 }
 
-//save publications
+//obtener publicaciones por institución
+export const getPublicationsByInstitution = async(req, res)=>{
+    try {
+        const {institutionId} = req.params
+
+        const publications = await Publication.find({institutionId})
+
+        if(publications.length == 0){
+            return res.status(404).send({
+                success: false,
+                message: 'No se encontraron publicaciones para está intitución'
+            })
+        }
+
+        return res.send({
+            success: true,
+            message: `Publicaciones de la institución ${institutionId}: `,
+            publications
+        })
+    } catch (error) {
+        console.error('Error al obtener publicaciones por intitución', error)
+        return res.status(500).send({
+            success: false,
+            message: 'Error general',
+            error
+        })
+    }
+}
+
+
+//Guatdar publicaciones
 export const addPublication = async (req, res) =>{
     const data = req.body
     try {
-        if(req.file?.filename){
-            data.imagePublication = req.file.filename
+        if(req.files && req.files.length > 0){
+            data.imagePublication = req.files.map(file => file.filename)
         }
 
         let publication = new Publication(data)
         await publication.save()
         
-        return res.status(200).send({message: 'Publications added successfully'})
+        return res.status(200).send({message: 'Publicación agregada correctamente'})
 
     } catch (error) {
         console.error(error)
         return res.status(400).send({
             success: false,
-            message: error.message || 'Error adding a publication'
+            message: error.message || 'Error agregando la publicación'
         })
     }
 }
 
 export const updatePublicaton = async(req, res)=>{
     try {
-        const {id} = req.params
-        const data = req.body
+        let {id} = req.params
+        let data = req.body
 
         const update = await Publication.findByIdAndUpdate(
             id,
@@ -104,13 +134,13 @@ export const updatePublicaton = async(req, res)=>{
             return res.status(404).send(
             {
                 success: false,
-                message: 'Publication not found'
+                message: 'No se encontro la publicación'
             }
         )
         return res.send(
             {
                 success: true,
-                message: 'Publication updated',
+                message: 'Publicación actualizada correctamente',
                 update
             }
         )
@@ -118,7 +148,7 @@ export const updatePublicaton = async(req, res)=>{
         console.error(error)
         return res.status(400).send({
             success: false,
-            message: error.message || 'Error updating publication'
+            message: error.message || 'Error al actualizar la publicación'
         })
     }
 }
@@ -126,38 +156,34 @@ export const updatePublicaton = async(req, res)=>{
 export const updateImagePublication = async (req,res) =>{
     try {
         const {id} = req.params
-        const {filename} = req.file
+        const filenames = req.files.map(file => file.filename)
         const publication = await Publication.findByIdAndUpdate(
             id,
-            {
-                imagePublication: filename
-            },
-            {
-                new:true
-            }
+            {imagePublication: filenames},
+            {new: true}
         )
     
         if(!publication)
             return res.status(404).send(
             {
                 success: false,
-                message: 'Publication not found - not updated'
+                message: 'No se encontro la publicación'
             }
         )
 
         return res.send(
             {
                 success: true,
-                message: 'Publication updated successfully',
+                message: 'Publicación actualizada correctamente',
                 publication
             }
         )
     } catch (error) {
-        console.error('General error', error)
+        console.error('Error general', error)
         return res.status(500).send(
             {
                 success: false,
-                message: 'General Error',
+                message: 'Error actualizando imágenes',
                 error
             }
         )
@@ -177,21 +203,21 @@ export const deletePublication = async (req, res)=>{
             return res.status(404).send(
             {
                 success: false,
-                message: 'Publication not found'
+                message: 'No se encontro la publicación'
             }
         )
         return res.send(
             {
                 success: true,
-                message: 'Deleted successfully'
+                message: 'Eliminado correctamente'
             }
         )
     } catch (error) {
-        console.error('General error', error)
+        console.error('Error general', error)
         return res.status(500).send(
             {
                 success: false,
-                message: 'General error',
+                message: 'Error general',
                 error
             }
         )

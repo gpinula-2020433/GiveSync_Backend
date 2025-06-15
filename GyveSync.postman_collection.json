@@ -50,6 +50,26 @@
 					"response": []
 				},
 				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/68435eac8a0514f147296604",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"68435eac8a0514f147296604"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "addPublication",
 					"request": {
 						"method": "POST",
@@ -74,15 +94,19 @@
 									"type": "text"
 								},
 								{
-									"key": "imagePublication",
-									"type": "file",
-									"src": "/C:/Users/Informatica/Pictures/imagen1.jpg",
-									"disabled": true
+									"key": "institutionId",
+									"value": "684a526ed2577795166f878a",
+									"type": "text"
 								},
 								{
-									"key": "institutionId",
-									"value": "684b50d143b91b63c590159c",
-									"type": "text"
+									"key": "imagePublication",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/halo.jpg"
+								},
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/bmw fondo.jpg"
 								}
 							]
 						},
@@ -96,26 +120,6 @@
 								"v1",
 								"publication",
 								"add"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getById",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3200/v1/publication/68435eac8a0514f147296604",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"publication",
-								"68435eac8a0514f147296604"
 							]
 						}
 					},
@@ -137,7 +141,7 @@
 							"urlencoded": [
 								{
 									"key": "title",
-									"value": "la maquina maz velozzzzzzzzz",
+									"value": "Hola",
 									"type": "text"
 								},
 								{
@@ -167,19 +171,30 @@
 					"name": "updateImageP",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "imagePublication",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Pictures/imagen1.jpg"
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/bmw fondo.jpg"
+								},
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/halo.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/publication/updateImage/68435eac8a0514f147296604",
+							"raw": "localhost:3200/v1/publication/updateImage/684e84580b6462534ef45ffe",
 							"host": [
 								"localhost"
 							],
@@ -188,7 +203,7 @@
 								"v1",
 								"publication",
 								"updateImage",
-								"68435eac8a0514f147296604"
+								"684e84580b6462534ef45ffe"
 							]
 						}
 					},
@@ -198,13 +213,19 @@
 					"name": "deletePublication",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/publication/delete/6843749bdb2e97f81f4c7ecf",
+							"raw": "localhost:3200/v1/publication/delete/684a5ce02ac19003fbf22c1f",
 							"host": [
 								"localhost"
 							],
@@ -213,7 +234,7 @@
 								"v1",
 								"publication",
 								"delete",
-								"6843749bdb2e97f81f4c7ecf"
+								"684a5ce02ac19003fbf22c1f"
 							]
 						}
 					},
@@ -242,7 +263,7 @@
 							"urlencoded": [
 								{
 									"key": "userLoggin",
-									"value": "1dylan",
+									"value": "1pinula",
 									"type": "text"
 								},
 								{
@@ -264,6 +285,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getPublicationByIntitution",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/getByInstitution/684a526ed2577795166f878a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"getByInstitution",
+								"684a526ed2577795166f878a"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -277,7 +319,7 @@
 					"urlencoded": [
 						{
 							"key": "name",
-							"value": "SuperComedor",
+							"value": "Prueba",
 							"type": "text"
 						},
 						{
@@ -287,12 +329,12 @@
 						},
 						{
 							"key": "description",
-							"value": "cutchaooo",
+							"value": "Institución de prueba",
 							"type": "text"
 						},
 						{
 							"key": "userId",
-							"value": "684b5096adde2abe4f1cd34f",
+							"value": "684a5196d2577795166f8788",
 							"type": "text"
 						}
 					]
