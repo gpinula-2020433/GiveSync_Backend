@@ -123,3 +123,41 @@ export const getDonationById = async (req, res) => {
     })
   }
 }
+
+export const getDonationsByInstitution = async (req, res) => {
+  const { institutionId } = req.params
+
+  try {
+    if (!institutionId) {
+      return res.status(400).json({
+        success: false,
+        message: 'ID de institución requerido'
+      })
+    }
+
+    const donations = await Donation.find({ institution: institutionId })
+      .populate('institution', 'name type')
+      .populate('user', 'name surname username')
+
+    if (donations.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No se encontraron donaciones para esta institución'
+      })
+    }
+
+    return res.json({
+      success: true,
+      message: 'Donaciones encontradas para la institución',
+      total: donations.length,
+      donations
+    })
+  } catch (err) {
+    console.error('Error al obtener donaciones por institución:', err)
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener donaciones por institución',
+      error: err.message
+    })
+  }
+}

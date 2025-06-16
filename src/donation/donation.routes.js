@@ -2,7 +2,8 @@ import { Router } from 'express'
 import {
   addDonation,
   getAllDonations,
-  getDonationById
+  getDonationById,
+  getDonationsByInstitution
 } from './donation.controller.js'
 import { donationValidator } from '../../middlewares/validators.js'
 import { validateErrors } from '../../middlewares/validate.errors.js'
@@ -12,5 +13,7 @@ const api = Router()
 api.get('/', validateJwt,getAllDonations)
 api.get('/:id', validateJwt, getDonationById)
 api.post('/add', validateJwt, donationValidator, validateErrors, addDonation)
+api.get('/institution/:institutionId', getDonationsByInstitution)
+
 
 export default api

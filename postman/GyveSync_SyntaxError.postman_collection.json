@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9975df59-332a-45ec-8c8c-71d20fe69227",
+		"_postman_id": "27a56a02-2046-46e0-9c77-60d68be2c277",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37956970"
@@ -530,12 +530,7 @@
 								},
 								{
 									"key": "institution",
-									"value": "684b536b4064e696b25cf251",
-									"type": "text"
-								},
-								{
-									"key": "user",
-									"value": "684b556f7ccfa7caa8ab1e93",
+									"value": "68507f6eeb463647948b582a",
 									"type": "text"
 								}
 							]
@@ -607,7 +602,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/donation/684b55817ccfa7caa8ab1e9a",
+							"raw": "localhost:3200/v1/donation/684b57859ed8b1a34cf7b487",
 							"host": [
 								"localhost"
 							],
@@ -615,7 +610,41 @@
 							"path": [
 								"v1",
 								"donation",
-								"684b55817ccfa7caa8ab1e9a"
+								"684b57859ed8b1a34cf7b487"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonationByInstituction",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/institution/68507f6eeb463647948b582a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								"institution",
+								"68507f6eeb463647948b582a"
 							]
 						}
 					},
