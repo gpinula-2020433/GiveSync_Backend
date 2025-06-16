@@ -30,9 +30,9 @@ export const registerValidator = [
 ]
 
 export const addPublicationValidation = [
-    body('content', 'Content cannot be empty')
+    body('content', 'El contenido no puede estar vacío')
         .notEmpty(),
-    body('institutionId', 'Institution cannot be empty')
+    body('institutionId', 'La intitución no puede estar vacía')
         .notEmpty()
         .custom((institutionId, {req})=>{
             return isOwnerOfInstitution(institutionId, req.user.uid)

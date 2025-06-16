@@ -65,14 +65,14 @@ export const objectIdValid = (objectId) => {
 export const isOwnerOfInstitution = async(institutionId, userId) =>{
   const institution = await Institution.findById(institutionId)
   if(!institution){
-    throw new Error('Institution not found')
+    throw new Error('No se encontro la institución')
   }
 
   console.log('ID de usuario autenticado:', userId)
   console.log('ID del dueño de la institución:', institution.userId.toString())
 
   if(institution.userId.toString() !== String(userId)){
-    throw new ('You do not have permission to update in this institution.')
+    throw new ('No tienes permiso para agregar publicaciones a está institución')
   }
 
   return true
@@ -83,7 +83,7 @@ export const isOwnerOfPublication = async (req, res, next) => {
   try {
     const publication = await Publication.findById(req.params.id).populate('institutionId')
     if(!publication){
-      return res.status(404).json({message: 'Publication not found'})
+      return res.status(404).json({message: 'No se encontro la publicación'})
     }
 
     const institution = publication.institutionId
@@ -91,8 +91,8 @@ export const isOwnerOfPublication = async (req, res, next) => {
     console.log('ID de usuario en publicación:', req.user.uid)
     console.log('ID del dueño de la institución:', institution.userId.toString())
 
-    if(!institution || institution.userId.toString() !== req.user.uid){
-      return res.status(403).json({message: 'You do not have permission to modify this publication.'})
+    if (publication.institutionId.userId.toString() !== req.user.uid){
+      return res.status(403).json({message: 'No tienes permiso para modicar está publicación'})
     }
 
     next()

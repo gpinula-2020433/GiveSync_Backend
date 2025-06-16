@@ -12,9 +12,9 @@ const publicationSchema = Schema(
             required:[true, 'Content is required'],
             maxLength: [100, `Can't be overcome 100 characters`]
         },
-        imagePublication:{
+        imagePublication: [{
             type: String
-        },
+        }],
         date:{
             type: Date,
             default: Date.now
