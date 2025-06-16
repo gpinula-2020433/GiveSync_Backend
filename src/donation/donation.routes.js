@@ -13,7 +13,7 @@ const api = Router()
 api.get('/', validateJwt, isAdmin,getAllDonations)
 api.get('/:id', validateJwt, getDonationById)
 api.post('/add', validateJwt, donationValidator, validateErrors, addDonation)
-api.get('/institution/:institutionId', getDonationsByInstitution)
+api.get('/institution/:institutionId', validateJwt, getDonationsByInstitution)
 
 
 export default api

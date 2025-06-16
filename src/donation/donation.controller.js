@@ -16,6 +16,13 @@ export const addDonation = async (req, res) => {
     const institutionExists = await Institution.findById(institution)
     if (!institutionExists) throw new Error('Institución no encontrada')
 
+    if (institutionExists.state !== 'ACCEPTED') {
+      return res.status(400).json({
+        success: false,
+        message: 'No se puede donar a una institución que no ha sido aceptada'
+      })
+    }
+
     const maintenanceAmount = amount * 0.1
     const institutionAmount = amount * 0.9
 
