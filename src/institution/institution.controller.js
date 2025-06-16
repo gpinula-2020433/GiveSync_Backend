@@ -70,8 +70,8 @@ export const getInstitutionById = async (req, res) => {
 export const addInstitution = async(req, res)=>{
     const data = req.body
     try {
-        if(req.file?.filename){
-            data.imageInstitution = req.file.filename
+        if(req.files && req.files.length > 0){
+            data.imageInstitution = req.files.map(file => file.filename)
         }
         const institution = new Institution(data)
         await institution.save()
@@ -139,11 +139,11 @@ export const updateInstitution = async(req, res)=>{
 export const updateInstitutionImage = async(req, res)=>{
     try{
         const {id} = req.params
-        const {filename} = req.file
+        const filenames = req.files.map(file => file.filename)
         const institution = await Institution.findByIdAndUpdate(
             id,
             {
-                imageInstitution: filename
+                imageInstitution: filenames
             },
             {
                 new: true

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4fe46aa7-bee0-47f1-a2b5-b7bf376fa7e4",
+		"_postman_id": "66dfee60-4e2d-4b43-b26d-ed8017bece15",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37956966"
@@ -421,7 +421,12 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/kinal.png"
+									"src": "/C:/Users/Informatica/Downloads/Fondo1.jpg"
+								},
+								{
+									"key": "imageInstitution",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Downloads/Fondo2.jpg"
 								},
 								{
 									"key": "userId",
@@ -508,12 +513,17 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/KinalNuevo.jpg"
+									"src": "/C:/Users/Informatica/Downloads/images.jpg"
+								},
+								{
+									"key": "imageInstitution",
+									"type": "file",
+									"src": "/C:/Users/Informatica/Downloads/Fondo1.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/updateInstitutionImage/684377a7ae35afd5fb44dcec",
+							"raw": "localhost:3200/v1/institution/updateImage/68507e1b4d9d922a1ded82c8",
 							"host": [
 								"localhost"
 							],
@@ -521,8 +531,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"updateInstitutionImage",
-								"684377a7ae35afd5fb44dcec"
+								"updateImage",
+								"68507e1b4d9d922a1ded82c8"
 							]
 						}
 					},
