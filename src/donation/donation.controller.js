@@ -22,7 +22,6 @@ export const addDonation = async (req, res) => {
         message: 'No se puede donar a una institución que no ha sido aceptada'
       })
     }
-
     const maintenanceAmount = amount * 0.1
     const institutionAmount = amount * 0.9
 
