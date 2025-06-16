@@ -74,9 +74,5 @@ export const donationValidator = [
       .notEmpty()
       .withMessage('La institución es obligatoria')
       .custom(existInstitution),
-    body('user')
-      .notEmpty()
-      .withMessage('El usuario es obligatorio')
-      .custom(findUser),
     validateErrors
   ]
