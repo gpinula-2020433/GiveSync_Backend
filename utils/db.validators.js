@@ -4,7 +4,6 @@ import { isValidObjectId } from 'mongoose'
 import User from '../src/user/user.model.js'
 import Publication from '../src/publication/publication.model.js'
 import Institution from '../src/institution/institution.model.js'
-import Institution from '../src/institution/institution.model.js'
 
 
 // Validar existencia de un nombre de usuario (debe ser único para cada usuario)
