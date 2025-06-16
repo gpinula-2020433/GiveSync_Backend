@@ -1,6 +1,7 @@
 // Validar campos en las rutas
 import { body } from "express-validator";
 import { isValidObjectId } from 'mongoose'
+import { body, param } from "express-validator";
 import { validateErrors } from "./validate.errors.js";
 import { existUsername, existEmail, objectIdValid, notRequiredField, isOwnerOfInstitution, existInstitution, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId, findUser, findPublication} from "../utils/db.validators.js";
 
@@ -66,6 +67,22 @@ export const addCommentV = [
         .custom(findPublication),
     validateErrors
 ]
+
+export const getCommentsByPublicationV = [
+    param('publicationId')
+        .isMongoId()
+        .withMessage('id de la publicacion invalida'),
+    validateErrors
+]
+
+
+export const getCommentsByUserV = [
+    param('userId')
+        .isMongoId()
+        .withMessage('ID del usuario invalido'),
+    validateErrors
+]
+
 
 
 export const updateUserValidator = [
