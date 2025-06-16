@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { addInstitution, deleteInstitution, getAllInstitutions, getInstitutionById, updateInstitution, updateInstitutionImage } from "./institution.controller.js"
+import { addInstitution, 
+         deleteInstitution, 
+         getAllInstitutions, 
+         getInstitutionById,
+        updateInstitution, 
+        updateInstitutionImage } from "./institution.controller.js"
 import { validateJwt } from "../../middlewares/validate.jwt.js";
 import { uploadMultipleInstitutionImages } from '../../middlewares/multer.uploads.js'
 import { deleteFileOnError } from '../../middlewares/delete.file.on.errors.js'

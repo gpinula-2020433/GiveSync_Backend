@@ -5,36 +5,36 @@ import Institution from '../institution/institution.model.js'
 
 
 //Listar todas las instituciones
-export const getAllInstitutions= async (req, res)=> {
-    try{
-        const {limit = 10, skip =0}= req.query
-        const institution = await Institution.find()
-            .skip(skip)
-            .limit(limit)
-        if(institution.length === 0)
-            return res.status(404).send(
-            {
-                succes: false,
-                message: 'Instituciones no encontradas'
-
-            }
-        )
-        return res.send(
-            {
-                succes: true,
-                message: 'Instituciones encontradas',
-                institution
-            }
-        )
+export const getAllInstitutions = async (req, res) => {
+    try {
+        const { limit = 10, skip = 0, state } = req.query
+        const filter = {}
+        if (state) {
+            filter.state = state.toUpperCase()
+        }
+        const institutions = await Institution.find(filter)
+            .skip(Number(skip))
+            .limit(Number(limit))
+        if (institutions.length === 0) {
+            return res.status(404).send({
+                success: false,
+                message: state 
+                    ? `No se encontraron instituciones con estado ${state}`
+                    : 'No se encontraron instituciones'
+            })
+        }
+        return res.send({
+            success: true,
+            message: 'Instituciones encontradas',
+            institutions
+        })
     } catch (err) {
         console.error('General error', err)
-        return res.status(500).send(
-            {
-                success: false,
-                message: 'General error',
-                err
-            }
-        )
+        return res.status(500).send({
+            success: false,
+            message: 'Error general',
+            err
+        })
     }
 }
 

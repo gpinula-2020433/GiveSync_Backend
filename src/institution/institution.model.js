@@ -24,7 +24,7 @@ const institutionSchema = Schema(
         state:{
             type: String,
             uppercase: true,
-            enum: ['REFUSED', 'ACCEPTED', 'EARRING '],
+            enum: ['REFUSED', 'ACCEPTED', 'EARRING'],
             defaultValue: 'EARRING'
         },
         userId:{
