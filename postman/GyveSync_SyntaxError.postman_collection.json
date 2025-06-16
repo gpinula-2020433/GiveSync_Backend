@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "56f24fea-dc05-4ef5-9dcb-af7a2b05493d",
+		"_postman_id": "6a25a540-08cc-4169-aaf7-41f4f61d773a",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37957002"
@@ -1458,7 +1458,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3200/v1/comment/684bc12aa7eb18bcb569a332",
+							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1467,7 +1467,7 @@
 							"path": [
 								"v1",
 								"comment",
-								"684bc12aa7eb18bcb569a332"
+								"684913c5bb20626ef3dcefad"
 							]
 						}
 					},
@@ -1479,7 +1479,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3200/v1/comment/684913c5bb20626ef3dcefad",
+							"raw": "http://localhost:3200/v1/comment/publication/684913c5bb20626ef3dcefad",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1488,6 +1488,7 @@
 							"path": [
 								"v1",
 								"comment",
+								"publication",
 								"684913c5bb20626ef3dcefad"
 							]
 						}
