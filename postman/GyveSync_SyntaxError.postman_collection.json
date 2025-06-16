@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6a25a540-08cc-4169-aaf7-41f4f61d773a",
+		"_postman_id": "27a56a02-2046-46e0-9c77-60d68be2c277",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37957002"
@@ -911,7 +911,12 @@
 								},
 								{
 									"key": "institution",
-									"value": "684cec26bd51c9fa8581da9a",
+									"value": "684b536b4064e696b25cf251",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "684b556f7ccfa7caa8ab1e93",
 									"type": "text"
 								}
 							]
@@ -983,7 +988,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/donation/684cecb0bd51c9fa8581daad",
+							"raw": "localhost:3200/v1/donation/684b55817ccfa7caa8ab1e9a",
 							"host": [
 								"localhost"
 							],
@@ -991,7 +996,7 @@
 							"path": [
 								"v1",
 								"donation",
-								"684cecb0bd51c9fa8581daad"
+								"684b55817ccfa7caa8ab1e9a"
 							]
 						}
 					},
