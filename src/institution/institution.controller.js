@@ -66,6 +66,35 @@ export const getInstitutionById = async (req, res) => {
 }
 
 
+//Listar mis propias instituciones
+export const getMyInstitutions = async (req, res) => {
+  try {
+    const userId = req.user.uid
+    const institutions = await Institution.find({ userId })
+
+    if (institutions.length === 0) {
+      return res.status(404).send({
+        success: false,
+        message: 'No se encontraron instituciones para este usuario'
+      })
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: 'Instituciones del usuario encontradas',
+      institutions
+    })
+  } catch (err) {
+    console.error('Error al obtener instituciones del usuario:', err)
+    return res.status(500).send({
+      success: false,
+      message: 'Error general al obtener instituciones',
+      err
+    })
+  }
+}
+
+
 //Agregar Institución
 export const addInstitution = async(req, res)=>{
     const data = req.body

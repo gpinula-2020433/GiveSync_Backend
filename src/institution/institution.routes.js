@@ -3,6 +3,7 @@ import { addInstitution,
          deleteInstitution, 
          getAllInstitutions, 
          getInstitutionById,
+        getMyInstitutions,
         updateInstitution, 
         updateInstitutionImage } from "./institution.controller.js"
 import { validateJwt } from "../../middlewares/validate.jwt.js";
@@ -13,6 +14,7 @@ import { ValidateIsInstitutionOwner } from "../../utils/db.validators.js";
 
 const api = Router()
 
+api.get('/my', validateJwt, getMyInstitutions)
 api.get('/all', getAllInstitutions)
 api.get('/:id', validateJwt , getInstitutionById)
 api.post('/add', [uploadMultipleInstitutionImages, deleteFileOnError, validateCreateInstitution, validateJwt], addInstitution)

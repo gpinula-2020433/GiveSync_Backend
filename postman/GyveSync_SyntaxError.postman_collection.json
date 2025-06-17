@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "740476d1-b3d6-491f-9484-a2c05a9cdcbd",
+		"_postman_id": "f66737db-8105-4465-a9d5-6b48b2c2a893",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956977"
+		"_exporter_id": "37956966"
 	},
 	"item": [
 		{
@@ -692,6 +692,64 @@
 					"response": []
 				},
 				{
+					"name": "GetByState",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3200/v1/institution/all?state=ACCEPTED",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"all"
+							],
+							"query": [
+								{
+									"key": "state",
+									"value": "ACCEPTED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMyInstitucions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3200/v1/institution/my",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"my"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GetById",
 					"request": {
 						"method": "GET",
@@ -703,7 +761,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:3200/v1/institution/684a526ed2577795166f878a",
+							"raw": "localhost:3200/v1/institution/685105c044da2d4769562fd5",
 							"host": [
 								"localhost"
 							],
@@ -711,7 +769,7 @@
 							"path": [
 								"v1",
 								"institution",
-								"684a526ed2577795166f878a"
+								"685105c044da2d4769562fd5"
 							]
 						}
 					},
@@ -749,12 +807,18 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/dilan/OneDrive/Imágenes/halo.jpg"
+									"src": "/C:/Users/Pamal/Downloads/hotel.jpg"
 								},
 								{
 									"key": "imageInstitution",
 									"type": "file",
 									"src": "/C:/Users/dilan/OneDrive/Imágenes/need for speed.jpg",
+									"disabled": true
+								},
+								{
+									"key": "state",
+									"value": "ACCEPTED",
+									"type": "text",
 									"disabled": true
 								}
 							]
@@ -881,7 +945,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:3200/v1/institution/delete/684e88fe48bd1df3a26a3551",
+							"raw": "localhost:3200/v1/institution/delete/685126aaed0c021726903853",
 							"host": [
 								"localhost"
 							],
@@ -890,7 +954,7 @@
 								"v1",
 								"institution",
 								"delete",
-								"684e88fe48bd1df3a26a3551"
+								"685126aaed0c021726903853"
 							]
 						}
 					},
