@@ -42,3 +42,4 @@ const multerConfig = (destinationPath)=>{
 export const uploadProfilePicture = multerConfig('../uploads/img/users')
 
 export const uploadMultiplePublicationImages = multerConfig('../uploads/img/users').array('imagePublication', 10)
+export const uploadMultipleInstitutionImages = multerConfig('../uploads/img/users').array('imageInstitution', 10)
