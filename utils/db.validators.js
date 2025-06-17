@@ -98,3 +98,23 @@ export const validateInstitutionUserId = async (userId) => {
     throw new Error('Usuario no encontrado')
   }
 }
+
+
+//Validar que solo el dueño de la institución pueda editarla y eliminarla 
+export const ValidateIsInstitutionOwner = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const userId = req.user.uid
+    const institution = await Institution.findById(id)
+    if (!institution) {
+      return res.status(404).json({ message: 'Institución no encontrada' })
+    }
+    if (institution.userId.toString() !== userId) {
+      return res.status(403).json({ message: 'No estás autorizado para realizar esta acción.' })
+    }
+    next()
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Server error' })
+  }
+}

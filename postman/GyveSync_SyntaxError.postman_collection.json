@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "66dfee60-4e2d-4b43-b26d-ed8017bece15",
+		"_postman_id": "17ea89b3-3520-4c65-a98f-ebf357d9f18b",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37956966"
@@ -421,16 +421,16 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/Fondo1.jpg"
+									"src": "/C:/Users/Pamal/Downloads/habitacion.jpg"
 								},
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/Fondo2.jpg"
+									"src": "/C:/Users/Pamal/Downloads/habitacion02.jpg"
 								},
 								{
 									"key": "userId",
-									"value": "68435e5b13ef2496ec4e9ef6",
+									"value": "6850c121b46cca1e71fa530f",
 									"type": "text"
 								}
 							]
@@ -482,7 +482,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/684361370a251fd26eee3fe4",
+							"raw": "localhost:3200/v1/institution/update/6850c18736f4f2d1ecc69813",
 							"host": [
 								"localhost"
 							],
@@ -490,7 +490,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"684361370a251fd26eee3fe4"
+								"update",
+								"6850c18736f4f2d1ecc69813"
 							]
 						}
 					},
@@ -513,17 +514,17 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/images.jpg"
+									"src": "/C:/Users/Pamal/Downloads/hotel.jpg"
 								},
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/Fondo1.jpg"
+									"src": "/C:/Users/Pamal/Downloads/habitacion.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/updateImage/68507e1b4d9d922a1ded82c8",
+							"raw": "localhost:3200/v1/institution/updateImage/6850c18736f4f2d1ecc69813",
 							"host": [
 								"localhost"
 							],
@@ -532,7 +533,7 @@
 								"v1",
 								"institution",
 								"updateImage",
-								"68507e1b4d9d922a1ded82c8"
+								"6850c18736f4f2d1ecc69813"
 							]
 						}
 					},
@@ -550,7 +551,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:3200/v1/institution/684377a7ae35afd5fb44dcec",
+							"raw": "localhost:3200/v1/institution/delete/6850c18736f4f2d1ecc69813",
 							"host": [
 								"localhost"
 							],
@@ -558,7 +559,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"684377a7ae35afd5fb44dcec"
+								"delete",
+								"6850c18736f4f2d1ecc69813"
 							]
 						}
 					},

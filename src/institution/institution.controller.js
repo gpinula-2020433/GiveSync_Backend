@@ -193,7 +193,7 @@ export const deleteInstitution = async (req, res) => {
         return res.send(
             {
                 success: true,
-                message: 'Eliminado exitosamente'
+                message: 'Institución eliminada exitosamente'
             }
         )
     } catch (err) {
