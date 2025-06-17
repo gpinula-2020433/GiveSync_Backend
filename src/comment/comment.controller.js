@@ -224,7 +224,7 @@ export const getCommentsByPublication = async (req, res) => {
 export const getCommentsByUser = async (req, res) => {
   try {
     const { userId } = req.params
-    const comments = await Comment.findById(userId)
+    const comments = await Comment.find({ userId })
       .populate('userId', 'name email')
       .populate('publicationId', 'title')
 

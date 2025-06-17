@@ -3,7 +3,7 @@ import { body } from "express-validator";
 import { isValidObjectId } from 'mongoose'
 import { param } from "express-validator";
 import { validateErrors } from "./validate.errors.js";
-import { existUsername, existEmail, notRequiredField, isOwnerOfInstitution, existInstitution, findUser, findPublication} from "../utils/db.validators.js";
+import { existUsername, existEmail, notRequiredField, isOwnerOfInstitution, existInstitution, findUser, findPublication, validateInstitutionName, validateInstitutionType, validateInstitutionState, validateInstitutionUserId} from "../utils/db.validators.js";
 
 export const registerValidator = [
     body('name', 'El nombre no puede estar vacío')
@@ -120,6 +120,56 @@ export const passwordVerify = [
       .isLength({ min: 8 })
       .withMessage('La contraseña debe tener al menos 8 caracteres'),
   validateErrors
+]
+
+export const validateCreateInstitution = [
+    body('name', 'Invalid name')
+        .notEmpty()
+        .custom(async (value) => {
+        await validateInstitutionName(value)
+        }),
+    body('type', 'Invalid type')
+        .notEmpty()
+        .custom((value) => {
+        validateInstitutionType(value)
+        return true
+        }),
+    body('description', 'Description is required')
+        .notEmpty()
+        .isLength({ max: 150 })
+        .withMessage('Description can’t exceed 150 characters'),
+    body('state', 'Invalid state')
+        .optional()
+        .custom((value) => {
+        validateInstitutionState(value)
+        return true
+        }),
+    validateErrors
+]
+
+export const validateUpdateInstitution = [
+    body('name', 'Invalid name')
+        .optional()
+        .custom(async (value) => {
+        await validateInstitutionName(value)
+        }),
+    body('type', 'Invalid type')
+        .optional()
+        .custom((value) => {
+        validateInstitutionType(value)
+        return true
+        }),
+    body('description', 'Description is required')
+        .optional()
+        .isLength({ max: 150 })
+        .withMessage('Description can’t exceed 150 characters'),
+    body('state', 'Invalid state')
+        .optional()
+        .custom((value) => {
+        validateInstitutionState(value)
+        return true
+        }),
+    validateErrors
 ]
 
 export const donationValidator = [

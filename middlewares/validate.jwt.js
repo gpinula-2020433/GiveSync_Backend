@@ -52,7 +52,7 @@ export const isClient = async(req, res, next) => {
         console.log(role, name)
         if (!role || role !== 'CLIENT') return res.status(403).send({
             success: false,
-            message: `No tienes acceso | nombre de usuario: ${name}`
+            message: `No tienes acceso | Adaptado solo para clientes: ${name}`
         })
         next()
     } catch (err) {

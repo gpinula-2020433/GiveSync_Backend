@@ -23,14 +23,13 @@ api.get("/:id", getCommentById);
 
 api.post(
   "/",
-  [ validateJwt,uploadProfilePicture.single("commentImage"),addCommentV, deleteFileOnError],
   [ validateJwt,isAdmin,uploadProfilePicture.single("commentImage"),deleteFileOnError,addCommentV],
   addComment
 );
 
 api.put(
   "/:id",
-  [ validateJwt,uploadProfilePicture.single("commentImage"), updateCommentV, deleteFileOnError],
+  [ validateJwt,isAdmin,uploadProfilePicture.single("commentImage"), updateCommentV],
   updateComment
 );
 
