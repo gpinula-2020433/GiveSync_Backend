@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "17ea89b3-3520-4c65-a98f-ebf357d9f18b",
+		"_postman_id": "740476d1-b3d6-491f-9484-a2c05a9cdcbd",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37956977"
@@ -1036,6 +1036,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getDonationByInstitution",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/institution/68507f6eeb463647948b582a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								"institution",
+								"68507f6eeb463647948b582a"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1341,6 +1375,27 @@
 					"response": []
 				},
 				{
+					"name": "getPublicationByIntitution",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/getByInstitution/684a526ed2577795166f878a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"getByInstitution",
+								"684a526ed2577795166f878a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "addPublication",
 					"request": {
 						"method": "POST",
@@ -1552,27 +1607,6 @@
 							"port": "3200",
 							"path": [
 								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getPublicationByIntitution",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3200/v1/publication/getByInstitution/684a526ed2577795166f878a",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"publication",
-								"getByInstitution",
-								"684a526ed2577795166f878a"
 							]
 						}
 					},
