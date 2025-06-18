@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f66737db-8105-4465-a9d5-6b48b2c2a893",
+		"_postman_id": "8de64627-da90-453d-8deb-6dd8dc4c7722",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37956966"
@@ -791,7 +791,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Prueba2",
+									"value": "Fundacion Toledo",
 									"type": "text"
 								},
 								{
@@ -807,18 +807,12 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Pamal/Downloads/hotel.jpg"
+									"src": "/C:/Users/Pamal/OneDrive/Escritorio/Kinal/5.to/Fondos_Movimiento/100 Wallpapers/nissan-GTR.jpg"
 								},
 								{
 									"key": "imageInstitution",
 									"type": "file",
 									"src": "/C:/Users/dilan/OneDrive/Imágenes/need for speed.jpg",
-									"disabled": true
-								},
-								{
-									"key": "state",
-									"value": "ACCEPTED",
-									"type": "text",
 									"disabled": true
 								}
 							]
@@ -860,7 +854,7 @@
 								},
 								{
 									"key": "type",
-									"value": "ORPHANAGE",
+									"value": "EATERS",
 									"type": "text",
 									"disabled": true
 								},
@@ -878,7 +872,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/update/6850e1e41eb93551e2a777a7",
+							"raw": "localhost:3200/v1/institution/update/685238d36698031d768b8ac8",
 							"host": [
 								"localhost"
 							],
@@ -887,7 +881,44 @@
 								"v1",
 								"institution",
 								"update",
-								"6850e1e41eb93551e2a777a7"
+								"685238d36698031d768b8ac8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateStateInstitution",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "state",
+									"value": "ACCEPTED",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/institution/updateState/685238d36698031d768b8ac8",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"updateState",
+								"685238d36698031d768b8ac8"
 							]
 						}
 					},

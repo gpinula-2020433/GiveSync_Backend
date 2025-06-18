@@ -25,7 +25,7 @@ const institutionSchema = Schema(
             type: String,
             uppercase: true,
             enum: ['REFUSED', 'ACCEPTED', 'EARRING'],
-            defaultValue: 'EARRING'
+            default: 'EARRING'
         },
         userId:{
             type: Schema.Types.ObjectId,

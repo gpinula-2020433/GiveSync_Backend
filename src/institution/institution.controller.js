@@ -130,18 +130,58 @@ export const addInstitution = async(req, res)=>{
 }
 
 
+//Actualizar el estado de la institución (solo ADMIN)
+export const updateInstitutionState = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { state } = req.body
+    const validStates = ['ACCEPTED', 'REFUSED', 'EARRING'];
+    if (!validStates.includes(state?.toUpperCase())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Estado inválido. Usa: ACCEPTED, REFUSED o EARRING'
+      })
+    }
+    const institution = await Institution.findByIdAndUpdate(
+      id,
+      { state: state.toUpperCase() },
+      { new: true, runValidators: true }
+    )
+    if (!institution) {
+      return res.status(404).json({
+        success: false,
+        message: 'Institución no encontrada'
+      })
+    }
+    return res.json({
+      success: true,
+      message: 'Estado actualizado correctamente',
+      institution
+    })
+  } catch (err) {
+    console.error('Error al actualizar estado', err)
+    return res.status(500).json({
+      success: false,
+      message: 'Error al actualizar estado',
+      err
+    })
+  }
+}
+
+
 //Actualizar Institución
 export const updateInstitution = async(req, res)=>{
     try {
         const {id} = req.params
         const data = req.body
-
+        if ('state' in data) {
+            delete data.state
+        }
         const update = await Institution.findByIdAndUpdate(
             id,
             data,
             {new: true}
         )
-
         if(!update)
             return res.status(404).send(
                 {
