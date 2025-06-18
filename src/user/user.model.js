@@ -38,6 +38,11 @@ const userSchema = Schema(
             type: Boolean,
             default: false
         },
+        institutionId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Institution',
+            default: null
+        },
         role:{
             type: String,
             uppercase: true,
