@@ -11,7 +11,7 @@ const institutionSchema = Schema(
         type:{
             type: String,
             uppercase: true,
-            enum: ['EATERS', 'ORPHANAGE', 'ACYL'],
+            enum: ['EATERS', 'ORPHANAGE', 'ACYL']
         },
         description:{
             type: String,

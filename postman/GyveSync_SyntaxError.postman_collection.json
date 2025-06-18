@@ -791,7 +791,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Fundacion Toledo",
+									"value": "Fundacion Honda",
 									"type": "text"
 								},
 								{
@@ -807,7 +807,7 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Pamal/OneDrive/Escritorio/Kinal/5.to/Fondos_Movimiento/100 Wallpapers/nissan-GTR.jpg"
+									"src": "/C:/Users/Pamal/Downloads/hotel.jpg"
 								},
 								{
 									"key": "imageInstitution",
@@ -854,9 +854,8 @@
 								},
 								{
 									"key": "type",
-									"value": "EATERS",
-									"type": "text",
-									"disabled": true
+									"value": "ACYL",
+									"type": "text"
 								},
 								{
 									"key": "description",
@@ -867,12 +866,13 @@
 								{
 									"key": "state",
 									"value": "ACCEPTED",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/update/685238d36698031d768b8ac8",
+							"raw": "localhost:3200/v1/institution/update/6852664be7d513293968d521",
 							"host": [
 								"localhost"
 							],
@@ -881,7 +881,7 @@
 								"v1",
 								"institution",
 								"update",
-								"685238d36698031d768b8ac8"
+								"6852664be7d513293968d521"
 							]
 						}
 					},

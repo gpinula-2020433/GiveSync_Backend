@@ -148,28 +148,22 @@ export const validateCreateInstitution = [
 ]
 
 export const validateUpdateInstitution = [
-    body('name', 'Invalid name')
-        .optional()
-        .custom(async (value) => {
-        await validateInstitutionName(value)
-        }),
-    body('type', 'Invalid type')
-        .optional()
-        .custom((value) => {
-        validateInstitutionType(value)
-        return true
-        }),
-    body('description', 'Description is required')
-        .optional()
-        .isLength({ max: 150 })
-        .withMessage('Description can’t exceed 150 characters'),
-    body('state', 'Invalid state')
-        .optional()
-        .custom((value) => {
-        validateInstitutionState(value)
-        return true
-        }),
-    validateErrors
+  body('name')
+    .optional()
+    .custom(async (value, { req }) => {
+      await validateInstitutionName(value, req.params.id)
+    }),
+  body('type')
+    .optional()
+    .custom((value) => {
+      validateInstitutionType(value)
+      return true
+    }),
+  body('description')
+    .optional()
+    .isLength({ max: 150 })
+    .withMessage('La descripción no debe superar 150 caracteres'),
+  validateErrors
 ]
 
 export const donationValidator = [
