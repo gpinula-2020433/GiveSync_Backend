@@ -29,12 +29,14 @@ const configs = (app) => {
   app.use(limiter)
 
   // Middleware estático para imágenes de usuarios con CORS
-  app.use('/uploads/img/users', (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
-    res.setHeader('Access-Control-Allow-Methods', 'GET')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-    next()
-  }, express.static(path.join(process.cwd(), 'uploads/img/users')))
+ app.use('/uploads/img/users', (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
+  res.setHeader('Access-Control-Allow-Methods', 'GET')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin') // <--- esto es CLAVE
+  next()
+}, express.static(path.join(process.cwd(), 'uploads/img/users')))
+
 }
 
 const routes = (app) => {
