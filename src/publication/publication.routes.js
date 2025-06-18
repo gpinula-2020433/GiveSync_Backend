@@ -17,4 +17,5 @@ api.put('/update/:id',[validateJwt, isOwnerOfPublication], updatePublicaton)
 api.put('/updateImage/:id', [uploadMultiplePublicationImages, validateJwt, isOwnerOfPublication],updateImagePublication)
 api.delete('/delete/:id', [validateJwt, isOwnerOfPublication], deletePublication)
 
+
 export default api
