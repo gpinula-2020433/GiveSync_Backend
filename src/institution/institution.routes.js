@@ -16,8 +16,8 @@ import { ValidateIsInstitutionOwner } from "../../utils/db.validators.js";
 const api = Router()
 
 api.get('/my', validateJwt, getMyInstitutions)
-api.get('/all', getAllInstitutions)
-api.get('/:id', validateJwt , getInstitutionById)
+api.get('/all',getAllInstitutions)
+api.get('/:id', [validateJwt] , getInstitutionById)
 api.post('/add', [uploadMultipleInstitutionImages, deleteFileOnError, validateCreateInstitution, validateJwt], addInstitution)
 api.put('/updateState/:id', [validateJwt, isAdmin] , updateInstitutionState)
 api.put('/update/:id', [validateJwt, ValidateIsInstitutionOwner, validateUpdateInstitution] ,updateInstitution)
