@@ -7,6 +7,7 @@ import { isOwnerOfPublication } from "../../utils/db.validators.js";
 
 const api = Router()
 
+api.get('my', validateJwt, getMyInstitutions)
 api.get('/test', test)
 api.get('/list', getAllPublication)
 api.get('/:id', getPublicationId)
