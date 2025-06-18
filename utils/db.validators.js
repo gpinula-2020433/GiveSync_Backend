@@ -130,18 +130,19 @@ export const existInstitution = async (id) => {
 }
 
 
-// Validar que el nombre no esté vacío y sea único
-export const validateInstitutionName = async (name) => {
+//Validar el nombre de la institución
+export const validateInstitutionName = async (name, currentId = null) => {
   if (!name) {
     throw new Error('El nombre es obligatorio')
   }
   if (name.length > 100) {
     throw new Error("El nombre no puede exceder los 100 caracteres")
   }
-
   const existingInstitution = await Institution.findOne({ name: name.trim() })
   if (existingInstitution) {
-    throw new Error('El nombre de la institución ya existe')
+    if (!currentId || existingInstitution._id.toString() !== currentId) {
+      throw new Error('El nombre de la institución ya existe')
+    }
   }
 }
 

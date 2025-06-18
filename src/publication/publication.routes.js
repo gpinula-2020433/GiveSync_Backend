@@ -1,5 +1,6 @@
 import { Router} from "express";
 import { addPublication, deletePublication, getAllPublication, getPublicationId, getPublicationsByInstitution, test, updateImagePublication, updatePublicaton } from "./publication.controller.js";
+import { getMyInstitutions } from '../../src/institution/institution.controller.js'
 import { uploadMultiplePublicationImages } from "../../middlewares/multer.uploads.js";
 import { validateJwt } from "../../middlewares/validate.jwt.js";
 import { addPublicationValidation } from "../../middlewares/validators.js";
