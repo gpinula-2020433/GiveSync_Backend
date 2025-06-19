@@ -86,35 +86,42 @@ export const getCommentsByUserV = [
 
 
 export const updateUserValidator = [
-  body('username')
-      .optional()
-      .notEmpty()
-      .toLowerCase()
-      .custom((username, { req }) => existUsername(username, req.user)),
-  body('email')
-      .optional()
-      .notEmpty()
-      .isEmail()
-      .custom((email, { req }) => existEmail(email, req.user)),
-  body('password')
-      .optional()
-      .notEmpty()
-      .custom(notRequiredField),
-  /* body('profilePicture')
-      .optional()
-      .notEmpty()
-      .custom(notRequiredField), */
-  body('role')
-      .optional()
-      .notEmpty()
-      .custom(notRequiredField),
-  validateErrors
+    body('name', 'El nombre no puede estar vacío')
+        .optional()
+        .notEmpty(),
+    body('surname', 'El apellido no puede estar vacío')
+        .optional()
+        .notEmpty(),
+    body('email')
+        .optional()
+        .notEmpty()
+        .isEmail()
+        .withMessage('El correo electrónico no es válido')
+        .custom(existEmail),
+    body('username')
+        .optional()
+        .notEmpty()
+        .toLowerCase()
+        .custom(existUsername),
+    body('password')
+        .optional()
+        .custom(notRequiredField),
+    body('imageUser')
+        .optional()
+        .custom(notRequiredField),
+    body('role')
+        .optional()
+        .custom(notRequiredField),
+    validateErrors
 ]
 
-
-
 export const passwordVerify = [
+    body('currentPassword')
+        .notEmpty()
+        .withMessage('La contraseña actual es obligatoria'),
   body('newPassword')
+        .notEmpty()
+        .withMessage('La nueva contraseña es obligatoria')
       .isStrongPassword()
       .withMessage('La contraseña debe ser fuerte (debe contener al menos una mayúscula, una minúscula, un número y un símbolo)')
       .isLength({ min: 8 })

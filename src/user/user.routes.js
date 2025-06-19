@@ -16,15 +16,15 @@ import {
 } from "./user.controller.js"
 import { uploadProfilePicture } from '../../middlewares/multer.uploads.js'
 import { validateJwt, isAdmin, isClient } from "../../middlewares/validate.jwt.js"
-import { passwordVerify } from "../../middlewares/validators.js"
+import { passwordVerify, updateUserValidator } from "../../middlewares/validators.js"
 
 const api = Router()
 
 // Client
 api.get('/getAuthenticatedClient', [validateJwt, isClient], getAuthenticatedClient)
-api.put('/updateClient/', [validateJwt, isClient], updateClient)
+api.put('/updateClient/', [validateJwt, isClient, updateUserValidator], updateClient)
 api.delete('/deleteClient/', [validateJwt, isClient], deleteClient)
-api.put('/updatePassword/:id', [validateJwt, isClient, passwordVerify], updatePassword)
+api.put('/updatePassword/', [validateJwt, isClient, passwordVerify], updatePassword)
 
 api.put('/updateUserImageClient/', 
     [
