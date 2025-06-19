@@ -2,6 +2,8 @@
 
 import Publication from './publication.model.js'
 import Comment from '../comment/comment.model.js'
+import path from 'path'
+import fs from 'fs'
 
 export const test = async (req, res)=>{
     return res.send('The publication conection is running')
@@ -157,27 +159,36 @@ export const updateImagePublication = async (req,res) =>{
     try {
         const {id} = req.params
         const filenames = req.files.map(file => file.filename)
-        const publication = await Publication.findByIdAndUpdate(
+        
+        const oldPublication = await Publication.findById(id)
+
+        if(!oldPublication){
+            return res.status(404).send({
+                success: false,
+                message: 'No se encontró la publicación'
+            })
+        }
+
+        if(oldPublication.imagePublication && oldPublication.imagePublication.length > 0){
+            oldPublication.imagePublication.forEach(filename =>{
+                const imagePath = path.join('uploads/img/users', filename)
+                if (fs.existsSync(imagePath)){
+                    fs.unlinkSync(imagePath)
+                }
+            })
+        }
+
+        const update = await Publication.findByIdAndUpdate(
             id,
             {imagePublication: filenames},
             {new: true}
         )
-    
-        if(!publication)
-            return res.status(404).send(
-            {
-                success: false,
-                message: 'No se encontro la publicación'
-            }
-        )
 
-        return res.send(
-            {
-                success: true,
-                message: 'Publicación actualizada correctamente',
-                publication
-            }
-        )
+        return res.send({
+            success: true,
+            message: 'Publicación actualizada correctamente',
+            publication : update
+        })
     } catch (error) {
         console.error('Error general', error)
         return res.status(500).send(
@@ -190,36 +201,42 @@ export const updateImagePublication = async (req,res) =>{
     }
 }
 
-export const deletePublication = async (req, res)=>{
-    try {
-        let {id} = req.params
+export const deletePublication = async (req, res) => {
+  try {
+    const { id } = req.params
 
-        //Elimina todos los comentarios relacionados a la publicación eliminada
-        await Comment.deleteMany({publicationId: id})
+    const publication = await Publication.findById(id)
 
-        let publication = await Publication.findByIdAndDelete(id)
-
-        if (!publication)
-            return res.status(404).send(
-            {
-                success: false,
-                message: 'No se encontro la publicación'
-            }
-        )
-        return res.send(
-            {
-                success: true,
-                message: 'Eliminado correctamente'
-            }
-        )
-    } catch (error) {
-        console.error('Error general', error)
-        return res.status(500).send(
-            {
-                success: false,
-                message: 'Error general',
-                error
-            }
-        )
+    if (!publication) {
+      return res.status(404).send({
+        success: false,
+        message: 'No se encontró la publicación'
+      })
     }
+
+    if(publication.imagePublication && publication.imagePublication.length > 0){
+            publication.imagePublication.forEach(filename =>{
+                const imagePath = path.join('uploads/img/users', filename)
+                if (fs.existsSync(imagePath)){
+                    fs.unlinkSync(imagePath)
+                }
+            })
+        }
+
+    await Comment.deleteMany({ publicationId: id })
+
+    await Publication.findByIdAndDelete(id)
+
+    return res.send({
+      success: true,
+      message: 'Eliminado correctamente'
+    })
+  } catch (error) {
+    console.error('Error general', error)
+    return res.status(500).send({
+      success: false,
+      message: 'Error general',
+      error
+    })
+  }
 }
