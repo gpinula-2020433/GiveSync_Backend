@@ -94,39 +94,52 @@ export const getMyInstitutions = async (req, res) => {
   }
 }
 
+export const addInstitution = async (req, res) => {
+  const data = req.body
 
-//Agregar Institución
-export const addInstitution = async(req, res)=>{
-    const data = req.body
-    try {
-        if(req.files && req.files.length > 0){
-            data.imageInstitution = req.files.map(file => file.filename)
-        }
-        let institution = new Institution(data)
-        
-        institution.userId = req.user.uid
+  try {
+    const userId = req.user.uid
 
-        await institution.save()
-        institution = await Institution.findById(institution._id).populate('userId', 'name surname username, email')
-
-        console.log('Institution created', institution.state)
-        return res.send(
-            {
-                success: true,
-                message: 'Guardado exitosamente',
-                institution
-            }
-        )
-    } catch (err) {
-        console.error('General error', err)
-        return res.status(500).send(
-            {
-                success: false,
-                message: 'General error',
-                err
-            }
-        )
+    // Verificar si ya tiene una institución registrada
+    const existingInstitution = await Institution.findOne({ userId })
+    if (existingInstitution) {
+      return res.status(400).json({
+        success: false,
+        message: 'Ya tienes una institución registrada, no puedes registrar otra'
+      })
     }
+
+    // Manejo de imágenes si hay archivos
+    if (req.files && req.files.length > 0) {
+      data.imageInstitution = req.files.map(file => file.filename)
+    }
+
+    // Crear y guardar institución
+    let institution = new Institution({ ...data, userId })
+    await institution.save()
+
+    // Popular datos del usuario
+    institution = await Institution.findById(institution._id).populate(
+      'userId',
+      'name surname username email'
+    )
+
+    console.log('Institution created', institution.state)
+
+    return res.json({
+      success: true,
+      message: 'Guardado exitosamente',
+      institution
+    })
+
+  } catch (err) {
+    console.error('General error', err)
+    return res.status(500).json({
+      success: false,
+      message: 'Error al guardar institución',
+      err
+    })
+  }
 }
 
 export const updateInstitutionState = async (req, res) => {
