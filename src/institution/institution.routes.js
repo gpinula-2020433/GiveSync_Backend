@@ -10,7 +10,7 @@ import {
   updateInstitutionState,      
   getMyInstitutions
 } from "./institution.controller.js"
-import { isAdmin, validateJwt } from "../../middlewares/validate.jwt.js";
+import { hasRole, isAdmin, validateJwt } from "../../middlewares/validate.jwt.js";
 import { uploadMultipleInstitutionImages } from '../../middlewares/multer.uploads.js'
 import { deleteFileOnError } from '../../middlewares/delete.file.on.errors.js'
 import { validateCreateInstitution, validateUpdateInstitution } from "../../middlewares/validators.js";
@@ -28,7 +28,7 @@ api.post('/add', [uploadMultipleInstitutionImages, deleteFileOnError, validateCr
 api.put('/updateState/:id', [validateJwt, isAdmin] , updateInstitutionState)
 api.put('/update/:id', [validateJwt, ValidateIsInstitutionOwner, validateUpdateInstitution] ,updateInstitution)
 api.put('/updateImage/:id', [validateJwt, ValidateIsInstitutionOwner, uploadMultipleInstitutionImages, deleteFileOnError], updateInstitutionImage)
-api.delete('/delete/:id', [validateJwt, ValidateIsInstitutionOwner] , deleteInstitution)
+api.delete('/delete/:id', [validateJwt, hasRole('ADMIN', 'CLIENT'), ValidateIsInstitutionOwner] , deleteInstitution)
 
 
 export default api
