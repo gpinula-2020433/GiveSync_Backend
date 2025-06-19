@@ -283,6 +283,7 @@ export const updateInstitutionImage = async(req, res)=>{
     }
 }
 
+//Eliminar Institución
 export const deleteInstitution = async (req, res) => {
     try {
         let {id} = req.params
@@ -305,11 +306,17 @@ export const deleteInstitution = async (req, res) => {
         }
 
     await Institution.findByIdAndDelete(id)
+      
+    await User.findByIdAndUpdate(institution.userId, {
+      hasInstitution: false,
+      institutionId: null
+    })
 
     return res.send({
       success: true,
       message: 'Institución eliminada correctamente'
     })
+    
     } catch (err) {
         console.error('General error',err)
         return res.status(500).send(
@@ -321,6 +328,7 @@ export const deleteInstitution = async (req, res) => {
         )
     }
 }
+
 
 export const getPendingInstitutions = async (req, res) => {
   try {
