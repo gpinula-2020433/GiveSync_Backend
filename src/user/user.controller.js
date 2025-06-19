@@ -1,5 +1,8 @@
 'use strict'
 
+import Comment from '../comment/comment.model.js'
+import Institution from '../institution/institution.model.js'
+import Publication from '../publication/publication.model.js'
 import User from '../user/user.model.js'
 import { unlink } from 'fs/promises'
 import path from 'path'
@@ -127,6 +130,7 @@ export const updatePassword = async(req, res)=>{
     }
 }
 
+
 export const deleteClient = async (req, res) => {
   try {
     const { uid } = req.user
@@ -151,6 +155,29 @@ export const deleteClient = async (req, res) => {
       return res.status(401).send({ message: 'Contraseña incorrecta' })
     }
 
+    // ✅ Eliminar comentarios del usuario
+    await Comment.deleteMany({ userId: uid })
+
+    // ✅ Buscar instituciones del usuario
+    const institutions = await Institution.find({ userId: uid })
+
+    for (const institution of institutions) {
+      // ✅ Buscar publicaciones de la institución
+      const publications = await Publication.find({ institutionId: institution._id })
+
+      for (const pub of publications) {
+        // ✅ Eliminar comentarios de cada publicación
+        await Comment.deleteMany({ publicationId: pub._id })
+      }
+
+      // ✅ Eliminar publicaciones de la institución
+      await Publication.deleteMany({ institutionId: institution._id })
+    }
+
+    // ✅ Eliminar instituciones del usuario
+    await Institution.deleteMany({ userId: uid })
+
+    // ✅ Eliminar imagen del usuario si tiene
     if (user.imageUser) {
       const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
       try {
@@ -160,16 +187,19 @@ export const deleteClient = async (req, res) => {
       }
     }
 
+    // ✅ Eliminar al usuario
     const deletedUser = await User.findByIdAndDelete(uid)
 
     return res.send({
       message: `La cuenta ${deletedUser.name} ${deletedUser.surname} se eliminó con éxito`
     })
-  } catch (err) {
-    console.error(err)
-    return res.status(500).send({ message: 'Error al eliminar la cuenta' })
-  }
+} catch (err) {
+  console.error('Error al eliminar cuenta:', err)
+  return res.status(500).send({ message: 'Error al eliminar la cuenta' })
 }
+
+}
+
 
 export const updateUserProfileImageClient = async (req, res) => {
   try {
