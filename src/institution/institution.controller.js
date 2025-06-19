@@ -204,3 +204,66 @@ export const deleteInstitution = async (req, res) => {
         )
     }
 }
+
+export const getPendingInstitutions = async (req, res) => {
+  try {
+    const institutions = await Institution.find({ state: 'EARRING' })
+
+    if (institutions.length === 0) {
+      return res.status(404).send({
+        success: false,
+        message: 'No pending institutions found'
+      })
+    }
+
+    return res.send({
+      success: true,
+      message: 'Pending institutions retrieved successfully',
+      institutions
+    })
+  } catch (err) {
+    console.error('Error getting pending institutions:', err)
+    return res.status(500).send({
+      success: false,
+      message: 'Internal server error',
+      err
+    })
+  }
+}
+
+export const updateInstitutionState = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { state } = req.body;
+
+    const validStates = ['REFUSED', 'ACCEPTED'];
+    if (!validStates.includes(state)) {
+      return res.status(400).send({
+        success: false,
+        message: 'Invalid state value'
+      })
+    }
+
+    const updated = await Institution.findByIdAndUpdate(id, { state }, { new: true })
+
+    if (!updated) {
+      return res.status(404).send({
+        success: false,
+        message: 'Institution not found'
+      })
+    }
+
+    return res.send({
+      success: true,
+      message: `Institution ${state === 'ACCEPTED' ? 'accepted' : 'refused'} successfully`,
+      institution: updated
+    });
+  } catch (err) {
+    console.error('Error updating institution state:', err);
+    return res.status(500).send({
+      success: false,
+      message: 'Internal server error',
+      err
+    })
+  }
+}
