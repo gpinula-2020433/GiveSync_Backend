@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "27a56a02-2046-46e0-9c77-60d68be2c277",
+		"_postman_id": "40230124-3a0c-4d17-a893-37b49134cd04",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37956970"
@@ -90,12 +90,12 @@
 							"urlencoded": [
 								{
 									"key": "userLoggin",
-									"value": "1dylan",
+									"value": "1emanuel",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Password123!",
+									"value": "123123Aa!",
 									"type": "text"
 								}
 							]
@@ -119,8 +119,8 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
 									"key": "name",
 									"value": "Dylan",
@@ -128,12 +128,12 @@
 								},
 								{
 									"key": "surname",
-									"value": "Emanuel",
+									"value": "1dylan",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "1dylan",
+									"value": "1emanuel",
 									"type": "text"
 								},
 								{
@@ -143,8 +143,13 @@
 								},
 								{
 									"key": "password",
-									"value": "Password123!",
+									"value": "123123Aa!",
 									"type": "text"
+								},
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/Usuario/Desktop/img.png"
 								}
 							]
 						},
@@ -160,39 +165,124 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "login 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"token\", data.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userLoggin",
+									"value": "Dylan1",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Marcos",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Pamal",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "Dylan1",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "p1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								},
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/Usuario/Desktop/438304890_970194751220980_2411740212726118493_n.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "surname",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "NormalUsers",
 			"item": [
-				{
-					"name": "getUserById",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "localhost:3200/v1/user/68435e5b13ef2496ec4e9ef6",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"user",
-								"68435e5b13ef2496ec4e9ef6"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "updateUser",
 					"request": {
@@ -209,13 +299,13 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Luciano1",
+									"value": "Luciano2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/updateClient/684b577f9ed8b1a34cf7b47f",
+							"raw": "localhost:3200/v1/user/updateClient/",
 							"host": [
 								"localhost"
 							],
@@ -224,7 +314,7 @@
 								"v1",
 								"user",
 								"updateClient",
-								"684b577f9ed8b1a34cf7b47f"
+								""
 							]
 						}
 					},
@@ -246,13 +336,13 @@
 							"urlencoded": [
 								{
 									"key": "password",
-									"value": "Password123!",
+									"value": "123123Aa!",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/user/deleteClient/684b577f9ed8b1a34cf7b47f",
+							"raw": "localhost:3200/v1/user/deleteClient/",
 							"host": [
 								"localhost"
 							],
@@ -261,7 +351,109 @@
 								"v1",
 								"user",
 								"deleteClient",
-								"684b577f9ed8b1a34cf7b47f"
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserImage",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/bmw fondo.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/updateUserImageClient/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"updateUserImageClient",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserImage",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/deleteUserImageClient/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"deleteUserImageClient",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAuthenticatedClient",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/getAuthenticatedClient/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"getAuthenticatedClient",
+								""
 							]
 						}
 					},
@@ -273,7 +465,75 @@
 			"name": "AdminUsers",
 			"item": [
 				{
-					"name": "updateUser(Admin)",
+					"name": "getAllUsers(Admin)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/getAllUsersADMIN/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"getAllUsersADMIN",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById(Admin)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/getByIdADMIN/684a5196d2577795166f8788",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"getByIdADMIN",
+								"684a5196d2577795166f8788"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUsers_Client(Admin)",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -288,13 +548,13 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Joel",
+									"value": "Pamal",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3200/v1/user/updateUser/68183e8423c15388c1fabb0a",
+							"raw": "http://localhost:3200/v1/user/updateUserADMIN/6850de14315ac25017378a86",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -303,15 +563,15 @@
 							"path": [
 								"v1",
 								"user",
-								"updateUser",
-								"68183e8423c15388c1fabb0a"
+								"updateUserADMIN",
+								"6850de14315ac25017378a86"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "deleteUser(Admin)",
+					"name": "deleteUsers_Client(Admin)",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -322,7 +582,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3200/v1/user/deleteUser/68183e8423c15388c1fabb0a",
+							"raw": "http://localhost:3200/v1/user/deleteUserADMIN/6850de14315ac25017378a86",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -331,8 +591,76 @@
 							"path": [
 								"v1",
 								"user",
-								"deleteUser",
-								"68183e8423c15388c1fabb0a"
+								"deleteUserADMIN",
+								"6850de14315ac25017378a86"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserImage_Client(Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/deleteUserImage/6850de14315ac25017378a86",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"deleteUserImage",
+								"6850de14315ac25017378a86"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserImage_Client(Admin, Funciona pero no usar)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageUser",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/bmw fondo.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/user/updateUserImage/6850de14315ac25017378a86",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"user",
+								"updateUserImage",
+								"6850de14315ac25017378a86"
 							]
 						}
 					},
@@ -344,12 +672,12 @@
 			"name": "Institution",
 			"item": [
 				{
-					"name": "Test",
+					"name": "GetAll",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3200/v1/institution/test",
+							"raw": "localhost:3200/v1/institution/all",
 							"host": [
 								"localhost"
 							],
@@ -357,7 +685,33 @@
 							"path": [
 								"v1",
 								"institution",
-								"test"
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3200/v1/institution/684a526ed2577795166f878a",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"institution",
+								"684a526ed2577795166f878a"
 							]
 						}
 					},
@@ -367,13 +721,19 @@
 					"name": "AddInstitution",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Fundacion Kinal",
+									"value": "Prueba1",
 									"type": "text"
 								},
 								{
@@ -389,12 +749,13 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/kinal.png"
+									"src": "/C:/Users/admin/Pictures/OIP.jpg"
 								},
 								{
-									"key": "userId",
-									"value": "68435e5b13ef2496ec4e9ef6",
-									"type": "text"
+									"key": "imageInstitution",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/need for speed.jpg",
+									"disabled": true
 								}
 							]
 						},
@@ -417,29 +778,43 @@
 					"name": "UpdateInstitution",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Fundacion Toledo",
-									"type": "text"
+									"value": "Fundacion Toledo1",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "type",
 									"value": "ORPHANAGE",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "description",
 									"value": "Fundacion dedicada al cuidado de personas",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "state",
+									"value": "ACCEPTED",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/684361370a251fd26eee3fe4",
+							"raw": "localhost:3200/v1/institution/update/68526c54b3eac74801af705a",
 							"host": [
 								"localhost"
 							],
@@ -447,7 +822,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"684361370a251fd26eee3fe4"
+								"update",
+								"68526c54b3eac74801af705a"
 							]
 						}
 					},
@@ -457,19 +833,28 @@
 					"name": "UpdateImageInstitution",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Informatica/Downloads/KinalNuevo.jpg"
+									"src": [
+										"/C:/Users/dilan/OneDrive/Imágenes/need for speed.jpg",
+										"/C:/Users/dilan/OneDrive/Imágenes/bmw fondo.jpg"
+									]
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/updateInstitutionImage/684377a7ae35afd5fb44dcec",
+							"raw": "localhost:3200/v1/institution/updateImage/6850e1e41eb93551e2a777a7",
 							"host": [
 								"localhost"
 							],
@@ -477,8 +862,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"updateInstitutionImage",
-								"684377a7ae35afd5fb44dcec"
+								"updateImage",
+								"6850e1e41eb93551e2a777a7"
 							]
 						}
 					},
@@ -488,9 +873,15 @@
 					"name": "DeleteInstitution",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:3200/v1/institution/684b536b4064e696b25cf251",
+							"raw": "localhost:3200/v1/institution/delete/684e88fe48bd1df3a26a3551",
 							"host": [
 								"localhost"
 							],
@@ -498,7 +889,8 @@
 							"path": [
 								"v1",
 								"institution",
-								"684b536b4064e696b25cf251"
+								"delete",
+								"684e88fe48bd1df3a26a3551"
 							]
 						}
 					},
@@ -525,12 +917,12 @@
 							"urlencoded": [
 								{
 									"key": "amount",
-									"value": "100",
+									"value": "500000",
 									"type": "text"
 								},
 								{
 									"key": "institution",
-									"value": "68507f6eeb463647948b582a",
+									"value": "68526c54b3eac74801af705a",
 									"type": "text"
 								}
 							]
@@ -551,7 +943,7 @@
 					"response": []
 				},
 				{
-					"name": "getDonations",
+					"name": "getDonationsOfAuthenticatedClient",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -602,7 +994,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/donation/684b57859ed8b1a34cf7b487",
+							"raw": "localhost:3200/v1/donation/6850e4e11eb93551e2a777c5",
 							"host": [
 								"localhost"
 							],
@@ -610,14 +1002,14 @@
 							"path": [
 								"v1",
 								"donation",
-								"684b57859ed8b1a34cf7b487"
+								"6850e4e11eb93551e2a777c5"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getDonationByInstituction",
+					"name": "getDonations",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -635,7 +1027,40 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/donation/institution/68507f6eeb463647948b582a",
+							"raw": "localhost:3200/v1/donation/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"donation",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDonationsToInstitution",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/donation/institution/my",
 							"host": [
 								"localhost"
 							],
@@ -644,7 +1069,477 @@
 								"v1",
 								"donation",
 								"institution",
-								"68507f6eeb463647948b582a"
+								"my"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "getAllComment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "123123Aa!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addComment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "hola como estas",
+									"type": "text"
+								},
+								{
+									"key": "commentImage",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/bmw fondo.jpg"
+								},
+								{
+									"key": "publicationId",
+									"value": "6850e6921eb93551e2a777f4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "hola como estas 2.0",
+									"type": "text"
+								},
+								{
+									"key": "commentImage",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "userId",
+									"value": "684b326042ff03daeb314e3c",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "publicationId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/6850f2f7185345ab1668b609",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"6850f2f7185345ab1668b609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/comment/6850f2f7185345ab1668b609",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"6850f2f7185345ab1668b609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/6850f32f185345ab1668b60f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"6850f32f185345ab1668b60f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentsByuser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/user/684a5196d2577795166f8788",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"user",
+								"684a5196d2577795166f8788"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentsByPublication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3200/v1/comment/publication/684e88c948bd1df3a26a354f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"comment",
+								"publication",
+								"684e88c948bd1df3a26a354f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publication",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/list",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/684e88c948bd1df3a26a354f",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"684e88c948bd1df3a26a354f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPublicationByIntitution",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/v1/publication/getByInstitution/6850e1e41eb93551e2a777a7",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"getByInstitution",
+								"6850e1e41eb93551e2a777a7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPublication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Prueba",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Publicación de prueba",
+									"type": "text"
+								},
+								{
+									"key": "institutionId",
+									"value": "6850e6cb1eb93551e2a777f9",
+									"type": "text"
+								},
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": [
+										"/C:/Users/dilan/OneDrive/Imágenes/bmw fondo.jpg",
+										"/C:/Users/dilan/OneDrive/Imágenes/need for speed.jpg",
+										"/C:/Users/dilan/OneDrive/Imágenes/halo.jpg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePublication",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Hola",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "cuchaoo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/update/684e84580b6462534ef45ffe",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"update",
+								"684e84580b6462534ef45ffe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateImageP",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagePublication",
+									"type": "file",
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/need for speed.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/updateImage/684e84580b6462534ef45ffe",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"updateImage",
+								"684e84580b6462534ef45ffe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePublication",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:3200/v1/publication/delete/684e84580b6462534ef45ffe",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"v1",
+								"publication",
+								"delete",
+								"684e84580b6462534ef45ffe"
 							]
 						}
 					},
