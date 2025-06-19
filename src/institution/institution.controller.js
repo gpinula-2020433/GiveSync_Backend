@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import Institution from '../institution/institution.model.js'
-
+import User from '../user/user.model.js'
 
 //Listar todas las instituciones
 export const getAllInstitutions = async (req, res) => {
@@ -129,35 +129,51 @@ export const addInstitution = async(req, res)=>{
     }
 }
 
-
-//Actualizar el estado de la institución (solo ADMIN)
 export const updateInstitutionState = async (req, res) => {
   try {
     const { id } = req.params
     const { state } = req.body
-    const validStates = ['ACCEPTED', 'REFUSED', 'EARRING'];
+    const validStates = ['ACCEPTED', 'REFUSED', 'EARRING']
+
     if (!validStates.includes(state?.toUpperCase())) {
       return res.status(400).json({
         success: false,
         message: 'Estado inválido. Usa: ACCEPTED, REFUSED o EARRING'
       })
     }
+
+    // Actualiza la institución
     const institution = await Institution.findByIdAndUpdate(
       id,
       { state: state.toUpperCase() },
       { new: true, runValidators: true }
     )
+
     if (!institution) {
       return res.status(404).json({
         success: false,
         message: 'Institución no encontrada'
       })
     }
+
+    // Si fue aceptada, actualiza el usuario
+    if (state.toUpperCase() === 'ACCEPTED') {
+      await User.findByIdAndUpdate(
+        institution.userId,
+        {
+          hasInstitution: true,
+          institutionId: institution._id
+        },
+        { new: true }
+      )
+    }
+
     return res.json({
       success: true,
       message: 'Estado actualizado correctamente',
       institution
     })
+
   } catch (err) {
     console.error('Error al actualizar estado', err)
     return res.status(500).json({
@@ -167,7 +183,6 @@ export const updateInstitutionState = async (req, res) => {
     })
   }
 }
-
 
 //Actualizar Institución
 export const updateInstitution = async(req, res)=>{
@@ -251,35 +266,41 @@ export const updateInstitutionImage = async(req, res)=>{
     }
 }
 
-
-//Eliminar Institución
 export const deleteInstitution = async (req, res) => {
-    try {
-        let {id} = req.params
-        let institution = await Institution.findByIdAndDelete(id)
+  try {
+    const { id } = req.params
 
-        if(!institution)
-            return res.status(404).send(
-        {
-            success: false,
-            message: 'Institución no encontrada'
-        })
-        return res.send(
-            {
-                success: true,
-                message: 'Institución eliminada exitosamente'
-            }
-        )
-    } catch (err) {
-        console.error('General error',err)
-        return res.status(500).send(
-            {
-                success: false,
-                message: 'General error',
-                err
-            }
-        )
+    // Primero encuentra la institución para obtener el userId antes de eliminarla
+    const institution = await Institution.findById(id)
+
+    if (!institution) {
+      return res.status(404).json({
+        success: false,
+        message: 'Institución no encontrada'
+      })
     }
+
+    // Elimina la institución
+    await Institution.findByIdAndDelete(id)
+
+    // Actualiza al usuario relacionado
+    await User.findByIdAndUpdate(institution.userId, {
+      hasInstitution: false,
+      institutionId: null
+    })
+
+    return res.json({
+      success: true,
+      message: 'Institución eliminada exitosamente'
+    })
+  } catch (err) {
+    console.error('General error', err)
+    return res.status(500).json({
+      success: false,
+      message: 'Error al eliminar institución',
+      err
+    })
+  }
 }
 
 export const getPendingInstitutions = async (req, res) => {
