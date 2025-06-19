@@ -9,7 +9,7 @@ import {
   getPendingInstitutions,     
   updateInstitutionState      
 } from "./institution.controller.js"
-import { validateJwt } from "../../middlewares/validate.jwt.js";
+import { isAdmin, validateJwt } from "../../middlewares/validate.jwt.js";
 import { uploadMultipleInstitutionImages } from '../../middlewares/multer.uploads.js'
 import { deleteFileOnError } from '../../middlewares/delete.file.on.errors.js'
 import { validateCreateInstitution, validateUpdateInstitution } from "../../middlewares/validators.js";
