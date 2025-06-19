@@ -60,3 +60,26 @@ export const isClient = async(req, res, next) => {
         return res.status(401).send({ message: 'Rol no autorizado' })
     }
 }
+
+
+// Verifica que sea Usuario o Admin
+export const hasRole = (...allowedRoles) => {
+  return (req, res, next) => {
+    try {
+      const user = req.user
+      if (!user || !allowedRoles.includes(user.role)) {
+        return res.status(403).send({
+          success: false,
+          message: `No tienes acceso - Rol requerido: ${allowedRoles.join(' o ')}`
+        })
+      }
+      next()
+    } catch (err) {
+      console.error(err)
+      return res.status(403).send({
+        success: false,
+        message: 'Error con la autorización'
+      })
+    }
+  }
+}

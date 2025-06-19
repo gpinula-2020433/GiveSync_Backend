@@ -214,31 +214,35 @@ export const updateInstitutionImage = async(req, res)=>{
     try{
         const {id} = req.params
         const filenames = req.files.map(file => file.filename)
-        const institution = await Institution.findByIdAndUpdate(
+        const oldInstitution = await Institution.findById(id)
+
+        if(!oldInstitution){
+            return res.status(404).send({
+                success: false,
+                message: 'No se encontró la institución'
+            })
+        }
+
+        if(oldInstitution.imageInstitution && oldInstitution.imageInstitution.length > 0){
+            oldInstitution.imageInstitution.forEach(filename =>{
+                const imagePath = path.join('uploads/img/users', filename)
+                if (fs.existsSync(imagePath)){
+                    fs.unlinkSync(imagePath)
+                }
+            })
+        }
+
+        const update = await Institution.findByIdAndUpdate(
             id,
-            {
-                imageInstitution: filenames
-            },
-            {
-                new: true
-            }
+            {imageInstitution: filenames},
+            {new: true}
         )
 
-        if(!institution)
-            return res.status(404).send(
-                {
-                    success: false,
-                    message: 'Institución no encontrada - no actualizado'
-                }
-            )
-        
-        return res.send(
-            {
-                success: true,
-                message: 'Imagen de institución actualizada exitosamente',
-                institution
-            }
-        )
+        return res.send({
+            success: true,
+            message: 'Institución actualizada correctamente',
+            institution : update
+        })
     }catch(err){
         console.error('General error', err)
         return res.status(500).send(
@@ -256,20 +260,30 @@ export const updateInstitutionImage = async(req, res)=>{
 export const deleteInstitution = async (req, res) => {
     try {
         let {id} = req.params
-        let institution = await Institution.findByIdAndDelete(id)
+         const institution = await Institution.findById(id)
 
-        if(!institution)
-            return res.status(404).send(
-        {
-            success: false,
-            message: 'Institución no encontrada'
-        })
-        return res.send(
-            {
-                success: true,
-                message: 'Institución eliminada exitosamente'
-            }
-        )
+    if (!institution) {
+      return res.status(404).send({
+        success: false,
+        message: 'No se encontró la institución'
+      })
+    }
+
+    if(institution.imageInstitution&& institution.imageInstitution.length > 0){
+            institution.imageInstitution.forEach(filename =>{
+                const imagePath = path.join('uploads/img/users', filename)
+                if (fs.existsSync(imagePath)){
+                    fs.unlinkSync(imagePath)
+                }
+            })
+        }
+
+    await Institution.findByIdAndDelete(id)
+
+    return res.send({
+      success: true,
+      message: 'Institución eliminada correctamente'
+    })
     } catch (err) {
         console.error('General error',err)
         return res.status(500).send(
