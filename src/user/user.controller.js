@@ -159,7 +159,7 @@ export const deleteClient = async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(uid)
 
     return res.send({
-      message: `La cuenta con el nombre de usuario ${deletedUser.name} se eliminó con éxito`
+      message: `La cuenta ${deletedUser.name} ${deletedUser.surname} se eliminó con éxito`
     })
   } catch (err) {
     console.error(err)
