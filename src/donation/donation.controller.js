@@ -133,32 +133,34 @@ export const getDonationById = async (req, res) => {
 
 export const getDonationsToMyInstitution = async (req, res) => {
   try {
-    const userId = new mongoose.Types.ObjectId(req.user.uid);
+    const userId = new mongoose.Types.ObjectId(req.user.uid)
 
-    const institution = await Institution.findOne({ userId });
+    const institution = await Institution.findOne({ userId })
 
     if (!institution) {
       return res.status(404).json({
         success: false,
         message: 'No tienes una institución registrada'
-      });
+      })
     }
 
     const donations = await Donation.find({ institution: institution._id })
       .populate('user', 'name surname username')
+      .populate('institution', 'name type description state')
       .sort({ createdAt: -1 });
+
 
     return res.json({
       success: true,
       message: 'Donaciones encontradas',
       donations,
-    });
+    })
   } catch (err) {
-    console.error('Error al obtener donaciones:', err);
+    console.error('Error al obtener donaciones:', err)
     return res.status(500).json({
       success: false,
       message: 'Error al obtener donaciones',
       error: err.message,
-    });
+    })
   }
-};
+}
