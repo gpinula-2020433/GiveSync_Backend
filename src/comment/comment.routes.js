@@ -23,17 +23,17 @@ api.get("/:id", getCommentById);
 
 api.post(
   "/",
-  [ validateJwt, isClient,uploadProfilePicture.single("commentImage"),deleteFileOnError,addCommentV],
+  [ validateJwt,uploadProfilePicture.single("commentImage"),deleteFileOnError,addCommentV],
   addComment
 );
 
 api.put(
   "/:id",
-  [ validateJwt,isClient,uploadProfilePicture.single("commentImage"), updateCommentV],
+  [ validateJwt,uploadProfilePicture.single("commentImage"), updateCommentV],
   updateComment
 );
 
-api.delete("/:id", [validateJwt, isClient], deleteComment);
+api.delete("/:id", [validateJwt], deleteComment);
 
 api.get('/publication/:publicationId',[getCommentsByPublicationV], getCommentsByPublication)
 api.get('/user/:userId',[getCommentsByUserV],getCommentsByUser)

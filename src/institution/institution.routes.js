@@ -23,7 +23,7 @@ api.get('/pending', [validateJwt], getPendingInstitutions)
 
 api.get('/my', validateJwt, getMyInstitutions)
 api.get('/all', getAllInstitutions)
-api.get('/:id', validateJwt , getInstitutionById)
+api.get('/:id' , getInstitutionById)
 api.post('/add', [uploadMultipleInstitutionImages, deleteFileOnError, validateCreateInstitution, validateJwt], addInstitution)
 api.put('/updateState/:id', [validateJwt, isAdmin] , updateInstitutionState)
 api.put('/update/:id', [validateJwt, ValidateIsInstitutionOwner, validateUpdateInstitution] ,updateInstitution)
