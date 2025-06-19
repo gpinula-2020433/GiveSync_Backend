@@ -181,18 +181,23 @@ export const validateInstitutionUserId = async (userId) => {
 }
 
 
-//Validar que solo el dueño de la institución pueda editarla y eliminarla 
+// Validar que solo el dueño de la institución pueda editarla
 export const ValidateIsInstitutionOwner = async (req, res, next) => {
   try {
     const { id } = req.params
     const userId = req.user.uid
-    const institution = await Institution.findById(id)
-    if (!institution) {
-      return res.status(404).json({ message: 'Institución no encontrada' })
+    const method = req.method
+
+    if (method === 'PUT') {
+      const institution = await Institution.findById(id)
+      if (!institution) {
+        return res.status(404).json({ message: 'Institución no encontrada' })
+      }
+      if (institution.userId.toString() !== userId) {
+        return res.status(403).json({ message: 'No estás autorizado para editar esta institución.' })
+      }
     }
-    if (institution.userId.toString() !== userId) {
-      return res.status(403).json({ message: 'No estás autorizado para realizar esta acción.' })
-    }
+
     next()
   } catch (error) {
     console.error(error)
