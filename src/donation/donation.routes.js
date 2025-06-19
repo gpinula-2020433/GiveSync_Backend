@@ -11,7 +11,7 @@ import { isAdmin, validateJwt } from '../../middlewares/validate.jwt.js'
 
 const api = Router()
 
-api.get('/', validateJwt, isAdmin, getAllDonations)
+api.get('/', validateJwt, getAllDonations)
 api.get('/:id', validateJwt, getDonationById)
 api.post('/add', validateJwt, donationValidator, validateErrors, addDonation)
 api.get('/institution/my', validateJwt, getDonationsToMyInstitution);

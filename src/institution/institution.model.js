@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { type } from "os";
 
 const institutionSchema = Schema(
     {
@@ -15,15 +16,15 @@ const institutionSchema = Schema(
         description:{
             type: String,
             required: [true, 'Description is required'],
-            maxLength: [100, `Can't be overcome 100 characters`]
+            maxLength: [150, `Can't be overcome 150 characters`]
         },
-        imageInstitution:{
+        imageInstitution:[{
             type: String
-        },
+        }],
         state:{
             type: String,
             uppercase: true,
-            enum: ['REFUSED', 'ACCEPTED', 'EARRING '],
+            enum: ['REFUSED', 'ACCEPTED', 'EARRING'],
             defaultValue: 'EARRING'
         },
         userId:{

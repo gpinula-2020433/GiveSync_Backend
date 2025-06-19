@@ -31,7 +31,12 @@ const userSchema = Schema(
             maxLength: [100, `Can't be overcome 100 characters`],
         },
         imageUser: {
-            type: String
+            type: String,
+            default: null
+        },
+        hasInstitution: {
+            type: Boolean,
+            default: false
         },
         role:{
             type: String,

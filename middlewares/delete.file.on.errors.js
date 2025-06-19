@@ -1,15 +1,15 @@
 //Eliminar archivos si algo sale mal
-import { unlink } from 'fs/promises'//Eliminar archivos
+import { unlink } from 'fs/promises' //Eliminar archivos
 import { join } from 'path'
- 
-//Middleware de eliminar
+
+//Middleware para eliminar archivos en caso de error
 export const deleteFileOnError = async (error, req, res, next) => {
   if (req.file && req.filePath) {
     const filePath = join(req.filePath, req.file.filename);
     try {
       await unlink(filePath);
     } catch (unlinkErr) {
-      console.error('Error deleting file', unlinkErr);
+      console.error('Error al eliminar el archivo', unlinkErr);
     }
   }
 
@@ -28,7 +28,7 @@ export const deleteFileOnError = async (error, req, res, next) => {
   return res.status(500).send(
     {
       success: false,
-      message: error.message || 'Internal server error'
+      message: error.message || 'Error interno del servidor'
     }
   )
 }

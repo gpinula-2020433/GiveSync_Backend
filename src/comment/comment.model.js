@@ -4,8 +4,8 @@ const commentSchema = Schema(
     {
         content:{
             type: String,
-            maxLength: [500,`Can't be overcome 500, characters` ],
-            required: [true, 'Content is required'],
+            maxLength: [500,`NO puede superar los 500 caracteres` ],
+            required: [true, 'El contenido es requerido'],
         },
         commentImage:{
             type: String,
@@ -22,6 +22,10 @@ const commentSchema = Schema(
             type: Date,
             default: Date.now
         }
+    },
+    {
+        versionKey: false,
+        timestamps: true
     }
 )
 export default model ('Comment', commentSchema)
