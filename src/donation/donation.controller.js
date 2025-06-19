@@ -2,6 +2,7 @@ import Donation from './donation.model.js'
 import Institution from '../institution/institution.model.js'
 import User from '../user/user.model.js'
 import { findUser } from '../../utils/db.validators.js'
+import mongoose from 'mongoose'
 
 export const addDonation = async (req, res) => {
   const { amount, institution } = req.body
@@ -22,7 +23,6 @@ export const addDonation = async (req, res) => {
         message: 'No se puede donar a una institución que no ha sido aceptada'
       })
     }
-
     const maintenanceAmount = amount * 0.1
     const institutionAmount = amount * 0.9
 
@@ -131,40 +131,34 @@ export const getDonationById = async (req, res) => {
   }
 }
 
-export const getDonationsByInstitution = async (req, res) => {
-  const { institutionId } = req.params
-
+export const getDonationsToMyInstitution = async (req, res) => {
   try {
-    if (!institutionId) {
-      return res.status(400).json({
-        success: false,
-        message: 'ID de institución requerido'
-      })
-    }
+    const userId = new mongoose.Types.ObjectId(req.user.uid);
 
-    const donations = await Donation.find({ institution: institutionId })
-      .populate('institution', 'name type')
-      .populate('user', 'name surname username')
+    const institution = await Institution.findOne({ userId });
 
-    if (donations.length === 0) {
+    if (!institution) {
       return res.status(404).json({
         success: false,
-        message: 'No se encontraron donaciones para esta institución'
-      })
+        message: 'No tienes una institución registrada'
+      });
     }
+
+    const donations = await Donation.find({ institution: institution._id })
+      .populate('user', 'name surname username')
+      .sort({ createdAt: -1 });
 
     return res.json({
       success: true,
-      message: 'Donaciones encontradas para la institución',
-      total: donations.length,
-      donations
-    })
+      message: 'Donaciones encontradas',
+      donations,
+    });
   } catch (err) {
-    console.error('Error al obtener donaciones por institución:', err)
+    console.error('Error al obtener donaciones:', err);
     return res.status(500).json({
       success: false,
-      message: 'Error al obtener donaciones por institución',
-      error: err.message
-    })
+      message: 'Error al obtener donaciones',
+      error: err.message,
+    });
   }
-}
+};

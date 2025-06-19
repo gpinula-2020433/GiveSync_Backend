@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8de64627-da90-453d-8deb-6dd8dc4c7722",
+		"_postman_id": "40230124-3a0c-4d17-a893-37b49134cd04",
 		"name": "GyveSync_SyntaxError",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37956966"
+		"_exporter_id": "37956970"
 	},
 	"item": [
 		{
@@ -791,7 +791,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Fundacion Honda",
+									"value": "Prueba2",
 									"type": "text"
 								},
 								{
@@ -807,7 +807,7 @@
 								{
 									"key": "imageInstitution",
 									"type": "file",
-									"src": "/C:/Users/Pamal/Downloads/hotel.jpg"
+									"src": "/C:/Users/dilan/OneDrive/Imágenes/halo.jpg"
 								},
 								{
 									"key": "imageInstitution",
@@ -872,7 +872,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3200/v1/institution/update/6852664be7d513293968d521",
+							"raw": "localhost:3200/v1/institution/update/6850e1e41eb93551e2a777a7",
 							"host": [
 								"localhost"
 							],
@@ -881,44 +881,7 @@
 								"v1",
 								"institution",
 								"update",
-								"6852664be7d513293968d521"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UpdateStateInstitution",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "state",
-									"value": "ACCEPTED",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/v1/institution/updateState/685238d36698031d768b8ac8",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"v1",
-								"institution",
-								"updateState",
-								"685238d36698031d768b8ac8"
+								"6850e1e41eb93551e2a777a7"
 							]
 						}
 					},
@@ -1012,17 +975,12 @@
 							"urlencoded": [
 								{
 									"key": "amount",
-									"value": "1000",
+									"value": "500000",
 									"type": "text"
 								},
 								{
 									"key": "institution",
-									"value": "6850e1e41eb93551e2a777a7",
-									"type": "text"
-								},
-								{
-									"key": "user",
-									"value": "684a5196d2577795166f8788",
+									"value": "68526c54b3eac74801af705a",
 									"type": "text"
 								}
 							]
@@ -1142,7 +1100,7 @@
 					"response": []
 				},
 				{
-					"name": "getDonationByInstitution",
+					"name": "getDonationsToInstitution",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1160,7 +1118,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "localhost:3200/v1/donation/institution/6850e1e41eb93551e2a777a7",
+							"raw": "localhost:3200/v1/donation/institution/my",
 							"host": [
 								"localhost"
 							],
@@ -1169,7 +1127,7 @@
 								"v1",
 								"donation",
 								"institution",
-								"6850e1e41eb93551e2a777a7"
+								"my"
 							]
 						}
 					},
