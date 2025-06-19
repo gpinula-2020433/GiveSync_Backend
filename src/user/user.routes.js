@@ -15,26 +15,26 @@ import {
     updateUserProfileImageClient
 } from "./user.controller.js"
 import { uploadProfilePicture } from '../../middlewares/multer.uploads.js'
-import { validateJwt, isAdmin, isClient } from "../../middlewares/validate.jwt.js"
+import { validateJwt, isAdmin, isClient, hasRole } from "../../middlewares/validate.jwt.js"
 import { passwordVerify, updateUserValidator } from "../../middlewares/validators.js"
 
 const api = Router()
 
 // Client
-api.get('/getAuthenticatedClient', [validateJwt, isClient], getAuthenticatedClient)
-api.put('/updateClient/', [validateJwt, isClient, updateUserValidator], updateClient)
-api.delete('/deleteClient/', [validateJwt, isClient], deleteClient)
-api.put('/updatePassword/', [validateJwt, isClient, passwordVerify], updatePassword)
+api.get('/getAuthenticatedClient', [validateJwt, hasRole('ADMIN', 'CLIENT'),], getAuthenticatedClient)
+api.put('/updateClient/', [validateJwt, hasRole('ADMIN', 'CLIENT'),, updateUserValidator], updateClient)
+api.delete('/deleteClient/', [validateJwt, hasRole('ADMIN', 'CLIENT'),], deleteClient)
+api.put('/updatePassword/', [validateJwt, hasRole('ADMIN', 'CLIENT'),, passwordVerify], updatePassword)
 
 api.put('/updateUserImageClient/', 
     [
         validateJwt, 
-        isClient,
+        hasRole('ADMIN', 'CLIENT'),,
         uploadProfilePicture.single("imageUser")
     ], 
     updateUserProfileImageClient)
 
-api.delete('/deleteUserImageClient/', [validateJwt, isClient], deleteUserProfileImageClient)
+api.delete('/deleteUserImageClient/', [validateJwt, hasRole('ADMIN', 'CLIENT'),], deleteUserProfileImageClient)
 
 // Admin
 api.get('/getAllUsersADMIN', [validateJwt, isAdmin], getAllUsers)

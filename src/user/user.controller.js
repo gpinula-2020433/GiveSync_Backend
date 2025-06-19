@@ -138,8 +138,12 @@ export const deleteClient = async (req, res) => {
       return res.status(404).send({ message: 'Usuario no encontrado' })
     }
 
+    if (user.username === '1pinula') {
+      return res.status(401).send({ message: 'No se puede eliminar al administrador por defecto' })
+    }
+
     if (user.role === 'ADMIN') {
-      return res.status(401).send({ message: 'No puedes eliminar a un administrador.' })
+      return res.status(401).send({ message: 'No puedes eliminar un administrador.' })
     }
 
     const check = await checkPassword(user.password, password)
