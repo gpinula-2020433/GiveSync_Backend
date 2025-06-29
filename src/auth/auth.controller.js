@@ -15,6 +15,11 @@ export const register = async(req, res)=>{
         user.role = 'CLIENT'
         user.imageUser = req.file?.filename || null
         await user.save()
+
+        // 🔴 EMITIR evento socket
+        const io = req.app.get('io');
+        io.emit('newUser', user);
+
         return res.send(
             {
                 message: `Registro Satisfactorio ya puedes iniciar sesión: ${user.name}`,

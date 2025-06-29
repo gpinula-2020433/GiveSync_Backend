@@ -89,6 +89,9 @@ export const updateClient = async (req, res) => {
           { new: true }
       )
 
+      const io = req.app.get('io');
+      io.emit('updateUser', updatedUser);
+
       return res.status(200).send({
           message: 'Usuario actualizado con éxito.',
           user: updatedUser.toJSON()
@@ -190,6 +193,9 @@ export const deleteClient = async (req, res) => {
     // ✅ Eliminar al usuario
     const deletedUser = await User.findByIdAndDelete(uid)
 
+    const io = req.app.get('io');
+    io.emit('deleteUser', deletedUser._id);
+
     return res.send({
       message: `La cuenta ${deletedUser.name} ${deletedUser.surname} se eliminó con éxito`
     })
@@ -235,6 +241,9 @@ export const updateUserProfileImageClient = async (req, res) => {
 
     user.imageUser = filename
     await user.save()
+
+    const io = req.app.get('io');
+    io.emit('updateUserImage', user);
 
     return res.send({
       success: true,
@@ -285,6 +294,9 @@ export const deleteUserProfileImageClient = async (req, res) => {
 
     user.imageUser = null
     await user.save()
+
+    const io = req.app.get('io');
+    io.emit('updateUserImage', user);
 
     return res.send({
       success: true,
