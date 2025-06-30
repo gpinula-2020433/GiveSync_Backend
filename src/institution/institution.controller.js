@@ -127,6 +127,9 @@ export const addInstitution = async (req, res) => {
 
     console.log('Institution created', institution.state)
 
+    const io = req.app.get('io')
+    io.emit('newInstitution', institution.toObject())
+
     return res.json({
       success: true,
       message: 'Guardado exitosamente',
@@ -201,7 +204,10 @@ export const updateInstitutionState = async (req, res) => {
     const notification = new Notification(notificationData)
     await notification.save()
 
+    const io = req.app.get('io')
+    io.emit('updateInstitution', institution.toObject())
 
+    console.log('Estado actualizado', institution.toObject())
     return res.json({
       success: true,
       message: 'Estado actualizado correctamente',
@@ -238,6 +244,9 @@ export const updateInstitution = async(req, res)=>{
                     message: 'Institución no encontrada'
                 }
             )
+          
+          const io = req.app.get('io')
+          io.emit('updateInstitution', update.toObject())
         return res.send(
             {
                 success: true,
@@ -287,6 +296,8 @@ export const updateInstitutionImage = async(req, res)=>{
             {new: true}
         )
 
+        const io = req.app.get('io')
+        io.emit('updateInstitution', update.toObject())
         return res.send({
             success: true,
             message: 'Institución actualizada correctamente',
@@ -333,6 +344,9 @@ export const deleteInstitution = async (req, res) => {
       institutionId: null
     })
 
+    const io = req.app.get('io')
+    io.emit('deleteInstitution', { _id: id })
+    
     return res.send({
       success: true,
       message: 'Institución eliminada correctamente'
