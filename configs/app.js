@@ -12,7 +12,7 @@ import publicationRouter from '../src/publication/publication.routes.js'
 import institutionRoutes from '../src/institution/institution.routes.js'
 import donationRoutes from '../src/donation/donation.routes.js'
 import commentRoutes from '../src/comment/comment.routes.js'
-
+import notificationRoutes from '../src/notification/notification.routes.js'
 import { limiter } from '../middlewares/rate.limit.js'
 import { deleteFileOnError } from '../middlewares/delete.file.on.errors.js'
 import { defaultAdmin } from '../src/user/user.controller.js'
@@ -46,6 +46,7 @@ const routes = (app) => {
   app.use('/v1/institution', institutionRoutes)
   app.use('/v1/donation', donationRoutes)
   app.use('/v1/comment', commentRoutes)
+  app.use('/v1/notification', notificationRoutes)
   app.use(deleteFileOnError)
 }
 

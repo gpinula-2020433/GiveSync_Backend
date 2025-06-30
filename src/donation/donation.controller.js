@@ -1,6 +1,7 @@
 import Donation from './donation.model.js'
 import Institution from '../institution/institution.model.js'
 import User from '../user/user.model.js'
+import Notification from '../notification/notification.model.js'
 import { findUser } from '../../utils/db.validators.js'
 import mongoose from 'mongoose'
 
@@ -45,6 +46,30 @@ export const addDonation = async (req, res) => {
     })
 
     const savedDonation = await newDonation.save()
+
+    // Notificar al dueño de la institución (receptor)
+const notificationToInstitutionOwner = new Notification({
+  userId: institutionExists.userId,
+  fromUserId: user,
+  type: 'DONATION',
+  message: `Has recibido una donación de Q${institutionAmount} en tu institución | ${institutionExists.name}`,
+  referenceId: savedDonation._id
+})
+
+// Notificar al donante (agradecimiento)
+const notificationToDonor = new Notification({
+  userId: user,
+  fromUserId: institutionExists.userId,
+  type: 'DONATION',
+  message: `Gracias por tu donación de Q${amount} a la institución "${institutionExists.name}"`,
+  referenceId: savedDonation._id
+})
+
+// Guardar ambas notificaciones
+await Promise.all([
+  notificationToInstitutionOwner.save(),
+  notificationToDonor.save()
+])
 
     res.status(201).json({
       success: true,

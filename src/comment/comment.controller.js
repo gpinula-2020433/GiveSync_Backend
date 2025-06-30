@@ -1,6 +1,9 @@
 'use strict'
 import path from 'path'
 import Comment from './comment.model.js'
+import Notification from '../notification/notification.model.js'
+import Publication from '../publication/publication.model.js'
+import Institution from '../institution/institution.model.js'
 import fs from 'fs'
 
 export const getAllComments = async (req, res) => {
@@ -72,6 +75,28 @@ export const addComment = async (req, res) => {
 
     let comment = new Comment(data)
     await comment.save()
+
+    // obtener publicación
+    const publication = await Publication.findById(comment.publicationId)
+
+    if (publication) {
+      // obtener institución asociada a la publicación
+      const institution = await Institution.findById(publication.institutionId)
+
+      if (institution) {
+        // notificar al dueño de la institución (usuario de la institución)
+        const notificationData = {
+          userId: institution.userId,           // receptor
+          fromUserId: req.user.uid,             // quien comentó
+          type: 'COMMENT',
+          message: `Han comentado en tu publicación | ${publication.title}`,
+          referenceId: comment._id
+        }
+
+        const notification = new Notification(notificationData)
+        await notification.save()
+      }
+    }
 
     comment = await Comment.findById(comment._id)
       .populate('userId', 'name email')

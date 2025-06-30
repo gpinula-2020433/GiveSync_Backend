@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import Institution from '../institution/institution.model.js'
 import User from '../user/user.model.js'
+import Notification from '../notification/notification.model.js'
 
 //Listar todas las instituciones
 export const getAllInstitutions = async (req, res) => {
@@ -180,6 +181,26 @@ export const updateInstitutionState = async (req, res) => {
         { new: true }
       )
     }
+
+    // Crear la notificación al dueño de la institución
+    const notificationMessage =
+      state.toUpperCase() === 'ACCEPTED'
+        ? `Tu institución ${institution.name} ha sido aceptada`
+        : state.toUpperCase() === 'REFUSED'
+        ? `Tu institución ${institution.name} ha sido rechazada`
+        : `El estado de tu institución | ${institution.name} | ha sido actualizado`
+
+    const notificationData = {
+      userId: institution.userId,     // receptor (dueño de la institución)
+      fromUserId: req.user.uid,       // quien realiza la acción (admin)
+      type: 'INSTITUTION',
+      message: notificationMessage,
+      referenceId: institution._id
+    }
+
+    const notification = new Notification(notificationData)
+    await notification.save()
+
 
     return res.json({
       success: true,
