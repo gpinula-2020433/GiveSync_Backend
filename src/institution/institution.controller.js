@@ -213,7 +213,8 @@ export const updateInstitutionState = async (req, res) => {
     // Crear notificación al dueño
     const notificationMessage =
       state.toUpperCase() === 'ACCEPTED'
-        ? `Tu institución ${institution.name} ha sido aceptada`
+        ? `Tu institución ${institution.name} ha sido aceptada y se ha habilitado la sección "Institución", lo que le permite configurarla y agregar publicaciones.
+        `
         : state.toUpperCase() === 'REFUSED'
         ? `Tu institución ${institution.name} ha sido rechazada`
         : `El estado de tu institución | ${institution.name} | ha sido actualizado`
