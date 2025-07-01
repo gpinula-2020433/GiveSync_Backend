@@ -89,12 +89,21 @@ export const addComment = async (req, res) => {
           userId: institution.userId,           // receptor
           fromUserId: req.user.uid,             // quien comentó
           type: 'COMMENT',
-          message: `Han comentado en tu publicación | ${publication.title}`,
+          message: `Han comentado en tu publicación "${publication.title}"`,
           referenceId: comment._id
         }
 
         const notification = new Notification(notificationData)
         await notification.save()
+
+        // Aquí cargas la notificación con los datos del usuario que hizo la acción
+        const populatedNotification = await Notification.findById(notification._id)
+          .populate('fromUserId', 'name username imageUser') // los campos que necesites
+
+        const io = req.app.get('io')
+        io.emit('addNotification', {
+          notification: populatedNotification
+        })
       }
     }
 

@@ -130,6 +130,27 @@ export const addInstitution = async (req, res) => {
     const io = req.app.get('io')
     io.emit('newInstitution', institution.toObject())
 
+    // Crear notificación de solicitud enviada
+    const notification = new Notification({
+      userId,
+      fromUserId: null, // desde el sistema
+      type: 'INSTITUTION',
+      message: `Tu solicitud de institución "${institution.name}" ha sido enviada. Gracias.`,
+      referenceId: institution._id
+    })
+
+    await notification.save()
+
+    // Buscar la notificación completa (aunque no tenga fromUserId)
+    const populatedNotification = await Notification.findById(notification._id)
+      .populate('fromUserId', 'name username imageUser')
+
+    // Emitir notificación al frontend
+    io.emit('addNotification', {
+      notification: populatedNotification
+    })
+
+
     return res.json({
       success: true,
       message: 'Guardado exitosamente',
@@ -159,7 +180,6 @@ export const updateInstitutionState = async (req, res) => {
       })
     }
 
-    // Actualiza la institución
     const institution = await Institution.findByIdAndUpdate(
       id,
       { state: state.toUpperCase() },
@@ -173,9 +193,11 @@ export const updateInstitutionState = async (req, res) => {
       })
     }
 
-    // Si fue aceptada, actualiza el usuario
+    const io = req.app.get('io')
+
+    // Si fue aceptada, actualiza el usuario relacionado
     if (state.toUpperCase() === 'ACCEPTED') {
-      await User.findByIdAndUpdate(
+      const updatedUser = await User.findByIdAndUpdate(
         institution.userId,
         {
           hasInstitution: true,
@@ -183,9 +205,12 @@ export const updateInstitutionState = async (req, res) => {
         },
         { new: true }
       )
+
+      // Emitir el usuario actualizado con evento específico
+      io.emit('updateUserHasInstitution', updatedUser)
     }
 
-    // Crear la notificación al dueño de la institución
+    // Crear notificación al dueño
     const notificationMessage =
       state.toUpperCase() === 'ACCEPTED'
         ? `Tu institución ${institution.name} ha sido aceptada`
@@ -194,8 +219,8 @@ export const updateInstitutionState = async (req, res) => {
         : `El estado de tu institución | ${institution.name} | ha sido actualizado`
 
     const notificationData = {
-      userId: institution.userId,     // receptor (dueño de la institución)
-      fromUserId: req.user.uid,       // quien realiza la acción (admin)
+      userId: institution.userId,
+      fromUserId: null,
       type: 'INSTITUTION',
       message: notificationMessage,
       referenceId: institution._id
@@ -204,16 +229,22 @@ export const updateInstitutionState = async (req, res) => {
     const notification = new Notification(notificationData)
     await notification.save()
 
-    const io = req.app.get('io')
+    const populatedNotification = await Notification.findById(notification._id)
+      .populate('fromUserId', 'name username imageUser')
+
+    // Emitir la notificación
+    io.emit('addNotification', {
+      notification: populatedNotification
+    })
+
+    // Emitir la actualización de institución (como ya hacías)
     io.emit('updateInstitution', institution.toObject())
 
-    console.log('Estado actualizado', institution.toObject())
     return res.json({
       success: true,
       message: 'Estado actualizado correctamente',
       institution
     })
-
   } catch (err) {
     console.error('Error al actualizar estado', err)
     return res.status(500).json({
@@ -223,6 +254,7 @@ export const updateInstitutionState = async (req, res) => {
     })
   }
 }
+
 
 //Actualizar Institución
 export const updateInstitution = async(req, res)=>{
@@ -315,11 +347,12 @@ export const updateInstitutionImage = async(req, res)=>{
     }
 }
 
-//Eliminar Institución
+// Eliminar Institución
 export const deleteInstitution = async (req, res) => {
-    try {
-        let {id} = req.params
-         const institution = await Institution.findById(id)
+  try {
+    let { id } = req.params
+
+    const institution = await Institution.findById(id)
 
     if (!institution) {
       return res.status(404).send({
@@ -328,42 +361,86 @@ export const deleteInstitution = async (req, res) => {
       })
     }
 
-    if(institution.imageInstitution&& institution.imageInstitution.length > 0){
-            institution.imageInstitution.forEach(filename =>{
-                const imagePath = path.join('uploads/img/users', filename)
-                if (fs.existsSync(imagePath)){
-                    fs.unlinkSync(imagePath)
-                }
-            })
+    // Eliminar imágenes si existen
+    if (institution.imageInstitution && institution.imageInstitution.length > 0) {
+      institution.imageInstitution.forEach(filename => {
+        const imagePath = path.join('uploads/img/users', filename)
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath)
         }
+      })
+    }
 
+    // Eliminar institución
     await Institution.findByIdAndDelete(id)
-      
-    await User.findByIdAndUpdate(institution.userId, {
-      hasInstitution: false,
-      institutionId: null
-    })
+
+    // Actualizar usuario relacionado
+    const updatedUser = await User.findByIdAndUpdate(
+      institution.userId,
+      {
+        hasInstitution: false,
+        institutionId: null
+      },
+      { new: true }
+    )
 
     const io = req.app.get('io')
+
+    // Emitir evento de eliminación de institución
     io.emit('deleteInstitution', { _id: id })
-    
+
+    // Emitir actualización de usuario (relacionado con institución)
+    io.emit('updateUserHasInstitution', updatedUser)
+
+
+    //--------------
+    // Obtener el usuario que hace la acción
+      const usuarioId = req.user.uid
+      const usuario = await User.findById(usuarioId)
+
+      // Mensaje según el rol del que eliminó
+      let message = ''
+
+      if (usuario?.role === 'ADMIN') {
+        message = `Un administrador ha eliminado tu institución "${institution.name}" por actividad sospechosa o falta de información suficiente.`
+      } else {
+        message = `Tu institución "${institution.name}" ha sido eliminada satisfactoriamente.`
+      }
+
+      // Crear y guardar la notificación
+      const notification = new Notification({
+        userId: institution.userId,
+        fromUserId: null,
+        type: 'INSTITUTION',
+        message,
+        referenceId: institution._id
+      })
+
+      await notification.save()
+
+      // Poblar para enviar al frontend
+      const populatedNotification = await Notification.findById(notification._id)
+        .populate('fromUserId', 'name username imageUser')
+
+      // Emitir la notificación al cliente correspondiente
+      io.emit('addNotification', {
+        notification: populatedNotification
+      })
+
+
     return res.send({
       success: true,
       message: 'Institución eliminada correctamente'
     })
-    
-    } catch (err) {
-        console.error('General error',err)
-        return res.status(500).send(
-            {
-                success: false,
-                message: 'General error',
-                err
-            }
-        )
-    }
+  } catch (err) {
+    console.error('General error', err)
+    return res.status(500).send({
+      success: false,
+      message: 'General error',
+      err
+    })
+  }
 }
-
 
 export const getPendingInstitutions = async (req, res) => {
   try {

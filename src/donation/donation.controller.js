@@ -47,29 +47,41 @@ export const addDonation = async (req, res) => {
 
     const savedDonation = await newDonation.save()
 
-    // Notificar al dueño de la institución (receptor)
-const notificationToInstitutionOwner = new Notification({
-  userId: institutionExists.userId,
-  fromUserId: user,
-  type: 'DONATION',
-  message: `Has recibido una donación de Q${institutionAmount} en tu institución | ${institutionExists.name}`,
-  referenceId: savedDonation._id
-})
+    // Crear notificaciones
+    const notificationToInstitutionOwner = new Notification({
+      userId: institutionExists.userId,
+      fromUserId: user,
+      type: 'DONATION',
+      message: `Has recibido una donación de Q${institutionAmount} en tu institución "${institutionExists.name}"`,
+      referenceId: savedDonation._id
+    })
 
-// Notificar al donante (agradecimiento)
-const notificationToDonor = new Notification({
-  userId: user,
-  fromUserId: institutionExists.userId,
-  type: 'DONATION',
-  message: `Gracias por tu donación de Q${amount} a la institución "${institutionExists.name}"`,
-  referenceId: savedDonation._id
-})
+    const notificationToDonor = new Notification({
+      userId: user,
+      fromUserId: institutionExists.userId,
+      type: 'DONATION',
+      message: `Gracias por tu donación de Q${amount} a la institución "${institutionExists.name}"`,
+      referenceId: savedDonation._id
+    })
 
-// Guardar ambas notificaciones
-await Promise.all([
-  notificationToInstitutionOwner.save(),
-  notificationToDonor.save()
-])
+    // Guardar ambas notificaciones en paralelo
+    await Promise.all([
+      notificationToInstitutionOwner.save(),
+      notificationToDonor.save()
+    ])
+
+    // Obtener io para emitir sockets
+    const io = req.app.get('io')
+
+    // Recuperar y popular notificación al dueño de la institución y emitir
+    const populatedNotificationOwner = await Notification.findById(notificationToInstitutionOwner._id)
+      .populate('fromUserId', 'name username imageUser')
+    io.emit('addNotification', { notification: populatedNotificationOwner })
+
+    // Recuperar y popular notificación al donante y emitir
+    const populatedNotificationDonor = await Notification.findById(notificationToDonor._id)
+      .populate('fromUserId', 'name username imageUser')
+    io.emit('addNotification', { notification: populatedNotificationDonor })
 
     res.status(201).json({
       success: true,
@@ -83,6 +95,7 @@ await Promise.all([
     })
   }
 }
+
 
 export const getAllDonations = async (req, res) => {
   const { limit = 10, skip = 0 } = req.query
