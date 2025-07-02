@@ -18,6 +18,16 @@ const institutionSchema = Schema(
             required: [true, 'Description is required'],
             maxLength: [150, `Can't be overcome 150 characters`]
         },
+        address:{
+            type: String,
+            required: [true, 'Address is required'],
+            maxLength: [100, `Can't be overcome 100 characters`]
+        },
+        phone:{
+            type: String,
+            required: [true, 'Phone is required'],
+            maxLength: [10, `Can't be overcome 10 characters`]
+        },
         imageInstitution:[{
             type: String
         }],
