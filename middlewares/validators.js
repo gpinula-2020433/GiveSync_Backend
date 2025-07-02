@@ -166,6 +166,9 @@ export const validateUpdateInstitution = [
       validateInstitutionType(value)
       return true
     }),
+  body('phone','Phone is required')
+    .notEmpty()
+    .isMobilePhone(),
   body('description')
     .optional()
     .isLength({ max: 150 })

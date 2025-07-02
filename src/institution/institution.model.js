@@ -26,7 +26,8 @@ const institutionSchema = Schema(
         phone:{
             type: String,
             required: [true, 'Phone is required'],
-            maxLength: [10, `Can't be overcome 10 characters`]
+            minLength:[8, 'Phone must be 8 numbers'],
+            maxLength: [15, `Can't be overcome 15 characters`]
         },
         imageInstitution:[{
             type: String
