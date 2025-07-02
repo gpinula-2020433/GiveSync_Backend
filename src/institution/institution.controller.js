@@ -446,6 +446,7 @@ export const deleteInstitution = async (req, res) => {
 export const getPendingInstitutions = async (req, res) => {
   try {
     const institutions = await Institution.find({ state: 'EARRING' })
+      .sort({ createdAt: -1 })
       .populate('userId', 'name surname username email imageUser')  // <--- Aquí la población del usuario
 
     if (institutions.length === 0) {
