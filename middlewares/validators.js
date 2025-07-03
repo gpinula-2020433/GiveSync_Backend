@@ -167,7 +167,7 @@ export const validateUpdateInstitution = [
       return true
     }),
   body('phone','Phone is required')
-    .notEmpty()
+    .optional()
     .isMobilePhone(),
   body('description')
     .optional()

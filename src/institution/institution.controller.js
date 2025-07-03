@@ -5,17 +5,18 @@ import Institution from '../institution/institution.model.js'
 import User from '../user/user.model.js'
 import Notification from '../notification/notification.model.js'
 
-//Listar todas las instituciones
+// Listar todas las instituciones
 export const getAllInstitutions = async (req, res) => {
     try {
         const { limit = 10, skip = 0, state } = req.query
-        const filter = {}
+        const filter = {};
         if (state) {
             filter.state = state.toUpperCase()
         }
         const institutions = await Institution.find(filter)
             .skip(Number(skip))
             .limit(Number(limit))
+            .populate('userId', 'name surname username email')
         if (institutions.length === 0) {
             return res.status(404).send({
                 success: false,
