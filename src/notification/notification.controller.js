@@ -26,6 +26,7 @@ export const getAllNotifications = async (req, res) => {
 
     return res.send({
       success: true,
+      notificationsLength: notifications.length,
       message: 'Notificaciones encontradas',
       notifications
     })

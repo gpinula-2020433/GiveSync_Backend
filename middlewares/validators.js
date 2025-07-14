@@ -143,6 +143,18 @@ export const validateCreateInstitution = [
         }),
     body('description', 'Description is required')
         .notEmpty()
+        .isLength({ max: 1000 })
+        .withMessage('Description can’t exceed 150 characters'),
+    body('address', 'Address is required')
+        .notEmpty()
+        .isLength({ max: 150 })
+        .withMessage('Address can’t exceed 150 characters'),
+    body('phone', 'Phone is required')
+        .notEmpty()
+        .isMobilePhone()
+        .withMessage('Phone must be a valid mobile phone number'),
+    body('description', 'Description is required')
+        .notEmpty()
         .isLength({ max: 150 })
         .withMessage('Description can’t exceed 150 characters'),
     body('state', 'Invalid state')
@@ -166,13 +178,21 @@ export const validateUpdateInstitution = [
       validateInstitutionType(value)
       return true
     }),
-  body('phone','Phone is required')
+  body('description', 'Description is required')
     .optional()
-    .isMobilePhone(),
-  body('description')
+    .isLength({ max: 1000 })
+    .withMessage('Description can’t exceed 150 characters'),
+  body('address', 'Address is required')
     .optional()
     .isLength({ max: 150 })
-    .withMessage('La descripción no debe superar 150 caracteres'),
+    .withMessage('Address can’t exceed 150 characters'),
+  body('phone', 'Phone is required')
+    .optional()
+    .isMobilePhone()
+    .withMessage('Phone must be a valid mobile phone number'),
+ body('state', 'Invalid state')
+    .optional()
+    .custom(notRequiredField),
   validateErrors
 ]
 
@@ -180,6 +200,8 @@ export const donationValidator = [
     body('amount')
       .notEmpty()
       .withMessage('El monto es obligatorio')
+      .isFloat()
+      .withMessage('El monto debe ser un número válido')
       .isFloat({ gt: 0, lt: 1000000 })
       .withMessage('El monto debe estar entre 1 y 1,000,000'),
     body('institution')
