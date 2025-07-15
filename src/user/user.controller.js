@@ -587,10 +587,8 @@ export const deleteUserAdmin = async (req, res) => {
       return res.status(403).send({ message: 'No puedes eliminar a un administrador, solo puedes eliminar clientes.' })
     }
 
-    // ✅ Eliminar comentarios del usuario
     await Comment.deleteMany({ userId: user._id })
 
-    // ✅ Buscar instituciones del usuario
     const institutions = await Institution.find({ userId: user._id })
 
     for (const institution of institutions) {
@@ -605,7 +603,6 @@ export const deleteUserAdmin = async (req, res) => {
 
     await Institution.deleteMany({ userId: user._id })
 
-    // ✅ Eliminar imagen del usuario si tiene
     if (user.imageUser) {
       const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
       try {
@@ -615,7 +612,6 @@ export const deleteUserAdmin = async (req, res) => {
       }
     }
 
-    // ✅ Eliminar notificaciones relacionadas con el usuario
     await Notification.deleteMany({
       $or: [
         { userId: user._id },
@@ -623,7 +619,6 @@ export const deleteUserAdmin = async (req, res) => {
       ]
     })
 
-    // ✅ Eliminar al usuario
     const deletedUser = await User.findByIdAndDelete(user._id)
 
     const io = req.app.get('io')
@@ -638,3 +633,4 @@ export const deleteUserAdmin = async (req, res) => {
     return res.status(500).send({ message: 'Error al eliminar la cuenta' })
   }
 }
+
