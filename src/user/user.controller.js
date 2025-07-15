@@ -41,7 +41,7 @@ export const defaultAdmin = async (nameA, surnameA, usernameA, emailA, passwordA
     }
 }
 
-//CLIENTE
+// ------------------------- Client -------------------
 export const getAuthenticatedClient = async(req, res)=>{
     try {
         const id = req.user.uid
@@ -159,29 +159,22 @@ export const deleteClient = async (req, res) => {
       return res.status(401).send({ message: 'Contraseña incorrecta' })
     }
 
-    // ✅ Eliminar comentarios del usuario
     await Comment.deleteMany({ userId: uid })
 
-    // ✅ Buscar instituciones del usuario
     const institutions = await Institution.find({ userId: uid })
 
     for (const institution of institutions) {
-      // ✅ Buscar publicaciones de la institución
       const publications = await Publication.find({ institutionId: institution._id })
 
       for (const pub of publications) {
-        // ✅ Eliminar comentarios de cada publicación
         await Comment.deleteMany({ publicationId: pub._id })
       }
 
-      // ✅ Eliminar publicaciones de la institución
       await Publication.deleteMany({ institutionId: institution._id })
     }
 
-    // ✅ Eliminar instituciones del usuario
     await Institution.deleteMany({ userId: uid })
 
-    // ✅ Eliminar imagen del usuario si tiene
     if (user.imageUser) {
       const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
       try {
@@ -191,15 +184,13 @@ export const deleteClient = async (req, res) => {
       }
     }
 
-      // ✅ Eliminar notificaciones relacionadas con el usuario
-      await Notification.deleteMany({
-        $or: [
-          { userId: uid },
-          { fromUserId: uid }
-        ]
-      })
+    await Notification.deleteMany({
+      $or: [
+        { userId: uid },
+        { fromUserId: uid }
+      ]
+    })
 
-    // ✅ Eliminar al usuario
     const deletedUser = await User.findByIdAndDelete(uid)
 
     const io = req.app.get('io');
@@ -208,11 +199,10 @@ export const deleteClient = async (req, res) => {
     return res.send({
       message: `La cuenta ${deletedUser.name} ${deletedUser.surname} se eliminó con éxito`
     })
-} catch (err) {
-  console.error('Error al eliminar cuenta:', err)
-  return res.status(500).send({ message: 'Error al eliminar la cuenta' })
-}
-
+  } catch (err) {
+    console.error('Error al eliminar cuenta:', err)
+    return res.status(500).send({ message: err.message || 'Error al eliminar la cuenta' })
+  }
 }
 
 
