@@ -323,28 +323,38 @@ export const deleteUserProfileImageClient = async (req, res) => {
   }
 }
 
-//Administrador
-export const changeRole = async(req, res)=>{
-    try {
-        let {id} = req.params
+//------------------------------------Administrador -----------------------------------
+export const changeRole = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { role } = req.body
 
-        let data = req.body
-        let update = checkUpdate(data.role, id)
-        if (!update) return res.status(400).send({ message: 'Se han enviado datos que no se pueden actualizar o faltan' })
-
-        let updatedUser = await User.findByIdAndUpdate(
-            { _id: id },
-            data,
-            { new: true }
-        )
-        if (!updatedUser) return res.status(404).send({ message: 'Usuario no encontrado' })
-        
-        return res.status(200).send({message: 'El rol se ha cambiado correctamente.'})
-    } catch (err) {
-        console.error(err)
-        return res.status(500).send({message: 'Error al cambiar el rol'})
+    if (!role) {
+      return res.status(400).send({ message: 'Falta el rol para cambiar' })
     }
 
+    if (!['ADMIN', 'CLIENT'].includes(role.toUpperCase())) {
+      return res.status(400).send({ message: 'Rol no válido. Solo se permite ADMIN o CLIENT.' })
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { role: role.toUpperCase() },
+      { new: true }
+    )
+
+    if (!updatedUser) {
+      return res.status(404).send({ message: 'Usuario no encontrado' })
+    }
+
+    return res.status(200).send({
+      message: 'El rol se ha cambiado correctamente.',
+      user: updatedUser
+    })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).send({ message: err.message || 'Error al cambiar el rol' })
+  }
 }
 
 export const getUserById = async(req, res)=>{
