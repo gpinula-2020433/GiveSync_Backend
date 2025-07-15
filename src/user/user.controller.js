@@ -7,6 +7,7 @@ import User from '../user/user.model.js'
 import { unlink } from 'fs/promises'
 import path from 'path'
 import { encrypt, checkPassword, checkUpdate } from '../../utils/encrypt.js'
+import Notification from '../notification/notification.model.js'
 
 //Default admin
 export const defaultAdmin = async (nameA, surnameA, usernameA, emailA, passwordA, roleA) => {
@@ -189,6 +190,14 @@ export const deleteClient = async (req, res) => {
         console.warn(`Error al eliminar la imagen del usuario: ${err.message}`)
       }
     }
+
+      // ✅ Eliminar notificaciones relacionadas con el usuario
+      await Notification.deleteMany({
+        $or: [
+          { userId: uid },
+          { fromUserId: uid }
+        ]
+      })
 
     // ✅ Eliminar al usuario
     const deletedUser = await User.findByIdAndDelete(uid)
