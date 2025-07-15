@@ -2,7 +2,7 @@ import { Router } from "express"
 import { 
     changeRole, 
     deleteClient, 
-    deleteUser, 
+    deleteUserAdmin, 
     deleteUserProfileImage, 
     deleteUserProfileImageClient, 
     getAllUsers, 
@@ -38,10 +38,13 @@ api.delete('/deleteUserImageClient/', [validateJwt, hasRole('ADMIN', 'CLIENT'),]
 
 // Admin
 api.get('/getAllUsersADMIN', [validateJwt, isAdmin], getAllUsers)
-api.put('/updateUserADMIN/:id', [validateJwt, isAdmin], updateUser)
-api.delete('/deleteUserADMIN/:id', [validateJwt, isAdmin], deleteUser)
-api.put('/changeRoleADMIN/:id', [validateJwt, isAdmin], changeRole)
 api.get('/getByIdADMIN/:id', [validateJwt, isAdmin], getUserById)
+
+api.put('/updateUserADMIN/:id', [validateJwt, isAdmin], updateUser)
+api.put('/changeRoleADMIN/:id', [validateJwt, isAdmin], changeRole)
+
+api.delete('/deleteUserAdmin/', [validateJwt, isAdmin], deleteUserAdmin)
+
 // Imágenes
 api.put('/updateUserImage/:id', 
     [

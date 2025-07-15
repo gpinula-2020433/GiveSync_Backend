@@ -435,43 +435,6 @@ export const updateUser = async (req, res) => {
     }
 }
 
-export const deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params
-    const { _id } = req.user
-
-    const user = await User.findOne({ _id: id })
-    if (!user) return res.status(404).send({ message: 'Usuario no encontrado' })
-
-    if (user.username === '1pinula')
-      return res.status(403).send({ message: 'No puedes eliminar al administrador predeterminado' })
-
-    if (user.role === 'ADMIN' && _id != id)
-      return res.status(403).send({ message: 'No puedes eliminar a un administrador, solo puedes eliminar clientes.' })
-
-    if (user.imageUser) {
-      const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
-      try {
-        await unlink(imagePath)
-      } catch (err) {
-        console.warn(`Error al eliminar la imagen del usuario: ${err.message}`)
-      }
-    }
-    
-    const usernameOfDeletedUser = user.username
-    const deletedUser = await User.findByIdAndDelete(id)
-
-    if (!deletedUser) return res.status(404).send({ message: 'Usuario no encontrado' })
-
-    return res.send({
-      message: `La cuenta con el nombre de usuario ${usernameOfDeletedUser} se eliminó con éxito`
-    })
-  } catch (err) {
-    console.error(err)
-    return res.status(500).send({ message: 'Error al eliminar la cuenta' })
-  }
-}
-
 export const updateUserProfileImage = async (req, res) => {
   try {
     const { id } = req.params
@@ -592,5 +555,86 @@ export const deleteUserProfileImage = async (req, res) => {
       message: 'Error general',
       error: err.message
     })
+  }
+}
+
+export const deleteUserAdmin = async (req, res) => {
+  try {
+    const idUsuarioAdmin = req.user.uid
+    const { idUsuarioAEliminar, password } = req.body
+
+    const adminUser = await User.findById(idUsuarioAdmin)
+    if (!adminUser || adminUser.role !== 'ADMIN') {
+      return res.status(403).send({ message: 'No autorizado. Solo administradores pueden realizar esta acción.' })
+    }
+
+    const user = await User.findById(idUsuarioAEliminar)
+
+    if (!user) {
+      return res.status(404).send({ message: 'Usuario no encontrado' })
+    }
+
+    const isPasswordValid = await checkPassword(adminUser.password, password)
+    if (!isPasswordValid) {
+      return res.status(401).send({ message: 'Tu contraseña es incorrecta, no se puede proceder' })
+    }
+
+    if (user.username === '1pinula') {
+      return res.status(403).send({ message: 'No puedes eliminar al administrador predeterminado' })
+    }
+
+    if (user.role === 'ADMIN' && idUsuarioAdmin !== user._id.toString()) {
+      return res.status(403).send({ message: 'No puedes eliminar a un administrador, solo puedes eliminar clientes.' })
+    }
+
+    // ✅ Eliminar comentarios del usuario
+    await Comment.deleteMany({ userId: user._id })
+
+    // ✅ Buscar instituciones del usuario
+    const institutions = await Institution.find({ userId: user._id })
+
+    for (const institution of institutions) {
+      const publications = await Publication.find({ institutionId: institution._id })
+
+      for (const pub of publications) {
+        await Comment.deleteMany({ publicationId: pub._id })
+      }
+
+      await Publication.deleteMany({ institutionId: institution._id })
+    }
+
+    await Institution.deleteMany({ userId: user._id })
+
+    // ✅ Eliminar imagen del usuario si tiene
+    if (user.imageUser) {
+      const imagePath = path.join(process.cwd(), 'uploads/img/users', user.imageUser)
+      try {
+        await unlink(imagePath)
+      } catch (err) {
+        console.warn(`Error al eliminar la imagen del usuario: ${err.message}`)
+      }
+    }
+
+    // ✅ Eliminar notificaciones relacionadas con el usuario
+    await Notification.deleteMany({
+      $or: [
+        { userId: user._id },
+        { fromUserId: user._id }
+      ]
+    })
+
+    // ✅ Eliminar al usuario
+    const deletedUser = await User.findByIdAndDelete(user._id)
+
+    const io = req.app.get('io')
+    io.emit('deleteUser', deletedUser._id)
+
+    return res.send({
+      message: `La cuenta ${deletedUser.name} ${deletedUser.surname} se eliminó con éxito`
+    })
+
+  } catch (err) {
+    console.error('Error al eliminar usuario (admin):', err)
+    return res.status(500).send({ message: 'Error al eliminar la cuenta' })
   }
 }
