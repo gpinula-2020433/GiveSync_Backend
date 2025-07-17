@@ -111,6 +111,14 @@ export const addInstitution = async (req, res) => {
       })
     }
 
+    // Validar que haya al menos una imagen
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Debe proporcionar al menos una imagen para la institución.',
+      })
+    }
+
     // Manejo de imágenes si hay archivos
     if (req.files && req.files.length > 0) {
       data.imageInstitution = req.files.map(file => file.filename)
