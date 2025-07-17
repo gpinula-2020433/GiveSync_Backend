@@ -50,7 +50,8 @@ export const updateCommentV = [
         .custom(findUser),
     body('publicationId')
         .optional()
-        .custom(findPublication),
+        .custom(findPublication)
+        .withMessage('no se encontro la publicacion'),
     validateErrors
 ]
 
