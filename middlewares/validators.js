@@ -46,6 +46,7 @@ export const updateCommentV = [
         .notEmpty(),
         body('userId')
         .optional()
+        .isLength({ max: 500 })
         .custom(findUser),
     body('publicationId')
         .optional()
