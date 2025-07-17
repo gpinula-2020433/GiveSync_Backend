@@ -31,6 +31,10 @@ export const registerValidator = [
 ]
 
 export const addPublicationValidation = [
+    body('title', 'El titulo no puede estar vacío')
+        .notEmpty()
+        .isLength({ max: 15 })
+        .withMessage('El título no puede tener más de 15 caracteres'),
     body('content', 'El contenido no puede estar vacío')
         .notEmpty(),
     body('institutionId', 'La intitución no puede estar vacía')
@@ -38,6 +42,16 @@ export const addPublicationValidation = [
         .custom((institutionId, {req})=>{
             return isOwnerOfInstitution(institutionId, req.user.uid)
         }),
+    validateErrors
+]
+
+export const updatePublicationValidation = [
+    body('title', 'El titulo no puede estar vacío')
+        .notEmpty()
+        .isLength({ max: 15 })
+        .withMessage('El título no puede tener más de 15 caracteres'),
+    body('content', 'El contenido no puede estar vacío')
+        .notEmpty(),
     validateErrors
 ]
 
