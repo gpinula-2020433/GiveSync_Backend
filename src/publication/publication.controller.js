@@ -1,6 +1,7 @@
 'use strict'
 
 import Publication from './publication.model.js'
+import Institution from '../institution/institution.model.js'
 import Comment from '../comment/comment.model.js'
 import path from 'path'
 import fs from 'fs'
@@ -69,6 +70,15 @@ export const getPublicationsByInstitution = async (req, res) => {
   try {
     const { institutionId } = req.params
 
+    const institutionExist = await Institution.findById(institutionId)
+
+    if(!institutionExist){
+      return res.status(404).send({
+        success:false,
+        message: `La institución con id ${institutionId} no existe`
+      })
+    }
+
     const publications = await Publication.find({ institutionId })
 
     if (publications.length === 0) {
@@ -110,7 +120,10 @@ export const addPublication = async (req, res) => {
       institutionId: publication.institutionId.toString()
     })
 
-    return res.status(200).send({ message: 'Publicación agregada correctamente' })
+    return res.status(200).send({ 
+      message: 'Publicación agregada correctamente',
+      publication
+    })
   } catch (error) {
     console.error(error)
     return res.status(400).send({

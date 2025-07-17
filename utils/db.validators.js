@@ -101,6 +101,12 @@ export const isOwnerOfPublication = async (req, res, next) => {
 
     const institution = publication.institutionId
 
+    if(!institution){
+      return res.status(404).json({
+        message: 'No se encontró la institución asociada a esta publicación'
+      })
+    }
+
     console.log('ID de usuario en publicación:', req.user.uid)
     console.log('ID del dueño de la institución:', institution.userId.toString())
 
