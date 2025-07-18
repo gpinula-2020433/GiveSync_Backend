@@ -158,19 +158,15 @@ export const validateCreateInstitution = [
     body('description', 'Description is required')
         .notEmpty()
         .isLength({ max: 1000 })
-        .withMessage('Description can’t exceed 150 characters'),
+        .withMessage('Description can’t exceed 1000 characters'),
     body('address', 'Address is required')
         .notEmpty()
-        .isLength({ max: 150 })
-        .withMessage('Address can’t exceed 150 characters'),
+        .isLength({ max: 250 })
+        .withMessage('Address can’t exceed 250 characters'),
     body('phone', 'Phone is required')
         .notEmpty()
         .isMobilePhone()
         .withMessage('Phone must be a valid mobile phone number'),
-    body('description', 'Description is required')
-        .notEmpty()
-        .isLength({ max: 150 })
-        .withMessage('Description can’t exceed 150 characters'),
     body('state', 'Invalid state')
         .optional()
         .custom((value) => {
@@ -195,11 +191,11 @@ export const validateUpdateInstitution = [
   body('description', 'Description is required')
     .optional()
     .isLength({ max: 1000 })
-    .withMessage('Description can’t exceed 150 characters'),
+    .withMessage('Description can’t exceed 1000 characters'),
   body('address', 'Address is required')
     .optional()
-    .isLength({ max: 150 })
-    .withMessage('Address can’t exceed 150 characters'),
+    .isLength({ max: 250 })
+    .withMessage('Address can’t exceed 250 characters'),
   body('phone', 'Phone is required')
     .optional()
     .isMobilePhone()

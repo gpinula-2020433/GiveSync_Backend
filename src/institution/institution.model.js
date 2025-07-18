@@ -21,7 +21,7 @@ const institutionSchema = Schema(
         address:{
             type: String,
             required: [true, 'Address is required'],
-            maxLength: [150, `Can't be overcome 150 characters`]
+            maxLength: [250, `Can't be overcome 250 characters`]
         },
         phone:{
             type: String,
