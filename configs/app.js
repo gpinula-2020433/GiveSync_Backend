@@ -82,7 +82,7 @@ export const initServer = () => {
     server.listen(process.env.PORT || 3200)
     console.log(`Server running on port: ${process.env.PORT || 3200}`)
 
-    defaultAdmin('Gabriel', 'Pinula', '1pinula', 'pinula@gmail.com', '123123Aa!', 'ADMIN')
+    defaultAdmin(process.env.ADMIN_NAME, process.env.ADMIN_SURNAME, process.env.ADMIN_USERNAME, process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD, process.env.ADMIN_ROLE)
 
   } catch (err) {
     console.error('Server init failed', err)
