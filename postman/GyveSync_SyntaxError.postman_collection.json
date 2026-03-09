@@ -32,12 +32,12 @@
 							"urlencoded": [
 								{
 									"key": "userLoggin",
-									"value": "1pinula",
+									"value": "ejemplo",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
@@ -88,7 +88,7 @@
 								},
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
@@ -136,7 +136,7 @@
 								},
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								},
 								{
@@ -188,7 +188,7 @@
 								},
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
@@ -236,7 +236,7 @@
 								},
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								},
 								{
@@ -317,7 +317,7 @@
 							"urlencoded": [
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
@@ -456,12 +456,12 @@
 							"urlencoded": [
 								{
 									"key": "currentPassword",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								},
 								{
 									"key": "newPassword",
-									"value": "Password123!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
@@ -571,7 +571,7 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "1231231",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
@@ -614,7 +614,7 @@
 								},
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
@@ -1490,7 +1490,7 @@
 							"urlencoded": [
 								{
 									"key": "password",
-									"value": "123123Aa!",
+									"value": "Ejemplo123!",
 									"type": "text"
 								}
 							]
