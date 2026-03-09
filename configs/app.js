@@ -23,7 +23,7 @@ const configs = (app) => {
   app.use(express.urlencoded({ extended: false }))
 
   app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.CLIENT_URL,
     credentials: true
   }))
 
@@ -32,7 +32,7 @@ const configs = (app) => {
   app.use(limiter)
 
   app.use('/uploads/img/users', (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
+    res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL)
     res.setHeader('Access-Control-Allow-Methods', 'GET')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
     res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
@@ -63,7 +63,7 @@ export const initServer = () => {
 
     const io = new Server(server, {
       cors: {
-        origin: 'http://localhost:5173',
+        origin: process.env.CLIENT_URL,
         credentials: true,
       }
     })
