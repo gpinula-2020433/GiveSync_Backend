@@ -163,10 +163,10 @@ curl http://localhost:3000
 curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "John Doe",
-    "surname": "Smith",
-    "username": "johnsmith",
-    "email": "john@example.com",
+    "name": "Example",
+    "surname": "User",
+    "username": "exampleuser",
+    "email": "example@example.com",
     "password": "securePassword123"
   }'
 ```
@@ -176,7 +176,7 @@ curl -X POST http://localhost:3000/api/auth/register \
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "john@example.com",
+    "email": "example@example.com",
     "password": "securePassword123"
   }'
 ```
@@ -187,10 +187,10 @@ curl -X POST http://localhost:3000/v1/institution/add \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
-    "name": "Comedor Solidario",
-    "type": "EATERS",
-    "description": "Comedor que sirve alimentos a personas en situación de vulnerabilidad",
-    "address": "Calle Principal zona 1, Ciudad",
+    "name": "Hogar Luz de María",
+    "type": "ORPHANAGE",
+    "description": "El Hogar Luz de María es una organización sin fines de lucro que brinda albergue, educación, alimentación y atención psicológica a niños y niñas en situación de abandono o riesgo social en Guatemala.",
+    "address": "9a Avenida 2-34, Zona 1, Ciudad de Guatemala",
     "phone": "+50212345678"
   }'
 ```
@@ -201,7 +201,7 @@ curl -X POST http://localhost:3000/v1/donation/add \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
-    "amount": 100,
+    "amount": 1000,
     "institution": "INSTITUTION_ID"
   }'
 ```
