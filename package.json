@@ -1,5 +1,5 @@
 {
-  "name": "gyvesync_syntaxerror",
+  "name": "givesync_backend",
   "version": "1.0.0",
   "description": "Proyecto Bimestral y Final",
   "keywords": [
@@ -9,7 +9,7 @@
     "Instituciones"
   ],
   "license": "MIT",
-  "author": "undefined (SE)",
+  "author": "(GP) Gabriel Pinula, (MP) Marcos Pamal, (KT) Kenny Terraza, (DJ) Dylan Julian, (AF) Andre Figueroa",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
